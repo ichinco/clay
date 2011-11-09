@@ -3,20 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="990d15cc-f558-439e-bb37-0bb56d0201cb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clay.iws" afterPath="$PROJECT_DIR$/clay.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/ClayUser.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/ClayUser.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/Comment.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/Comment.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/Design.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/Design.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/DesignRecommendation.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/DesignRecommendation.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/Image.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/Image.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/ImagePoint.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/ImagePoint.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/Product.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/Product.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/ReputationAction.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/ReputationAction.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/ReputationType.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/ReputationType.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/Role.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/Role.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/Tag.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/Tag.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/TagType.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/TagType.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/Vote.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/Vote.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/clay/VoteType.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/clay/VoteType.groovy" />
     </list>
     <ignored path="clay.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -937,7 +923,7 @@
     <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="ability to add comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="added automatically populated fields" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -953,6 +939,7 @@
     <MESSAGE value="checkin project" />
     <MESSAGE value="can create user, can create design" />
     <MESSAGE value="ability to add comments" />
+    <MESSAGE value="added automatically populated fields" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
