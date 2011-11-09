@@ -52,4 +52,24 @@ class DesignController {
         design.user = (ClayUser) springSecurityService.currentUser
         design.save()
     }
+
+    def comment = {
+        String text = params.commentText
+        int designId = Integer.parseInt(params.designId)
+        int parentId = Integer.parseInt(params.parentId)
+        ClayUser user = (ClayUser) springSecurityService.currentUser
+
+        Comment comment = new Comment();
+        comment.text = text
+        comment.user = user
+        comment.parent = Comment.get(parentId)
+        comment.save()
+
+        Design design = Design.get(designId);
+        if (design.comments == null) design.comments = []
+        design.comments.add(comment)
+        design.save()
+
+        redirect(action:"show", params:[id:designId])
+    }
 }
