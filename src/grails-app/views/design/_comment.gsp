@@ -10,8 +10,9 @@
 <html>
 
     <g:if test="${currentComment}">
-        <div>${currentComment.user.username}</div> <br />
-        <div>${currentComment.text}</div> <br />
+        <div>${currentComment.user.username}</div>
+        <div>${currentComment.text}</div>
+        <div>${currentComment.lastUpdated}</div>
     </g:if>
 
     <g:form controller="design" action="comment">
