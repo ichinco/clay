@@ -4,7 +4,7 @@ class Role {
 
 	String authority
 
-    Date lastUpdate
+    Date lastUpdated
     Date dateCreated
 
 	static mapping = {

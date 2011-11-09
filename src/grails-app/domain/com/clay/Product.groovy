@@ -5,7 +5,7 @@ class Product {
     String name
     String url
 
-    Date lastUpdate
+    Date lastUpdated
     Date dateCreated
 
     static constraints = {

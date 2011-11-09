@@ -16,6 +16,10 @@ class UserController {
         user.enabled = true
         user.save()
 
-        redirect(controller:"login", action:"auth")
+        if (!user.validate()){
+            redirect()
+        } else {
+            redirect(controller:"login", action:"auth")
+        }
     }
 }

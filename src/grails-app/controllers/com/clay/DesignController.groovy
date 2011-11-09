@@ -19,6 +19,8 @@ class DesignController {
         int id = Integer.parseInt(params.id)
 
         Design design = Design.get(id);
+        Comment parentComment = new Comment();
+        parentComment.id = 0
 
         def model = [:]
         model['design'] = design

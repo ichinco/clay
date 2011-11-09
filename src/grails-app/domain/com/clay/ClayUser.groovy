@@ -2,7 +2,7 @@ package com.clay
 
 class ClayUser extends User {
 
-    Date lastUpdate
+    Date lastUpdated
     Date dateCreated
 
     static hasMany = [

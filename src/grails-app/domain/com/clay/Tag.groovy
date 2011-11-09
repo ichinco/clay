@@ -5,7 +5,7 @@ class Tag {
     TagType type
     String name
 
-    Date lastUpdate
+    Date lastUpdated
     Date dateCreated
 
     static constraints = {

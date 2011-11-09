@@ -6,7 +6,7 @@ class Design {
     String description
     String title
 
-    Date lastUpdate
+    Date lastUpdated
     Date dateCreated
 
     static hasMany = [

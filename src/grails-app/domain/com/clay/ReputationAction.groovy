@@ -5,7 +5,7 @@ class ReputationAction {
     User user
     ReputationType type
 
-    Date lastUpdate
+    Date lastUpdated
     Date dateCreated
 
     static constraints = {

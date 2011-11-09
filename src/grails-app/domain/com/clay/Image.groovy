@@ -4,7 +4,7 @@ class Image {
 
     String url
 
-    Date lastUpdate
+    Date lastUpdated
     Date dateCreated
 
     static hasMany = [

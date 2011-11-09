@@ -5,7 +5,7 @@ class ReputationType {
     String type
     double reputationAmount
 
-    Date lastUpdate
+    Date lastUpdated
     Date dateCreated
 
     static constraints = {
