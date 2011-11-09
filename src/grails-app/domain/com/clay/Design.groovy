@@ -2,7 +2,9 @@ package com.clay
 
 class Design {
 
-    User user
+    ClayUser user
+    String description
+    String title
 
     static hasMany = [
             images : Image,
