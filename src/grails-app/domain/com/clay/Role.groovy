@@ -4,6 +4,9 @@ class Role {
 
 	String authority
 
+    Date lastUpdate
+    Date dateCreated
+
 	static mapping = {
 		cache true
 	}

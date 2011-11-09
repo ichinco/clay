@@ -4,6 +4,9 @@ class Image {
 
     String url
 
+    Date lastUpdate
+    Date dateCreated
+
     static hasMany = [
             points : ImagePoint
     ]

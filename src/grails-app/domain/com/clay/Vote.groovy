@@ -6,6 +6,9 @@ class Vote {
     Design design
     VoteType type
 
+    Date lastUpdate
+    Date dateCreated
+
     static constraints = {
     }
 }

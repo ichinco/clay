@@ -6,6 +6,9 @@ class Comment {
     String text
     User user
 
+    Date lastUpdate
+    Date dateCreated
+
     static constraints = {
     }
 }

@@ -6,6 +6,9 @@ class Design {
     String description
     String title
 
+    Date lastUpdate
+    Date dateCreated
+
     static hasMany = [
             images : Image,
             comments : Comment,

@@ -6,6 +6,9 @@ class ImagePoint {
     double y
     Product product
 
+    Date lastUpdate
+    Date dateCreated
+
     static constraints = {
     }
 }

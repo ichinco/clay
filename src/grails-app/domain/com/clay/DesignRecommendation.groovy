@@ -6,6 +6,9 @@ class DesignRecommendation {
     Design design
     Product product
 
+    Date lastUpdate
+    Date dateCreated
+
     static constraints = {
     }
 }
