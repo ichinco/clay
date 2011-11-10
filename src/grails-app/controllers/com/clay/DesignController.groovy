@@ -4,6 +4,7 @@ class DesignController {
 
     def springSecurityService
     def tagService
+    def imageService
 
     def index = { }
 
@@ -85,5 +86,17 @@ class DesignController {
         tagService.tagDesign(tag, Design.get(designId))
 
         redirect(action:"show", params:[id:designId])
+    }
+
+    def addImagePoint = {
+        double x = Double.parseDouble(params.x)
+        double y = Double.parseDouble(params.y)
+        String productName = params.productName
+        String productUrl = params.productUrl
+        int imageId = Integer.parseInt(params.imageId)
+
+        Product product = imageService.createProduct(productName, productUrl)
+        ImagePoint imagePoint = imageService.createImagePoint(x,y,product)
+        imageService.addImagePoint(imagePoint, imageId)
     }
 }

@@ -14,14 +14,14 @@ class ImageService {
         }
     }
 
-    def createImagePoint(int x, int y, Product product){
+    def createImagePoint(double x, double y, Product product){
         ImagePoint imagePoint = new ImagePoint()
         imagePoint.x = x
         imagePoint.y = y
         imagePoint.product = product
         imagePoint.save()
 
-        if (!image.validate()){
+        if (!imagePoint.validate()){
             // TODO record errors
         }
 
