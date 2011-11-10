@@ -83,5 +83,7 @@ class DesignController {
 
         Tag tag = tagService.getTag(tagTypeId, tagName)
         tagService.tagDesign(tag, Design.get(designId))
+
+        redirect(action:"show", params:[id:designId])
     }
 }
