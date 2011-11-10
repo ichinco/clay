@@ -3,6 +3,7 @@ package com.clay
 class DesignController {
 
     def springSecurityService
+    def tagService
 
     def index = { }
 
@@ -73,5 +74,14 @@ class DesignController {
         design.save()
 
         redirect(action:"show", params:[id:designId])
+    }
+
+    def tagDesign = {
+        String tagName = params.tagName
+        int tagTypeId = Integer.parseInt(params.tagTypeId)
+        int designId = Integer.parseInt(params.designId)
+
+        Tag tag = tagService.getTag(tagTypeId, tagName)
+        tagService.tagDesign(tag, Design.get(designId))
     }
 }

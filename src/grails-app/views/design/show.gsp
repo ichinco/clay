@@ -14,4 +14,14 @@
     <div>${design.description}</div>
 
     <g:render template="comment" model="[currentComment:null, comments:design.comments, designId:design.id]" />
+
+    <g:each in="${design.tags}" var="tag">
+        <div>${tag}</div>
+    </g:each>
+
+    <g:form controller="design" action="tagDesign">
+        <g:hiddenField name="designId" value="${design.id}" />
+        <g:hiddenField name="tagTypeId" value="0" />
+        <g:textField name="tagName" />
+    </g:form>
 </html>
