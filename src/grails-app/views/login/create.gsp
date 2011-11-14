@@ -13,7 +13,7 @@
     </head>
     <div id="userCreateFailed"></div>
     <g:form id="userCreate" controller="user" action="create">
-        <label for="username">username</label>
+        <label for="username">email</label>
         <g:textField id="username" name="username" class="required" />  <br />
         <label for="password">password</label>
         <g:passwordField id="password" name="password" class="required" /> <br />
