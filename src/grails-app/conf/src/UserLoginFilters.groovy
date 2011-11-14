@@ -1,6 +1,6 @@
 package src
 
-class UserLoginFilterFilters {
+class UserLoginFilters {
 
     def springSecurityService
 
@@ -8,8 +8,8 @@ class UserLoginFilterFilters {
         all(controller:'*', action:'*') {
             before = {
                 if (springSecurityService.currentUser){
-                    request.signedIn = true
-                    request.username = springSecurityService.currentUser.username
+                    request["signedIn"] = true
+                    request["username"] = springSecurityService.currentUser.username
                 }
             }
             after = {

@@ -27,7 +27,7 @@
         $("form").validate({
             rules : {
                 password : "required",
-                username : "required",
+                username : "required",//TODO check for uniqueness, that is mostly an email address
                 retype : { equalTo: "#password"}
             },
             messages : {

@@ -16,8 +16,8 @@
         <g:javascript library="jquery" plugin="jquery"/>
     </head>
     <body>
-        <g:if test="${isSignedIn}">
-            <div>${username} |
+        <g:if test="${request.signedIn}">
+            <div>${request.username} |
             <g:link controller="logout">logout</g:link> </div>
         </g:if>
         <g:else >
