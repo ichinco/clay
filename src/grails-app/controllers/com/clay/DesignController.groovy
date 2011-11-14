@@ -9,7 +9,10 @@ class DesignController {
     def index = { }
 
     def list = {
-        def designs = Design.all;
+        def designs = []
+        if (Design.count() > 0){
+            designs = Design.all;
+        }
 
         def model = [:]
         model["designs"] = designs
@@ -91,12 +94,14 @@ class DesignController {
     def addImagePoint = {
         double x = Double.parseDouble(params.x)
         double y = Double.parseDouble(params.y)
+        double width = Double.parseDouble(params.width)
+        double height = Double.parseDouble(params.height)
         String productName = params.productName
         String productUrl = params.productUrl
         int imageId = Integer.parseInt(params.imageId)
 
         Product product = imageService.createProduct(productName, productUrl)
-        ImagePoint imagePoint = imageService.createImagePoint(x,y,product)
+        ImagePoint imagePoint = imageService.createImagePoint(x,y,width,height,product)
         imageService.addImagePoint(imagePoint, imageId)
     }
 }

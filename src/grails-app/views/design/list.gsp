@@ -8,8 +8,12 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
+    <head>
+        <meta name="layout" content="clay"/>
+    </head>
     <g:each in="${designs}" var="design">
-        <div>${design.id}</div>
-        <div>${design.title}</div>
+        <g:link controller="design" action="show" model="[id:${design.id}]">
+            <div>${design.title}</div>
+        </g:link>
     </g:each>
 </html>

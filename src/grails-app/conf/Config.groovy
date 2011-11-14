@@ -93,3 +93,5 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.clay.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.clay.UserRole'
 grails.plugins.springsecurity.authority.className = 'com.clay.Role'
+
+grails.views.javascript.library="jquery"
