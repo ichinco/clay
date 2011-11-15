@@ -20,6 +20,7 @@
         <label for="imageUrl3">image url:</label>
         <g:textField name="imageUrl3" /><br />
         <g:submitButton name="submit" value="submit" />
+        // TODO prevent form monkey-click
     </g:form>
 
     <g:form controller="design" action="addImagePoint">

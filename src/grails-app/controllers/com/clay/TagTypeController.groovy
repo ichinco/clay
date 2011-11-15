@@ -1,5 +1,8 @@
 package com.clay
 
+import grails.plugins.springsecurity.Secured
+
+@Secured(['ROLE_ADMIN'])
 class TagTypeController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]

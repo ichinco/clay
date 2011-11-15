@@ -3,9 +3,9 @@ package com.clay
 class TagService {
 
     static transactional = true
+    static scope = "singleton"
 
-    def getTag(int id, String name) {
-        // TODO this needs to be synchronized
+    def synchronized getTag(int id, String name) {
         TagType type = TagType.get(id)
         Tag tag = Tag.findByName(name)
         if (!tag){

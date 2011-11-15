@@ -1,5 +1,7 @@
 package com.clay
 
+import grails.plugins.springsecurity.Secured
+
 class DesignController {
 
     def springSecurityService
@@ -33,10 +35,12 @@ class DesignController {
         return model
     }
 
+    @Secured(["ROLE_USER"])
     def create = {
 
     }
 
+    @Secured(["ROLE_USER"])
     def save = {
         String description = params.description
         String title = params.title
@@ -64,6 +68,7 @@ class DesignController {
         design.save()
     }
 
+    @Secured(["ROLE_USER"])
     def comment = {
         String text = params.commentText
         int designId = Integer.parseInt(params.designId)
@@ -84,6 +89,7 @@ class DesignController {
         redirect(action:"show", params:[id:designId])
     }
 
+    @Secured(["ROLE_USER"])
     def tagDesign = {
         String tagName = params.tagName
         int tagTypeId = Integer.parseInt(params.tagTypeId)
@@ -95,6 +101,7 @@ class DesignController {
         redirect(action:"show", params:[id:designId])
     }
 
+    @Secured(["ROLE_USER"])
     def addImagePoint = {
         double x = Double.parseDouble(params.x)
         double y = Double.parseDouble(params.y)
