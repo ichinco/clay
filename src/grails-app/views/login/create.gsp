@@ -19,6 +19,7 @@
         <g:passwordField id="password" name="password" class="required" /> <br />
         <label for="retype">retype password</label>
         <g:passwordField id="retype" name="retype" class="required" /> <br />
+        %{--need to get date of birth, verify older than 13--}%
         <g:submitButton name="submit" value="submit" />
     </g:form>
 

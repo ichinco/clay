@@ -34,6 +34,10 @@ class DesignController {
     }
 
     def create = {
+
+    }
+
+    def save = {
         String description = params.description
         String title = params.title
         String imageUrl1 = params.imageUrl1

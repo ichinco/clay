@@ -11,8 +11,11 @@
     <head>
         <meta name="layout" content="clay"/>
     </head>
+
+    <g:link controller="design" action="create">create design</g:link><br/><br/>
+
     <g:each in="${designs}" var="design">
-        <g:link controller="design" action="show" model="[id:${design.id}]">
+        <g:link controller="design" action="show" params="[id:design.id]">
             <div>${design.title}</div>
         </g:link>
     </g:each>

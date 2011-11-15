@@ -22,6 +22,7 @@
     <g:form controller="design" action="tagDesign">
         <g:hiddenField name="designId" value="${design.id}" />
         <g:hiddenField name="tagTypeId" value="1" />
+        <label for="tagName">tag</label>
         <g:textField name="tagName" />
         <g:submitButton name="submit" value="submit" />
     </g:form>
