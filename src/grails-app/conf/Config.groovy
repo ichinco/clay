@@ -95,3 +95,5 @@ grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.clay.User
 grails.plugins.springsecurity.authority.className = 'com.clay.Role'
 
 grails.views.javascript.library="jquery"
+
+grails.plugins.springsecurity.bcrypt.logrounds = 10 // configure workfactor for bcrypt
