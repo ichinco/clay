@@ -1,18 +1,29 @@
 package com.clay
 
+import org.joda.time.format.DateTimeFormatter
+import org.joda.time.format.DateTimeFormat
+
 class UserController {
 
     def springSecurityService
 
     def index = { }
 
+     static allowedMethods = [create: "POST"]
+
     def create = {
         String username = params.username
         String password = params.password
+        String email = params.email
+        String birthday = params.birthday
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("MM-dd-yyyy");
+        Date date = fmt.parseDateTime(birthday).toDate()
 
         ClayUser user = new ClayUser()
         user.username = username
         user.password = springSecurityService.encodePassword(password)
+        user.email = email
+        user.birthday = date
         user.accountExpired = false
         user.accountLocked = false
         user.enabled = true

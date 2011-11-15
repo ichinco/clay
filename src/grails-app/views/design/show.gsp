@@ -8,7 +8,9 @@
 
 <%@ page import="com.clay.Comment" contentType="text/html;charset=UTF-8" %>
 <html>
-
+    <head>
+        <meta name="layout" content="clay" />
+    </head>
     <div>${design.id}</div>
     <div>${design.title}</div>
     <div>${design.description}</div>

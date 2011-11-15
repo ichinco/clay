@@ -8,7 +8,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-    <g:form controller="design" action="save" >
+    <g:form controller="design" action="save" method='POST' >
         <label for="title">title:</label>
         <g:textField name="title" /><br />
         <label for="description">description</label>

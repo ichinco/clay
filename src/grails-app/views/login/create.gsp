@@ -13,14 +13,18 @@
     </head>
     <div id="userCreateFailed"></div>
     <g:form id="userCreate" controller="user" action="create">
-        <label for="username">email</label>
+        <label for="username">username</label>
         <g:textField id="username" name="username" class="required" />  <br />
+        <label for="email">email</label>
+        <g:textField name="email" id="email" /> <br />
+        <label for="birthday">birthday</label>
+        <g:textField name="birthday" id="birthday" /><br />
         <label for="password">password</label>
         <g:passwordField id="password" name="password" class="required" /> <br />
         <label for="retype">retype password</label>
         <g:passwordField id="retype" name="retype" class="required" /> <br />
-        %{--need to get date of birth, verify older than 13--}%
-        <g:submitButton name="submit" value="submit" />
+        %{--//TODO require captcha--}%
+        <g:submitButton id="submitButton" name="submitButton" value="submit" />
     </g:form>
 
     <jq:plugin name="validate" />
@@ -28,26 +32,32 @@
         $("form").validate({
             rules : {
                 password : "required",
-                username : "required",//TODO check for uniqueness, that is mostly an email address
-                retype : { equalTo: "#password"}
+                username : "required",//TODO check for uniqueness
+                retype : { equalTo: "#password"},
+                email : "required"// TODO that is mostly an email address
+//                birthday : "" // TODO check for > 13
             },
             messages : {
                 password : "Must enter password.",
                 username : "Must enter username.",
-                retype : "Passwords do not match."
+                retype : "Passwords do not match.",
+                birthday : "Must be older than 13",
+                email : "Must enter email. We won't misuse it."
             },
             errorClass : "invalid",
             invalidHandler : function(e, validator) {
 			    var errors = validator.numberOfInvalids();
                 if (errors) {
-                    var message = errors == 1
-                        ? 'You missed 1 field. It has been highlighted below'
-                        : 'You missed ' + errors + ' fields.  They have been highlighted below';
+                    var message = "Errors have been highlighted below.";
                     $("#userCreateFailed").html(message);
                     $("#userCreateFailed").show();
                 } else {
                     $("#userCreateFailed").hide();
                 }
+            },
+            submitHandler : function(form) {
+                $("#submitButton").attr('disabled','disabled');
+                form.submit();
             }
         });
     </g:javascript>

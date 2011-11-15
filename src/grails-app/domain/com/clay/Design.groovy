@@ -5,6 +5,7 @@ class Design {
     ClayUser user
     String description
     String title
+    boolean deleted // TODO do not show deleted designs
 
     Date lastUpdated
     Date dateCreated
