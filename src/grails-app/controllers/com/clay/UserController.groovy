@@ -19,6 +19,8 @@ class UserController {
         DateTimeFormatter fmt = DateTimeFormat.forPattern("MM-dd-yyyy");
         Date date = fmt.parseDateTime(birthday).toDate()
 
+        Role role = Role.findByAuthority('ROLE_USER')
+
         ClayUser user = new ClayUser()
         user.username = username
         user.password = springSecurityService.encodePassword(password)
@@ -28,6 +30,11 @@ class UserController {
         user.accountLocked = false
         user.enabled = true
         user.save()
+
+        UserRole ur = new UserRole()
+        ur.user = user
+        ur.role = role
+        ur.save()
 
         if (!user.validate()){
             redirect()   //TODO

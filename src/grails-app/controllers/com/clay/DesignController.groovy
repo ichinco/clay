@@ -1,6 +1,7 @@
 package com.clay
 
 import grails.plugins.springsecurity.Secured
+import grails.util.GrailsConfig
 
 class DesignController {
 
@@ -36,36 +37,56 @@ class DesignController {
     }
 
     @Secured(["ROLE_USER"])
+    def upload = {
+        String designId = params.designId.toString()
+        def f = request.getFile('image')
+
+        String path = GrailsConfig.clay.design.localImageStore
+        String filename = designId + java.util.UUID.randomUUID().toString()
+        if(!f.empty) {
+            f.transferTo( new File(path + filename) )
+            String imageUrl1 = path + filename
+            Image image1 = new Image();
+            image1.url = imageUrl1
+            image1.save()
+            Design design = Design.get(Long.parseLong(designId))
+            design.addToImages(image1)
+            design.save()
+
+            response.sendError(200,'Done');
+        }
+        else {
+            flash.message = 'file cannot be empty'
+            render(view:'uploadImage')
+        }
+    }
+
+    @Secured(["ROLE_USER"])
     def create = {
 
+    }
+
+    @Secured(["ROLE_USER"])
+    def uploadImage = {
+        def model = [:]
+        model.designId = params.designId
+
+        model
     }
 
     @Secured(["ROLE_USER"])
     def save = {
         String description = params.description
         String title = params.title
-        String imageUrl1 = params.imageUrl1
-        Image image1 = new Image();
-        image1.url = imageUrl1
-        image1.save()
-        String imageUrl2 = params.imageUrl2
-        Image image2 = new Image();
-        image2.url = imageUrl2
-        image2.save()
-        String imageUrl3 = params.imageUrl3
-        Image image3 = new Image();
-        image3.url = imageUrl3
-        image3.save()
 
         Design design = new Design();
         design.title = title
         design.description = description
         design.images = []
-        design.images.add(image1)
-        design.images.add(image2)
-        design.images.add(image3)
         design.user = (ClayUser) springSecurityService.currentUser
         design.save()
+
+        redirect(action:"uploadImage.gsp", params:[designId:design.id]);
     }
 
     @Secured(["ROLE_USER"])

@@ -97,3 +97,5 @@ grails.plugins.springsecurity.authority.className = 'com.clay.Role'
 grails.views.javascript.library="jquery"
 
 grails.plugins.springsecurity.bcrypt.logrounds = 10 // configure workfactor for bcrypt
+
+clay.design.localImageStore = 'C:/claytmp/'
