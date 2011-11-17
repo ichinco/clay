@@ -39,8 +39,14 @@ class DesignController {
     @Secured(["ROLE_USER"])
     def upload = {
         String designId = params.designId.toString()
-        def f = request.getFile('image')
+        Design design = Design.get(Long.parseLong(designId))
+        User user = (ClayUser) springSecurityService.currentUser
+        if (user != design.user){
+            flash.message = "cannot upload image to someone else's design."
+            render(view:"uploadImage")
+        }
 
+        def f = request.getFile('image')
         String path = GrailsConfig.clay.design.localImageStore
         String filename = designId + java.util.UUID.randomUUID().toString()
         if(!f.empty) {
@@ -49,7 +55,7 @@ class DesignController {
             Image image1 = new Image();
             image1.url = imageUrl1
             image1.save()
-            Design design = Design.get(Long.parseLong(designId))
+
             design.addToImages(image1)
             design.save()
 
