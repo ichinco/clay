@@ -92,7 +92,7 @@ class DesignController {
         design.user = (ClayUser) springSecurityService.currentUser
         design.save()
 
-        redirect(action:"uploadImage.gsp", params:[designId:design.id]);
+        redirect(action:"uploadImage", params:[designId:design.id]);
     }
 
     @Secured(["ROLE_USER"])

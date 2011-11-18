@@ -12,7 +12,7 @@
         <meta name="layout" content="clay" />
     </head>
     <div id="userCreateFailed"></div>
-    <g:form id="userCreate" controller="user" action="create">
+    <g:form id="userCreate" controller="user" action="create" method="POST">
         <label for="username">username</label>
         <g:textField id="username" name="username" class="required" />  <br />
         <label for="email">email</label>
