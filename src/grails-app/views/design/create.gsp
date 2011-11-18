@@ -8,12 +8,37 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
+    <head>
+        <meta name="layout" content="clay" />
+    </head>
+
     <g:form controller="design" action="save" method='POST' >
         <label for="title">title:</label>
         <g:textField name="title" /><br />
         <label for="description">description</label>
         <g:textArea name="description" rows="3" cols="50" /><br />
-        <g:submitButton name="submit" value="submit" />
-        // TODO prevent form monkey-click
+        <g:submitButton id="submitButton" name="submitButton" value="submit" />
     </g:form>
+
+    <jq:plugin name="validate" />
+    <g:javascript>
+        $("form").validate({
+            rules : {
+                title : "required",
+                description : {
+                    required : true,
+                    minlength : 20,
+                    maxlength : 500
+                }
+            },
+            messages : {
+                title : "Must give it a title!",
+                description : "Description must be longer than 20 charaacters."
+            },
+            submitHandler : function(form) {
+                $("#submitButton").attr('disabled','disabled');
+                form.submit();
+            }
+        });
+    </g:javascript>
 </html>
