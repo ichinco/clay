@@ -16,6 +16,7 @@
         <g:javascript library="jquery" plugin="jquery"/>
     </head>
     <body>
+        <g:link controller="design" action="create">Home</g:link>
         <g:if test="${request.signedIn}">
             <div>${request.username} |
             <g:link controller="logout">logout</g:link> </div>
@@ -27,5 +28,7 @@
             </div>
         </g:else>
         <g:layoutBody />
+
+        <g:link controller="userSupportTicket" action="create">Feedback</g:link>
     </body>
 </html>
