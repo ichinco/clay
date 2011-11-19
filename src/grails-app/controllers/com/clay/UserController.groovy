@@ -31,4 +31,45 @@ class UserController {
             redirect(controller:"design", action:"list")
         }
     }
+
+    def designList = {
+        ClayUser u
+        if (!params.userId){
+            u = (ClayUser) springSecurityService.currentUser
+        } else {
+            def user = Long.parseLong(params.userId)
+            u = ClayUser.get(user)
+        }
+        def designs = Design.findByUser(u)
+
+        def model = [:]
+        model["designs"] = designs
+
+        model
+    }
+
+    def settings = {
+        ClayUser user = (ClayUser) springSecurityService.currentUser
+
+        def model = [:]
+        model["email"] = user.email
+
+        return model
+    }
+
+    def saveSettings = {
+        String email = params.email
+        ClayUser user = (ClayUser) springSecurityService.currentUser
+        user.email = email
+        user.save(flush:true)
+        redirect(controller:"design", action:"list")
+    }
+
+    def savePassword = {
+        String password = params.password
+        ClayUser user = (ClayUser) springSecurityService.currentUser
+        user.password = password
+        user.save(flush:true)
+        redirect(controller:"design", action:"list")
+    }
 }

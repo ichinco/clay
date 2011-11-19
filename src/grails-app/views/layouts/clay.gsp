@@ -18,8 +18,11 @@
     <body>
         <g:link controller="design" action="create">Home</g:link>
         <g:if test="${request.signedIn}">
-            <div>${request.username} |
-            <g:link controller="logout">logout</g:link> </div>
+            <div>
+                <g:link controller="user" action="designList">${request.username}</g:link> |
+                <g:link controller="user" action="settings">settings</g:link> |
+                <g:link controller="logout">logout</g:link>
+            </div>
         </g:if>
         <g:else >
             <div>
