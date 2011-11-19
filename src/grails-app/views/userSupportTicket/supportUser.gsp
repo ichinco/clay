@@ -14,7 +14,7 @@
 
   <g:form controller="userSupportTicket" action="saveGeneral">
       <div>A response will be sent to ${email}.</div><br />
-      <g:textArea name="text" /> <br />
+      <g:textArea name="text" cols="100" rows="5" /> <br />
       <g:submitButton name="submitButton" value="submit" />
   </g:form>
 

@@ -11,4 +11,5 @@
     <g:link controller="reputationType" action="list">edit reputation types</g:link><br/>
     <g:link controller="tagType" action="list">edit tag types</g:link> <br />
     <g:link controller="voteType" action="list">edit vote types</g:link> <br />
+    <g:link controller="supportTicket" action="list">view support requests</g:link>
 </html>
