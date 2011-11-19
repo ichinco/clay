@@ -2,10 +2,12 @@ package com.clay
 
 import org.joda.time.format.DateTimeFormatter
 import org.joda.time.format.DateTimeFormat
+import grails.util.GrailsConfig
 
 class UserController {
 
     def springSecurityService
+    def userService
 
     def index = { }
 
@@ -19,22 +21,8 @@ class UserController {
         DateTimeFormatter fmt = DateTimeFormat.forPattern("MM-dd-yyyy");
         Date date = fmt.parseDateTime(birthday).toDate()
 
-        Role role = Role.findByAuthority('ROLE_USER')
-
-        ClayUser user = new ClayUser()
-        user.username = username
-        user.password = springSecurityService.encodePassword(password)
-        user.email = email
-        user.birthday = date
-        user.accountExpired = false
-        user.accountLocked = false
-        user.enabled = true
-        user.save()
-
-        UserRole ur = new UserRole()
-        ur.user = user
-        ur.role = role
-        ur.save()
+        ClayUser user = userService.createUser(username,password,email, date)
+        userService.assignRoleToUser(user, GrailsConfig.clay.role.user)
 
         if (!user.validate()){
             redirect()   //TODO
