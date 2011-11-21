@@ -101,3 +101,12 @@ grails.plugins.springsecurity.bcrypt.logrounds = 10 // configure workfactor for 
 clay.design.localImageStore = 'C:/claytmp/'
 clay.role.admin = "ROLE_ADMIN"
 clay.role.user = "ROLE_USER"
+clay.role.moderator = "ROLE_MODERATOR"
+
+clay.reputation.commentUp = "COMMENT_UP"
+clay.reputation.commentDown = "COMMENT_DOWN"
+clay.reputation.designUp = "DESIGN_UP"
+clay.reputation.designDown = "DESIGN_DOWN"
+
+clay.vote.up = "UP"
+clay.vote.down = "DOWN"

@@ -11,6 +11,10 @@
     <head>
         <meta name="layout" content="clay" />
     </head>
+    <div>
+        <g:link controller="vote" action="upvoteDesign" params="[designId:design.id]">up</g:link>
+        <g:link controller="vote" action="downvoteDesign" params="[designId:design.id]">down</g:link>
+    </div>
     <div>${design.id}</div>
     <div>${design.title}</div>
     <div>${design.description}</div>

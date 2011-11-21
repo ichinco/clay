@@ -10,6 +10,10 @@
 <html>
 
     <g:if test="${currentComment}">
+        <div>
+            <g:link controller="vote" action="upvoteComment" params="[commentId:currentComment.id]">up</g:link>
+            <g:link controller="vote" action="downvoteComment" params="[commentId:currentComment.id]">down</g:link>
+        </div>
         <div>${currentComment.user.username}</div>
         <div>${currentComment.text}</div>
         <div>${currentComment.lastUpdated}</div>

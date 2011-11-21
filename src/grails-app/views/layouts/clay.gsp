@@ -16,7 +16,7 @@
         <g:javascript library="jquery" plugin="jquery"/>
     </head>
     <body>
-        <g:link controller="design" action="create">Home</g:link>
+        <g:link controller="design" action="list">Home</g:link>
         <g:if test="${request.signedIn}">
             <div>
                 <g:link controller="user" action="designList">${request.username}</g:link> |

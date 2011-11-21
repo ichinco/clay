@@ -3,10 +3,16 @@ package com.clay
 class UserService {
 
     def springSecurityService
+    static scope = "singleton"
 
     static transactional = true
 
-    def createUser(String username, String password, String email, Date birthday) {
+    def synchronized createUser(String username, String password, String email, Date birthday) {
+        ClayUser existingUser = ClayUser.findByUsername(username)
+
+        if (existingUser) {
+            return null
+        }
         ClayUser user = new ClayUser()
         user.username = username
         user.password = password
