@@ -5,5 +5,6 @@ class CommentVote extends Vote {
     Comment comment
 
     static constraints = {
+        comment(unique:'user', nullable:false)
     }
 }

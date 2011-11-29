@@ -9,5 +9,6 @@ class ReputationType {
     Date dateCreated
 
     static constraints = {
+        type(unique:true, nullable:false)
     }
 }

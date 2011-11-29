@@ -5,5 +5,6 @@ class DesignVote extends Vote {
     Design design
 
     static constraints = {
+        design(unique:'user', nullable:false)
     }
 }

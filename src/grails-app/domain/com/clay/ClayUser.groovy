@@ -14,5 +14,6 @@ class ClayUser extends User {
     ]
 
     static constraints = {
+        email(unique:true, nullable:false)
     }
 }

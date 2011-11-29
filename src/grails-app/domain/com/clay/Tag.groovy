@@ -9,5 +9,6 @@ class Tag {
     Date dateCreated
 
     static constraints = {
+        name(unique: 'type', nullable:false)
     }
 }

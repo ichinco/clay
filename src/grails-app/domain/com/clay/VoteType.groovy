@@ -8,5 +8,6 @@ class VoteType {
     Date dateCreated
 
     static constraints = {
+        name(unique:true, nullable:false)
     }
 }

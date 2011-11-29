@@ -8,5 +8,6 @@ class TagType {
     Date dateCreated
 
     static constraints = {
+        name(unique:true, nullable:false)
     }
 }
