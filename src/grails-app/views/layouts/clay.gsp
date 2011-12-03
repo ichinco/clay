@@ -14,24 +14,47 @@
         <g:layoutHead />
         <g:javascript library="application" />
         <g:javascript library="jquery" plugin="jquery"/>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css' />
+        <link href="${resource(dir:'css', file:'clay.css')}" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <g:link controller="design" action="list">Home</g:link>
-        <g:if test="${request.signedIn}">
-            <div>
+    <div class="header">
+        <div class="headerAction container">
+            <g:link class="action" controller="search" action="tag">bath</g:link>
+            <g:link class="action" controller="search" action="tag">bedroom</g:link>
+            <g:link class="action" controller="search" action="tag">dining room</g:link>
+        </div>
+
+        <div class="signin">
+            <g:if test="${request.signedIn}">
                 <g:link controller="user" action="designList">${request.username}</g:link> |
                 <g:link controller="user" action="settings">settings</g:link> |
                 <g:link controller="logout">logout</g:link>
+            </g:if>
+            <g:else >
+                <g:link controller="login" action="create.gsp">register</g:link> |
+                <g:link controller="login">log in</g:link>
+            </g:else>
+        </div>
+    </div>
+    <div class="content">
+            <div class="main">
+                <g:layoutBody />
             </div>
-        </g:if>
-        <g:else >
-            <div>
-                <g:link controller="login" action="create.gsp">Sign Up</g:link> |
-                <g:link controller="login">Sign In</g:link>
+            <div class="about">
+                <div class="aboutLinks">
+                    <g:link class="action" controller="userSupportTicket" action="create">feedback</g:link>
+                    <g:link class="action" controller="userSupportTicket" action="about">about</g:link>
+                    <g:link class="action" controller="userSupportTicket" action="privacy">privacy</g:link>
+                </div>
             </div>
-        </g:else>
-        <g:layoutBody />
+    </div>
 
-        <g:link controller="userSupportTicket" action="create">Feedback</g:link>
+    <div class="footer">
+            <div class="footerAction container">
+                <g:link class="action" controller="design" action="create">create</g:link>
+            </div>
+            <g:link class="homeLink" controller="design" action="list">clay onion</g:link>
+        </div>
     </body>
 </html>

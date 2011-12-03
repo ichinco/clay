@@ -1,0 +1,74 @@
+html, body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    height: 100%; top:0px; left:0px; margin:0px; width:100%
+}
+
+div.header
+{
+    min-width: 500px;
+    width:90%;
+    margin: 0px 5%;
+    height: 30px;
+    border-width: 0px 1px 1px 1px;
+    border-color: #ccc;
+    border-style: solid;
+    font-size: 15px;
+    color: black;
+    position:absolute;
+
+    font-weight: 300;
+
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+div.topHeader {}
+
+div.footer { z-index: 9999; background-color: white; width: 100%; position:fixed; bottom:0px; left:0px; height:40px; border-top:#ccc solid 1px; }
+div.container {
+    position:absolute;
+    width:60%;
+    height: 100%;
+    margin-left:10px;
+    margin-right:10px;
+}
+div.footerAction {
+    margin-top:10px;
+    margin-bottom:10px;
+}
+div.headerAction{
+    margin-top:2px;
+    margin-bottom:2px;
+}
+
+a.action{
+    color:#aaa;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+a {text-decoration: none;}
+.homeLink { font-size: 25px; font-weight:300; color:#006699; right:20px; height:100%; margin:0px; position:absolute; }
+.content {
+    position:absolute;
+    width:100%;
+    top: 30px;
+}
+.main {
+    width:100%;
+}
+.about {
+    width:100%;
+    margin-bottom: 50px;
+}
+
+.aboutLinks {
+    width:25%;
+    margin: 5px auto;
+}
+.signin {position:absolute; right:30px; top:2px;}
