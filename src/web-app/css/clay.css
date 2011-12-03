@@ -50,6 +50,23 @@ a.action{
     color:#aaa;
     padding-right: 10px;
     padding-left: 10px;
+    display: inline-block;
+}
+
+a.action:visited
+{
+    text-decoration: none;
+    color: #006699;
+}
+
+a:visited
+{
+    color: #006699;
+}
+
+a.action:hover
+{
+    color: black;
 }
 
 a {text-decoration: none;}
@@ -67,8 +84,34 @@ a {text-decoration: none;}
     margin-bottom: 50px;
 }
 
+.inline
+{
+    display: inline;
+}
+
 .aboutLinks {
     width:25%;
     margin: 5px auto;
+    text-align:center;
 }
 .signin {position:absolute; right:30px; top:2px;}
+.title {margin-left: 10px; display: inline; text-align:left; }
+.designText{ font-weight: 300; font-size: 14px; text-align:left; }
+.user {color: #006699}
+.designFrame {margin-left:3px; display: inline-block; padding: 5px; background-color: #fafafa; }
+.designImage {width:380px;}
+.designShadow {display:block;}
+
+.designThumb
+{
+    display: inline-block;
+    margin:10px 10px;
+}
+
+.designWrapper {
+    min-width: 1000px;
+    max-width: 2000px;
+    width: 80%;
+    margin: 10px auto;
+    text-align:center;
+}

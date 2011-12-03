@@ -11,10 +11,12 @@
     <head>
         <meta name="layout" content="clay"/>
     </head>
+    <body>
 
-    <g:each in="${designs}" var="design">
-        <g:link controller="design" action="show" params="[id:design.id]">
-            <div>${design.title}</div>
-        </g:link>
-    </g:each>
+        <div class="designWrapper">
+            <g:each in="${designs}" var="design" status="i">
+                <g:render template="design" model="[design:design]" />
+            </g:each>
+        </div>
+    </body>
 </html>
