@@ -115,3 +115,58 @@ a {text-decoration: none;}
     margin: 10px auto;
     text-align:center;
 }
+
+.commentVote {
+    width: 30px;
+    height: 100%;
+    float: left;
+}
+
+.commentUsername {
+    display: inline;
+}
+
+.commentDate {
+    display: inline;
+}
+
+.commentHeader {
+    display: inline-block;
+}
+
+.displayInline {
+    display: inline;
+}
+
+img.voteBn
+{
+    width: 20px;
+    display: block;
+    margin-top: 1px;
+}
+
+.inline
+{
+    display: inline;
+}
+
+.comment-child{
+    margin-left: 30px;
+    margin-top:10px;
+}
+
+textarea
+{
+    resize: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    border-color: #ccc;
+}
+
+.designShow {
+    min-width: 500px;
+    width: 80%;
+    margin: 10px auto;
+}
