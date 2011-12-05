@@ -38,5 +38,13 @@
         <g:render template="comment" model="[currentComment:null, comments:design.comments, designId:design.id]" />
     </div>
 
+    <div id="replyForm" style="display: none;">
+        <g:form class="comment" controller="design" action="comment"  method="POST">
+            <g:hiddenField class="designId" name="designId" value="" />
+            <g:hiddenField class="parentId" name="parentId" value="" />
+            <g:textArea name="commentText" rows="5" cols="50" /> <br />
+            <g:submitButton class="submitButton" name="submitButton" value="submit" />
+        </g:form>
+    </div>
 
 </html>

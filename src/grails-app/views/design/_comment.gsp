@@ -7,7 +7,6 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html>
 
     <g:if test="${currentComment}">
             <div class="commentVote">
@@ -22,16 +21,41 @@
         <div class="commentText">
             ${currentComment.text}
         </div>
+        <div class="commentActions">
+            <a id="respond_${currentComment.id}" class="actionBn respond"
+                onclick="(function(evt){
+                    var target = $(evt.target ? evt.target : evt.srcElement);
 
+                    if(target.html() == 'respond')
+                    {
+                        if(target.parent().children('form').length > 0)
+                        {
+                            target.parent().children('form').css('display', 'block');
+                        }
+                        else
+                        {
+                            var insertForm = $('#replyForm').children('form').clone();
+                            target.before(insertForm);
+                            insertForm.children('.designId').attr('value','${designId}');
+                            insertForm.children('.parentId').attr('value',
+                                '${currentComment ? currentComment.id : 0}');
+                        }
+                        target.html('hide');
+                    }
+                    else if(target.html() == 'hide')
+                    {
+                        target.parent().children('form').css('display', 'none');
+                        target.html('respond');
+                    }
+                    else
+                    {
+                    }
+                })(window.event);">respond</a>
+            <a class="actionBn report" href="">report</a>
+        </div>
     </g:if>
 
 
-<g:form class="comment" controller="design" action="comment" method="POST">
-    <g:hiddenField name="designId" value="${designId}" />
-    <g:hiddenField name="parentId" value="${currentComment ? currentComment.id : 0}" />
-    <g:textArea name="commentText" rows="5" cols="50" /> <br />
-    <g:submitButton class="submitButton" name="submitButton" value="submit" />
-</g:form>
 
 <g:each in="${comments}" var="comment">
     <g:if test="${comment.parent == currentComment}">
@@ -40,5 +64,3 @@
         </div>
     </g:if>
 </g:each>
-
-</html>
