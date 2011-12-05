@@ -4,6 +4,7 @@ import com.clay.UserRole
 import grails.util.GrailsConfig
 import com.clay.ReputationType
 import com.clay.VoteType
+import com.clay.TagType
 
 class BootStrap {
 
@@ -27,6 +28,8 @@ class BootStrap {
 
         new VoteType(name:GrailsConfig.clay.vote.up).save(flush:true)
         new VoteType(name:GrailsConfig.clay.vote.down).save(flush:true)
+
+        new TagType(name:'design').save(flush:true)
     }
     def destroy = {
     }

@@ -20,9 +20,12 @@
         <div style="float: left;">
         <g:render template="vote" model="[upvoteAction:'upvoteDesign',downvoteAction:'downvoteDesign', actionparams:[designId:design.id]]" />
         </div>
-        <div>${design.id}</div>
-        <div>${design.title}</div>
+        <div>${design.title} by <div class="user inline">${design.user.username}</div></div>
         <div>${design.description}</div>
+
+        <g:each in="${design.tags}" var="tag">
+            <div class="smallTag">${tag.name}</div>
+        </g:each>
 
         <g:form controller="design" action="tagDesign">
             <g:hiddenField name="designId" value="${design.id}" />
@@ -33,10 +36,6 @@
         </g:form>
 
         <g:render template="comment" model="[currentComment:null, comments:design.comments, designId:design.id]" />
-
-        <g:each in="${design.tags}" var="tag">
-            <div>${tag.name}</div>
-        </g:each>
     </div>
 
 

@@ -19,7 +19,7 @@
                     <g:formatDate date="${currentComment.lastUpdated}" format="MM/dd/yyyy hh:mma" />
                 </div>
             </div>
-        <div>
+        <div class="commentText">
             ${currentComment.text}
         </div>
 

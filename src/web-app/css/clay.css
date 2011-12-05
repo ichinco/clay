@@ -108,6 +108,20 @@ a {text-decoration: none;}
     margin:10px 10px;
 }
 
+.smallTag
+{
+    display: inline-block;
+    padding: 3px 10px 3px 25px;
+    background-color: #999;
+    color: white;
+    font-size: 12px;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
 .designWrapper {
     min-width: 1000px;
     max-width: 2000px;
@@ -117,6 +131,7 @@ a {text-decoration: none;}
 }
 
 .commentVote {
+    display: block;
     width: 30px;
     height: 100%;
     float: left;
@@ -132,6 +147,11 @@ a {text-decoration: none;}
 
 .commentHeader {
     display: inline-block;
+}
+
+.commentText {
+    display: block;
+    margin: 5px 30px;
 }
 
 .displayInline {
@@ -151,6 +171,7 @@ img.voteBn
 }
 
 .comment-child{
+    display: block;
     margin-left: 30px;
     margin-top:10px;
 }
