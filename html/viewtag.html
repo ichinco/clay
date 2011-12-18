@@ -1,0 +1,137 @@
+<html>
+<head>
+<title>
+Test Displaying/Tagging
+</title>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400' 
+   rel='stylesheet' type='text/css'>
+   <style>
+   .tic {
+      font-family: 'Open Sans', sans-serif;
+      font-size  : 14px;
+      }
+
+   .user
+   {
+      display: inline;
+      color: #006699;
+   }
+
+   .ticImgSel
+   {
+      position: absolute;
+      border  : #bbeeff 2px solid;
+      visibility: hidden;
+   }
+
+   .ticTagger
+   {
+      position: absolute;
+   }
+   
+   img
+   {
+      width: 600px;
+   }
+
+   .ticTagCont
+   {
+      position: absolute;
+      left: 624px;
+
+   }
+
+   .ticTagItem
+   {
+      margin-top: 1px;
+      padding: 2px 15px 2px 15px;
+      background-color: #bbb;
+      width: 120px;
+   }
+
+   .ticImgBar
+   {
+      position: absolute;
+      top: 430px;
+   }
+
+   .ticImgBn
+   {
+      position: relative;
+      overflow: hidden;
+
+      width: 10px;
+      height: 10px;
+      background-color: #456;
+      border: #123 solid 1px;
+
+      display: inline-block;
+      margin-right: 15px;
+      margin-top: 5px;
+      cursor: pointer;
+   }
+   
+   .ticSelImgBn
+   {
+      background-color: #9ae;
+      border-color: #456;
+   }
+   </style>
+</head>
+<body>
+<div class="ticCont">
+   <div class="tic ticTitleBar"></div>
+   <div class="tic ticDisplay"> 
+      <div class="tic ticMainImg"></div>
+   </div>
+   <div class="tic ticImgBar"> </div>
+   <div class="tic ticTagCont"> </div>
+</div>
+</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
+  type="text/javascript"></script>
+<script src="js/imgtag_s.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function()
+     {
+	tagColObj = {"title": "living room",
+	             "author": "glassfin",
+		     "images": 
+		     [
+		        {
+			   "src": "http://cdn.freshome.com/wp-content/uploads/2009/06/villa-okto6.jpg",
+			   "caption": "living room is very warm and inviting: based on a warm color. Red and coffee accent the space. Design for long spatious living spaces.",
+			   "tags": [{"content": {"name":"item1"},
+				     "width": "100px",
+			             "height": "50px",
+				     "left": "140px",
+				     "top" : "95px"},
+				    {"content": {"name":"item2"},
+				     "width": "100px",
+				     "height": "200px",
+				     "left" : "420px",
+				     "top"  : "120px"}
+				     ]
+			},
+			{
+			   "src": "http://www.livingroomdecoratingideas.com/wp-content/uploads/2011/05/Modern-Living-Room-Interiors-Ideas-.jpg",
+			   "caption": "meh",
+			   "tags": [{"content": {"name": "item3"},
+			             "width"  : "100px",
+				     "height" : "50px",
+				     "left"   : "140px",
+				     "top"    : "95px"},
+				    {"content": {"name": "item4"},
+				     "width"  : "100px",
+				     "height" : "200px",
+				     "left"   : "420px",
+				     "top"    : "120px"}]
+			}
+		     ]};
+
+        TaggedImg(tagColObj);
+
+        //alert("");
+     });
+</script>
+</html>
