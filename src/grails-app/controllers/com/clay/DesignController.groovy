@@ -59,7 +59,7 @@ class DesignController {
             design.addToImages(image1)
             design.save()
 
-            response.sendError(200,'Done');
+            render(view:'addImagePoint', params:['imageId':image1.id])
         }
         else {
             flash.message = 'file cannot be empty'
