@@ -45,7 +45,7 @@ function TagFrames(picArr) {
 
     // add the appropriate controls for the "add tag" button
     var addTagButton =
-        $(".ticAddTagItem").children(".ticBn").click(function(evt) {
+        $('#addTag').click(function(evt) {
             var initTop = -1;
             var initLeft = -1;
             var fWidth = -1;

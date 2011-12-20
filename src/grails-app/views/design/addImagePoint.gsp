@@ -112,6 +112,11 @@
         color: #aaa;
     }
 
+    #addTag {
+        border: #99eeff solid 1px;
+        position: absolute;
+    }
+
     </style>
 </head>
 <body>
@@ -122,6 +127,7 @@
     </div>
     <div class="tic ticImgBar"></div>
     <div class="tic ticTagCont"></div>
+    <div id="addTag">add tags</div>
 </div>
 <div class="tagCntrl">
     <g:form controller="design" action="addImagePoint">
