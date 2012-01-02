@@ -110,18 +110,17 @@ function TaggedImg(tagColObj) {
     }
 
     mainImage.html("<img src='" + images[0]["url"] + "'>");
+
+    var displayDIV = $('<div class="ticImgSel"></div>');
     mainImage.append(displayDIV);
 
     var currentSelectedImage = -1;
-
     for (var i = 0; i < images.length; i++) {
         createButton(i);
         createItems(i);
     }
 
     selectImg(0);
-
-    var displayDIV = $('<div class="ticImgSel"></div>');
 
     return {
         "getSelectedNumber" : function() {
