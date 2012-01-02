@@ -7,6 +7,7 @@ class ImagePoint {
     double width
     double height
     Product product
+    User user
 
     Date lastUpdated
     Date dateCreated

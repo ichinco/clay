@@ -47,11 +47,12 @@ class DesignController {
         }
 
         def f = request.getFile('image')
+        String root = GrailsConfig.clay.design.localImageRoot
         String path = GrailsConfig.clay.design.localImageStore
         String filename = designId + java.util.UUID.randomUUID().toString()
         if(!f.empty) {
-            f.transferTo( new File(path + filename) )
-            String imageUrl1 = path + filename
+            f.transferTo( new File(root + path + filename) )
+            String imageUrl1 = g.resource(dir:path, file:filename, absolute:true)
             Image image1 = new Image();
             image1.url = imageUrl1
             image1.save()
@@ -59,7 +60,9 @@ class DesignController {
             design.addToImages(image1)
             design.save()
 
-            render(view:'addImagePoint', params:['imageId':image1.id])
+            String imageUrls = design.images.collect { "'" + it.url + "'" }.toListString()
+
+            render(view:'addImagePoint', model:['imageId':image1.id, 'imageUrls':imageUrls])
         }
         else {
             flash.message = 'file cannot be empty'
@@ -137,9 +140,10 @@ class DesignController {
         String productName = params.productName
         String productUrl = params.productUrl
         int imageId = Integer.parseInt(params.imageId)
+        User user = User.get(Integer.parseInt(params.userId))
 
         Product product = imageService.createProduct(productName, productUrl)
-        ImagePoint imagePoint = imageService.createImagePoint(x,y,width,height,product)
+        ImagePoint imagePoint = imageService.createImagePoint(x,y,width,height,product,user)
         imageService.addImagePoint(imagePoint, imageId)
     }
 }

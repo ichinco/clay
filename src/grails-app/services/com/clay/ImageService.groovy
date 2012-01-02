@@ -14,13 +14,14 @@ class ImageService {
         }
     }
 
-    def createImagePoint(double x, double y, double width, double height, Product product){
+    def createImagePoint(double x, double y, double width, double height, Product product, User user){
         ImagePoint imagePoint = new ImagePoint()
         imagePoint.x = x
         imagePoint.y = y
         imagePoint.width = width
         imagePoint.height = height
         imagePoint.product = product
+        imagePoint.user = user
         imagePoint.save()
 
         if (!imagePoint.validate()){

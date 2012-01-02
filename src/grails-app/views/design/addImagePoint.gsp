@@ -121,13 +121,12 @@
 </head>
 <body>
 <div class="ticCont">
-    <div class="tic ticTitleBar"></div>
     <div class="tic ticDisplay">
         <div class="tic ticMainImg"></div>
     </div>
     <div class="tic ticImgBar"></div>
     <div class="tic ticTagCont"></div>
-    <div id="addTag">add tags</div>
+    <div id="addTag">tag products</div>
 </div>
 <div class="tagCntrl">
     <g:form controller="design" action="addImagePoint">
@@ -140,7 +139,7 @@
         <g:textField name="productUrl"/>
         <div class="label">name</div>
         <g:textField name="productName" id='inputName'/>
-        <div id=addItemBn class="ticBn ticDisabled">add</div>
+        <g:submitButton name="submitter" value="submit" id="addItemBn" class="ticBn ticDisabled">add</g:submitButton>
         <div id=clearBn class="ticBn">clear</div>
         <div id='jsonout'></div>
     </g:form>
@@ -150,14 +149,9 @@
 <script src="${resource(dir: 'js', file: 'imgtag_s.js')}" type="text/javascript"></script>
 <script src="${resource(dir: 'js', file: 'imgtag_w.js')}" type="text/javascript"></script>
 <script type="text/javascript">
+    var picArray = ${imageUrls};
     $(document).ready(function() {
-        var picArr =
-                [
-                    "http://homeroomideas.com/wp-content/decorating/2011/08/Family_living_room_decorating_ideas.jpg",
-                    "http://kurniacyber.com/wp-content/uploads/2011/08/small-living-room-remodel-3.jpg"
-                ];
-
-        TagFrames(picArr);
+        TagFrames(picArray);
     });
 </script>
 </html>

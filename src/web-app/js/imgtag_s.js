@@ -17,57 +17,37 @@
 // can override the tagObj draw method
 function TaggedImg(tagColObj) {
     var container = $('div.ticCont');
-    var titleBar = $('div.ticTitleBar');
-    var display = $('div.ticDisplay');
-    var mainImg = $('div.ticMainImg').css({"position": "absolute",
+    var mainImage = $('div.ticMainImg').css({"position": "absolute",
         "top":"30px"});
-    var tagCont = $('div.ticTagCont');
-
-    // display title and author
-    var title = tagColObj["title"];
-    var author = "<div class='tic user'>" + tagColObj["author"] + "</div>";
-
-    titleBar.html(title + " by " + author);
-
-    var ticImgBar = $(".ticImgBar");
-    var images = tagColObj["images"];
-    mainImg.html("<img src='" + images[0]["src"] + "'>");
-
-    displayDIV = $('<div class="ticImgSel"></div>');
-    mainImg.append(displayDIV);
+    var tagContainer = $('div.ticTagCont');
 
     function createButton(index) {
         var button = $("<div class='ticImgBn'></div>");
-        ticImgBar.append(button);
+        ticImageBar.append(button);
 
         button.click(function() {
             selectImg(index);
         });
     }
 
-    createButton(0);
-
-    var currentSelectedImg = -1;
-
     function selectImg(index, force) {
-        if (currentSelectedImg == index && !force) return;
+        if (currentSelectedImage == index && !force) return;
 
-        mainImg.children("img").attr("src", images[index]["src"]);
-        var curImgTags = images[index]["tags"];
+        mainImage.children("img").attr("src", images[index]["src"]);
+        var currentImageTags = images[index]["tags"];
 
-        mainImg.children(".ticTagger").remove();
-        for (var i = 0; i < curImgTags.length; i++) {
+        mainImage.children(".ticTagger").remove();
+        for (var i = 0; i < currentImageTags.length; i++) {
             (function(i) {
-                var curTag = curImgTags[i];
-                var width = parseInt(curTag['width']);
-                var height = parseInt(curTag['height']);
+                var currentTag = currentImageTags[i];
+                var width = parseInt(currentTag['width']);
+                var height = parseInt(currentTag['height']);
 
                 var setWidth = (width > 76) ? 60 : width - 16;
                 var setHeight = (height > 68) ? 60 : height - 16;
 
-                var centerX = parseInt(curTag['left']) + width / 2;
-                var centerY = parseInt(curTag['top']) + height / 2;
-
+                var centerX = parseInt(currentTag['left']) + width / 2;
+                var centerY = parseInt(currentTag['top']) + height / 2;
 
                 var tagDIV = $('<div class="ticTagger"></div>');
                 tagDIV.css({"width" : String(setWidth) + "px",
@@ -77,27 +57,25 @@ function TaggedImg(tagColObj) {
 
                 tagDIV.mouseover(
                         function(evt) {
-                            if (currentSelectedImg != index) return;
+                            if (currentSelectedImage != index) return;
 
                             displayDIV.css("visibility", "visible");
-                            displayDIV.css(curTag);
+                            displayDIV.css(currentTag);
                         });
 
                 tagDIV.mouseout(function(evt) {
                     displayDIV.css("visibility", "hidden");
                 });
 
-                mainImg.append(tagDIV);
+                mainImage.append(tagDIV);
             })(i);
         }
 
-        ticImgBar.children('.ticSelImgBn').removeClass('ticSelImgBn');
-        $(ticImgBar.children('.ticImgBn')[index]).addClass('ticSelImgBn');
+        ticImageBar.children('.ticSelImgBn').removeClass('ticSelImgBn');
+        $(ticImageBar.children('.ticImgBn')[index]).addClass('ticSelImgBn');
 
-        currentSelectedImg = index;
+        currentSelectedImage = index;
     }
-
-    selectImg(0);
 
     function createItem(ItemsJSON, index) {
         var tagItem = $('<div class="tic ticTagItem"></div>');
@@ -114,31 +92,40 @@ function TaggedImg(tagColObj) {
             displayDIV.css("visibility", "hidden");
         });
 
-        tagCont.append(tagItem);
+        tagContainer.append(tagItem);
     }
 
     function createItems(index) {
-        var curImgTags = images[index]["tags"];
-        for (var i = 0; i < curImgTags.length; i++) {
+        var currentImageTags = images[index]["tags"];
+        for (var i = 0; i < currentImageTags.length; i++) {
             (function(i) {
-                var curTag = curImgTags[i];
-                createItem(curTag, index)
+                var currentTag = currentImageTags[i];
+                createItem(currentTag, index)
             })(i);
         }
     }
 
-    createItems(0);
+    var ticImageBar = $(".ticImgBar");
+    var images = tagColObj["images"];
 
-    // display other images
-    for (var i = 1; i < images.length; i++) {
-        var curImg = images[i];
+    mainImage.html("<img src='" + images[0]["src"] + "'>");
+
+    mainImage.append(displayDIV);
+
+    var currentSelectedImage = -1;
+
+    for (var i = 0; i < images.length; i++) {
         createButton(i);
         createItems(i);
     }
 
+    selectImg(0);
+
+    var displayDIV = $('<div class="ticImgSel"></div>');
+
     return {
         "getSelNum" : function() {
-            return currentSelectedImg;
+            return currentSelectedImage;
         },
         "addTag"    : createItem,
         "selectImg" : selectImg
