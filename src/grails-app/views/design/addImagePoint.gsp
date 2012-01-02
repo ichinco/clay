@@ -81,11 +81,6 @@
         top: 500px;
     }
 
-    #jsonout {
-        margin-top: 30px;
-        width: 800px;
-    }
-
     .ticBn {
         font-family: 'Open Sans', sans-serif;
         font-size: 12px;
@@ -134,29 +129,23 @@
     <div class="tagControl" id="stopTag">cancel</div>
 </div>
 <div class="tagCntrl">
-    <g:form controller="design" action="addImagePoint">
-        <g:hiddenField name="imageId" value="${imageId}"/>
-        <g:hiddenField name="x" id="x"/>
-        <g:hiddenField name="y" id="y"/>
-        <g:hiddenField name="width" id="width"/>
-        <g:hiddenField name="height" id="height"/>
-        <div class="label">caption:</div>
-        <g:textField name="productUrl"/>
+    <div id="caption">
+        <g:hiddenField id="userId" name="userId" value="${userId}" />
+        <div class="label">url:</div>
+        <g:textField id="productUrl" name="productUrl"/>
         <div class="label">name</div>
-        <g:textField name="productName" id='inputName'/>
+        <g:textField id="productName" name="productName"/>
         <g:submitButton name="submitter" value="submit" id="addItemBn" class="ticBn ticDisabled">add</g:submitButton>
         <div id=clearBn class="ticBn">clear</div>
-        <div id='jsonout'></div>
-    </g:form>
+    </div>
 </div>
 </body>
 
 <script src="${resource(dir: 'js', file: 'imgtag_s.js')}" type="text/javascript"></script>
 <script src="${resource(dir: 'js', file: 'imgtag_w.js')}" type="text/javascript"></script>
 <script type="text/javascript">
-    var picArray = ${imageUrls};
     $(document).ready(function() {
-        TagFrames(picArray);
+        TagFrames(${images});
     });
 </script>
 </html>

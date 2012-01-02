@@ -2,46 +2,9 @@
  *
  */
 function TagFrames(pictureArray) {
-    // from stackoverflow JSON obj to string
-    // converts a JSON object to string
-    JSON.stringify = JSON.stringify || function (obj) {
-        var t = typeof (obj);
-        if (t != "object" || obj === null) {
-            // simple data type
-            if (t == "string") obj = '"' + obj + '"';
-            return String(obj);
-        }
-        else {
-            // recurse array or object
-            var n, v, json = [], arr = (obj && obj.constructor == Array);
-            for (n in obj) {
-                v = obj[n];
-                t = typeof(v);
-                if (t == "string") v = '"' + v + '"';
-                else if (t == "object" && v !== null) v = JSON.stringify(v);
-                json.push((arr ? "" : '"' + n + '":') + String(v));
-            }
-            return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
-        }
-    };
+    var addedDIV = null;
 
-    // build the image object (with empty tags) and load it to the viewer
-    var displayArr = {
-        "title" : "another living room",
-        "author" : "glassfin",
-        "images" : $.map(pictureArray,
-                function(elt, index) {
-                    return {
-                        "src": elt,
-                        "caption" : "",
-                        "tags" : []
-                    }
-                })
-    };
-
-    var tagOutput = TaggedImg(displayArr);
-
-    $('#jsonout').html(JSON.stringify(displayArr));
+    var tagOutput = TaggedImg(pictureArray);
 
     // add the appropriate controls for the "add tag" button
     var addTagButton = $('#addTag');
@@ -54,6 +17,13 @@ function TagFrames(pictureArray) {
 
         $('#inputName').undelegate("*", "keyup");
         $('#cleanBn').undelegate("*", "click");
+
+        $('.ticMainImg').css("cursor", "default");
+
+        if (addedDIV !== null) {
+            addedDIV.remove();
+            addedDIV = null;
+        }
     });
     addTagButton.click(function(evt) {
         var initTop = -1;
@@ -62,7 +32,6 @@ function TagFrames(pictureArray) {
         var fHeight = -1;
         var offset;
         var divBox = $('<div class="ticTagBox"></div>');
-        var addedDIV = null;
 
         function mousemove(evt) {
             var curLeft = evt.pageX - offset.left;
@@ -70,9 +39,6 @@ function TagFrames(pictureArray) {
 
             var XStyle = ((curLeft < initLeft) ? "right" : "left");
             var YStyle = ((curTop < initTop) ? "bottom" : "top");
-
-            $("#width").html(curLeft - initLeft);
-            $("#height").html(curTop - initTop);
 
             divBox.css({
                 "left" : String(initLeft) + "px",
@@ -143,13 +109,10 @@ function TagFrames(pictureArray) {
 
             // clear the width/height etc
             initTop = initLeft = fWidth = fHeight = -1;
-            $("#width").html("width:");
-            $('#height').html("height:");
-            $('#x').html("left:");
-            $('#y').html("top:");
 
             // clear the dialog box
-            $('#inputName').val("");
+            $('#productName').val("");
+            $('#productUrl').val("");
 
             // restore your ability to draw
             divBox = $('<div class="ticTagBox"></div>');
@@ -165,21 +128,27 @@ function TagFrames(pictureArray) {
             if ($('#addItemBn').hasClass("ticDisabled")) return;
 
             // add an item to the object
-            var curSel = tagOutput.getSelNum();
-            var tagItemJSON = {"content": {"name": $('#inputName').val()},
+            var currentSelectedNumber = tagOutput.getSelectedNumber();
+            var currentSelectedId = tagOutput.getSelectedId();
+            var tagItemJSON = {"productName": $('#productName').val(),
+                "productUrl" : $("#productUrl").val(),
+                "userId" : $("#userId").val(),
+                "imageId" : currentSelectedId,
                 "left"   : initLeft,
                 "top"    : initTop,
                 "width"  : fWidth,
                 "height" : fHeight};
 
-            displayArr["images"][curSel]["tags"].push(tagItemJSON);
-
-            tagOutput.addTag(tagItemJSON, curSel);
-            tagOutput.selectImg(curSel, true);
+            tagOutput.addTag(tagItemJSON, currentSelectedNumber);
+            tagOutput.selectImg(currentSelectedNumber, true);
 
             // display the item
-            $('#jsonout').html(JSON.stringify(displayArr));
             $('#clearBn').click();
+
+            $.post("/src/design/addImagePoint", tagItemJSON,
+                    function(data){
+                        // TODO: something if it fails.
+                    });
         });
     });
 }

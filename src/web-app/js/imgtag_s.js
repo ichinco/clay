@@ -20,6 +20,8 @@ function TaggedImg(tagColObj) {
     var mainImage = $('div.ticMainImg').css({"position": "absolute",
         "top":"30px"});
     var tagContainer = $('div.ticTagCont');
+    var ticImageBar = $(".ticImgBar");
+    var images = tagColObj;
 
     function createButton(index) {
         var button = $("<div class='ticImgBn'></div>");
@@ -33,10 +35,16 @@ function TaggedImg(tagColObj) {
     function selectImg(index, force) {
         if (currentSelectedImage == index && !force) return;
 
-        mainImage.children("img").attr("src", images[index]["src"]);
+        mainImage.children("img").attr("src", images[index]["url"]);
         var currentImageTags = images[index]["tags"];
 
         mainImage.children(".ticTagger").remove();
+        ticImageBar.children('.ticSelImgBn').removeClass('ticSelImgBn');
+        $(ticImageBar.children('.ticImgBn')[index]).addClass('ticSelImgBn');
+
+        currentSelectedImage = index;
+
+        if (currentImageTags == null ) { return; }
         for (var i = 0; i < currentImageTags.length; i++) {
             (function(i) {
                 var currentTag = currentImageTags[i];
@@ -70,16 +78,11 @@ function TaggedImg(tagColObj) {
                 mainImage.append(tagDIV);
             })(i);
         }
-
-        ticImageBar.children('.ticSelImgBn').removeClass('ticSelImgBn');
-        $(ticImageBar.children('.ticImgBn')[index]).addClass('ticSelImgBn');
-
-        currentSelectedImage = index;
     }
 
     function createItem(ItemsJSON, index) {
         var tagItem = $('<div class="tic ticTagItem"></div>');
-        tagItem.html(ItemsJSON["content"]["name"]);
+        tagItem.html(ItemsJSON["productName"]);
 
         tagItem.mouseover(
                 function(evt) {
@@ -96,7 +99,8 @@ function TaggedImg(tagColObj) {
     }
 
     function createItems(index) {
-        var currentImageTags = images[index]["tags"];
+        var currentImageTags = images[index]["points"];
+        if (currentImageTags == null ) { return; }
         for (var i = 0; i < currentImageTags.length; i++) {
             (function(i) {
                 var currentTag = currentImageTags[i];
@@ -105,11 +109,7 @@ function TaggedImg(tagColObj) {
         }
     }
 
-    var ticImageBar = $(".ticImgBar");
-    var images = tagColObj["images"];
-
-    mainImage.html("<img src='" + images[0]["src"] + "'>");
-
+    mainImage.html("<img src='" + images[0]["url"] + "'>");
     mainImage.append(displayDIV);
 
     var currentSelectedImage = -1;
@@ -124,8 +124,11 @@ function TaggedImg(tagColObj) {
     var displayDIV = $('<div class="ticImgSel"></div>');
 
     return {
-        "getSelNum" : function() {
+        "getSelectedNumber" : function() {
             return currentSelectedImage;
+        },
+        "getSelectedId" : function () {
+            return images[currentSelectedImage]["id"];
         },
         "addTag"    : createItem,
         "selectImg" : selectImg

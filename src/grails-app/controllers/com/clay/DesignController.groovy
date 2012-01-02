@@ -2,6 +2,7 @@ package com.clay
 
 import grails.plugins.springsecurity.Secured
 import grails.util.GrailsConfig
+import grails.converters.JSON
 
 class DesignController {
 
@@ -60,14 +61,20 @@ class DesignController {
             design.addToImages(image1)
             design.save()
 
-            String imageUrls = design.images.collect { "'" + it.url + "'" }.toListString()
 
-            render(view:'addImagePoint', model:['imageId':image1.id, 'imageUrls':imageUrls])
+            String images = design.images as JSON
+
+            redirect(action:addPoint, params:['images':images, 'userId':springSecurityService.currentUser.id])
         }
         else {
             flash.message = 'file cannot be empty'
             render(view:'uploadImage')
         }
+    }
+
+    @Secured(["ROLE_USER"])
+    def addPoint = {
+        render(view:'addImagePoint', model:params)
     }
 
     @Secured(["ROLE_USER"])
@@ -133,8 +140,8 @@ class DesignController {
 
     @Secured(["ROLE_USER"])
     def addImagePoint = {
-        double x = Double.parseDouble(params.x)
-        double y = Double.parseDouble(params.y)
+        double x = Double.parseDouble(params.left)
+        double y = Double.parseDouble(params.top)
         double width = Double.parseDouble(params.width)
         double height = Double.parseDouble(params.height)
         String productName = params.productName
