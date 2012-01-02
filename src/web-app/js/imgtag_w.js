@@ -1,7 +1,7 @@
 /*
  *
  */
-function TagFrames(picArr) {
+function TagFrames(pictureArray) {
     // from stackoverflow JSON obj to string
     // converts a JSON object to string
     JSON.stringify = JSON.stringify || function (obj) {
@@ -29,7 +29,7 @@ function TagFrames(picArr) {
     var displayArr = {
         "title" : "another living room",
         "author" : "glassfin",
-        "images" : $.map(picArr,
+        "images" : $.map(pictureArray,
                 function(elt, index) {
                     return {
                         "src": elt,
@@ -44,142 +44,142 @@ function TagFrames(picArr) {
     $('#jsonout').html(JSON.stringify(displayArr));
 
     // add the appropriate controls for the "add tag" button
-    var addTagButton =
-        $('#addTag').click(function(evt) {
-            var initTop = -1;
-            var initLeft = -1;
-            var fWidth = -1;
-            var fHeight = -1;
-            var offset;
-            var divBox = $('<div class="ticTagBox"></div>');
-            var addedDIV = null;
+    var addTagButton = $('#addTag');
+    var cancelButton = $('#stopTag');
+    cancelButton.click(function(evt){
+        $(".ticAddTagItemCont").addClass("folded");
+        addTagButton.show();
+        cancelButton.hide();
+        $('.ticMainImg').undelegate("*", "mousedown");
 
-            function mousemove(evt) {
-                var curLeft = evt.pageX - offset.left;
-                var curTop = evt.pageY - offset.top;
+        $('#inputName').undelegate("*", "keyup");
+        $('#cleanBn').undelegate("*", "click");
+    });
+    addTagButton.click(function(evt) {
+        var initTop = -1;
+        var initLeft = -1;
+        var fWidth = -1;
+        var fHeight = -1;
+        var offset;
+        var divBox = $('<div class="ticTagBox"></div>');
+        var addedDIV = null;
 
-                var XStyle = ((curLeft < initLeft) ? "right" : "left");
-                var YStyle = ((curTop < initTop) ? "bottom" : "top");
+        function mousemove(evt) {
+            var curLeft = evt.pageX - offset.left;
+            var curTop = evt.pageY - offset.top;
 
-                $("#width").html(curLeft - initLeft);
-                $("#height").html(curTop - initTop);
+            var XStyle = ((curLeft < initLeft) ? "right" : "left");
+            var YStyle = ((curTop < initTop) ? "bottom" : "top");
 
-                divBox.css({
-                    "left" : String(initLeft) + "px",
-                    "top" : String(initTop) + "px",
-                    "width" : String(Math.abs(curLeft - initLeft)) + "px",
-                    "height" : String(Math.abs(curTop - initTop)) + "px"
-                });
+            $("#width").html(curLeft - initLeft);
+            $("#height").html(curTop - initTop);
+
+            divBox.css({
+                "left" : String(initLeft) + "px",
+                "top" : String(initTop) + "px",
+                "width" : String(Math.abs(curLeft - initLeft)) + "px",
+                "height" : String(Math.abs(curTop - initTop)) + "px"
+            });
+        }
+
+        function mousedown(evt) {
+            offset = $(".ticMainImg").offset();
+            initLeft = evt.pageX - offset.left;
+            initTop = evt.pageY - offset.top;
+
+            $('#x').html(initLeft);
+            $('#y').html(initTop);
+
+            evt.stopPropagation();
+            evt.preventDefault();
+
+            $(document).delegate("*", "mousemove", mousemove);
+            $(document).delegate("*", "mouseup", mouseup);
+            $('.ticMainImg').append(divBox);
+        }
+
+        function mouseup(evt) {
+            evt.stopPropagation();
+            $('.ticMainImg').append(addedDIV = divBox.clone());
+            fWidth = divBox.width();
+            fHeight = divBox.height();
+            divBox.remove();
+            $(document).undelegate("*", "mousemove");
+            $(document).undelegate("*", "mouseup");
+
+            $('.ticMainImg').undelegate("*", "mousedown");
+            $('.ticMainImg').css("cursor", "default");
+            toggleEnableAddItemButton();
+        }
+
+        function toggleEnableAddItemButton() {
+            if (initTop >= 0 && initLeft >= 0 && fWidth > 0 & fHeight > 0
+                    && $('#inputName').val() != "") {
+                $('#addItemBn').removeClass("ticDisabled");
             }
-
-            function mousedown(evt) {
-                offset = $(".ticMainImg").offset();
-                initLeft = evt.pageX - offset.left;
-                initTop = evt.pageY - offset.top;
-
-                $('#x').html(initLeft);
-                $('#y').html(initTop);
-
-                evt.stopPropagation();
-                evt.preventDefault();
-
-                $(document).delegate("*", "mousemove", mousemove);
-                $(document).delegate("*", "mouseup", mouseup);
-                $('.ticMainImg').append(divBox);
+            else {
+                $('#addItemBn').addClass("ticDisabled");
             }
+        }
 
-            function mouseup(evt) {
-                evt.stopPropagation();
-                $('.ticMainImg').append(addedDIV = divBox.clone());
-                fWidth = divBox.width();
-                fHeight = divBox.height();
-                divBox.remove();
-                $(document).undelegate("*", "mousemove");
-                $(document).undelegate("*", "mouseup");
+        $(".ticAddTagItemCont").removeClass("folded");
+        addTagButton.hide();
+        cancelButton.show();
 
-                $('.ticMainImg').undelegate("*", "mousedown");
-                $('.ticMainImg').css("cursor", "default");
-                togEnableAddItemBn();
-            }
+        $('.ticMainImg').delegate("*", "mousedown", mousedown);
 
-            function togEnableAddItemBn() {
-                if (initTop >= 0 && initLeft >= 0 && fWidth > 0 & fHeight > 0
-                        && $('#inputName').val() != "") {
-                    $('#addItemBn').removeClass("ticDisabled");
-                }
-                else {
-                    $('#addItemBn').addClass("ticDisabled");
-                }
-            }
+        $('.ticMainImg').css("cursor", "crosshair");
 
-            if (addTagButton.html() == "add tags") {
-                $(".ticAddTagItemCont").removeClass("folded");
-                addTagButton.html("cancel");
-
-                $('.ticMainImg').delegate("*", "mousedown", mousedown);
-
-                $('.ticMainImg').css("cursor", "crosshair");
-
-                $('#inputName').keyup(function(evt) {
-                    togEnableAddItemBn();
-                });
-
-                $('#clearBn').click(function(evt) {
-                    // if there is a set div, remove it
-                    if (addedDIV !== null) {
-                        addedDIV.remove();
-                        addedDIV = null;
-                    }
-
-                    // clear the width/height etc
-                    initTop = initLeft = fWidth = fHeight = -1;
-                    $("#width").html("width:");
-                    $('#height').html("height:");
-                    $('#x').html("left:");
-                    $('#y').html("top:");
-
-                    // clear the dialog box
-                    $('#inputName').val("");
-
-                    // restore your ability to draw
-                    divBox = $('<div class="ticTagBox"></div>');
-                    $('.ticMainImg').delegate("*", "mousedown", mousedown);
-
-                    $('.ticMainImg').css("cursor", "crosshair");
-
-                    // unset the add button
-                    $('#addItemBn').addClass("ticDisabled");
-                });
-
-                $('#addItemBn').click(function(evt) {
-                    if ($('#addItemBn').hasClass("ticDisabled")) return;
-
-                    // add an item to the object
-                    var curSel = tagOutput.getSelNum();
-                    var tagItemJSON = {"content": {"name": $('#inputName').val()},
-                        "left"   : initLeft,
-                        "top"    : initTop,
-                        "width"  : fWidth,
-                        "height" : fHeight};
-
-                    displayArr["images"][curSel]["tags"].push(tagItemJSON);
-
-                    tagOutput.addTag(tagItemJSON, curSel);
-                    tagOutput.selectImg(curSel, true);
-
-                    // display the item
-                    $('#jsonout').html(JSON.stringify(displayArr));
-                    $('#clearBn').click();
-
-                });
-
-            } else {
-                $(".ticAddTagItemCont").addClass("folded");
-                addTagButton.html("add tags");
-                $('.ticMainImg').undelegate("*", "mousedown");
-
-                $('#inputName').undelegate("*", "keyup");
-                $('#cleanBn').undelegate("*", "click");
-            }
+        $('#inputName').keyup(function(evt) {
+            toggleEnableAddItemButton();
         });
+
+        $('#clearBn').click(function(evt) {
+            // if there is a set div, remove it
+            if (addedDIV !== null) {
+                addedDIV.remove();
+                addedDIV = null;
+            }
+
+            // clear the width/height etc
+            initTop = initLeft = fWidth = fHeight = -1;
+            $("#width").html("width:");
+            $('#height').html("height:");
+            $('#x').html("left:");
+            $('#y').html("top:");
+
+            // clear the dialog box
+            $('#inputName').val("");
+
+            // restore your ability to draw
+            divBox = $('<div class="ticTagBox"></div>');
+            $('.ticMainImg').delegate("*", "mousedown", mousedown);
+
+            $('.ticMainImg').css("cursor", "crosshair");
+
+            // unset the add button
+            $('#addItemBn').addClass("ticDisabled");
+        });
+
+        $('#addItemBn').click(function(evt) {
+            if ($('#addItemBn').hasClass("ticDisabled")) return;
+
+            // add an item to the object
+            var curSel = tagOutput.getSelNum();
+            var tagItemJSON = {"content": {"name": $('#inputName').val()},
+                "left"   : initLeft,
+                "top"    : initTop,
+                "width"  : fWidth,
+                "height" : fHeight};
+
+            displayArr["images"][curSel]["tags"].push(tagItemJSON);
+
+            tagOutput.addTag(tagItemJSON, curSel);
+            tagOutput.selectImg(curSel, true);
+
+            // display the item
+            $('#jsonout').html(JSON.stringify(displayArr));
+            $('#clearBn').click();
+        });
+    });
 }
