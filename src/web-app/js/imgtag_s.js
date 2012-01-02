@@ -17,8 +17,7 @@
 // can override the tagObj draw method
 function TaggedImg(tagColObj) {
     var container = $('div.ticCont');
-    var mainImage = $('div.ticMainImg').css({"position": "absolute",
-        "top":"30px"});
+    var mainImage = $('div.ticMainImg');
     var tagContainer = $('div.ticTagCont');
     var ticImageBar = $(".ticImgBar");
     var images = tagColObj;
