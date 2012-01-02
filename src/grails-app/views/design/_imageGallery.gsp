@@ -16,7 +16,6 @@
     </div>
     <div class="tagCntrl">
         <div id="caption">
-            <g:hiddenField id="userId" name="userId" value="${userId}" />
             <div class="label">url:</div>
             <g:textField id="productUrl" name="productUrl"/>
             <div class="label">name</div>

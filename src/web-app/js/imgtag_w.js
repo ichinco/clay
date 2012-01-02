@@ -53,9 +53,6 @@ function TagFrames(pictureArray) {
             initLeft = evt.pageX - offset.left;
             initTop = evt.pageY - offset.top;
 
-            $('#x').html(initLeft);
-            $('#y').html(initTop);
-
             evt.stopPropagation();
             evt.preventDefault();
 
@@ -130,9 +127,8 @@ function TagFrames(pictureArray) {
             // add an item to the object
             var currentSelectedNumber = tagOutput.getSelectedNumber();
             var currentSelectedId = tagOutput.getSelectedId();
-            var tagItemJSON = {"productName": $('#productName').val(),
-                "productUrl" : $("#productUrl").val(),
-                "userId" : $("#userId").val(),
+            var tagItemJSON = {"product": { "name": $('#productName').val(),
+                "url" : $("#productUrl").val()},
                 "imageId" : currentSelectedId,
                 "left"   : initLeft,
                 "top"    : initTop,

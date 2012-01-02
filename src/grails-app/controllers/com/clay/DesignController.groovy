@@ -144,10 +144,10 @@ class DesignController {
         double y = Double.parseDouble(params.top)
         double width = Double.parseDouble(params.width)
         double height = Double.parseDouble(params.height)
-        String productName = params.productName
-        String productUrl = params.productUrl
+        String productName = params["product[name]"]
+        String productUrl = params["product[url]"]
         int imageId = Integer.parseInt(params.imageId)
-        User user = User.get(Integer.parseInt(params.userId))
+        User user = (ClayUser) springSecurityService.currentUser
 
         Product product = imageService.createProduct(productName, productUrl)
         ImagePoint imagePoint = imageService.createImagePoint(x,y,width,height,product,user)

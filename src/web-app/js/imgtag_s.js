@@ -81,7 +81,7 @@ function TaggedImg(tagColObj) {
 
     function createItem(ItemsJSON, index) {
         var tagItem = $('<div class="tic ticTagItem"></div>');
-        tagItem.html(ItemsJSON["productName"]);
+        tagItem.html(ItemsJSON["product"]["name"]);
 
         tagItem.mouseover(
                 function(evt) {

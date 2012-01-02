@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="${resource(dir:'css', file:'tag-image-control.css')}" />
 </head>
 <body>
-    <g:render template="imageGallery" model="${[userId:userId]}" />
+    <g:render template="imageGallery" />
 
     <script src="${resource(dir: 'js', file: 'imgtag_s.js')}" type="text/javascript"></script>
     <script src="${resource(dir: 'js', file: 'imgtag_w.js')}" type="text/javascript"></script>
