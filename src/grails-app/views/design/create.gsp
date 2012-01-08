@@ -20,6 +20,12 @@
         <g:submitButton id="submitButton" name="submitButton" value="submit" />
     </g:form>
 
+    <g:form action="upload" method="post" enctype="multipart/form-data">
+        <g:hiddenField name="designId" value="${designId}" />
+        <input id="image" type="file" name="image" /><br />
+        <input id="submitButton" type="submit" />
+    </g:form>
+
     <jq:plugin name="validate" />
     <g:javascript>
         $("form").validate({
