@@ -33,6 +33,17 @@ class DesignController {
 
         def model = [:]
         model['design'] = design
+        model['images'] = design.images.collect{ Image img ->
+            [id: img.id,
+             url: img.url,
+             points: img.points.collect{ ImagePoint pt ->
+                 [left: pt.left,
+                 top: pt.top,
+                 width: pt.width,
+                 height: pt.height,
+                 product: [name:pt.product.name, url:pt.product.url]]
+             }]
+        }
 
         return model
     }
@@ -56,11 +67,19 @@ class DesignController {
             String imageUrl1 = g.resource(dir:path, file:filename, absolute:true)
             Image image1 = new Image();
             image1.url = imageUrl1
+            image1.design = design
             image1.save()
+
+            if (!image1.validate()){
+                throw new RuntimeException(design.errors.toString())
+            }
 
             design.addToImages(image1)
             design.save()
 
+            if (!design.validate()){
+                throw new RuntimeException(design.errors.toString())
+            }
 
             String images = design.images as JSON
 
@@ -150,7 +169,8 @@ class DesignController {
         User user = (ClayUser) springSecurityService.currentUser
 
         Product product = imageService.createProduct(productName, productUrl)
-        ImagePoint imagePoint = imageService.createImagePoint(x,y,width,height,product,user)
+        Image image = Image.get(imageId)
+        ImagePoint imagePoint = imageService.createImagePoint(x,y,width,height,product,user,image)
         imageService.addImagePoint(imagePoint, imageId)
     }
 }

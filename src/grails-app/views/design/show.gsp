@@ -51,7 +51,7 @@
 <script src="${resource(dir: 'js', file: 'imgtag_w.js')}" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        TagFrames(${design.images as JSON});
+        TagFrames(${images as JSON});
     });
 </script>
 </body>

@@ -32,4 +32,8 @@ class TagService {
             }
         }
     }
+
+    def findByTag(Tag tag){
+        return tag.designs
+    }
 }

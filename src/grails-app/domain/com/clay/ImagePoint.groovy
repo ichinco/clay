@@ -11,6 +11,8 @@ class ImagePoint {
     Date lastUpdated
     Date dateCreated
 
+    static belongsTo = [image:Image]
+
     static constraints = {
     }
 }

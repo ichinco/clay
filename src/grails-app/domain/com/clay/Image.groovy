@@ -7,6 +7,8 @@ class Image {
     Date lastUpdated
     Date dateCreated
 
+    static belongsTo = [design:Design]
+
     static hasMany = [
             points : ImagePoint
     ]

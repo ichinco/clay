@@ -8,6 +8,10 @@ class Product {
     Date lastUpdated
     Date dateCreated
 
+    static hasMany = [
+            points : ImagePoint
+    ]
+
     static constraints = {
     }
 }
