@@ -2,6 +2,7 @@ package com.clay
 
 import grails.plugins.springsecurity.Secured
 import grails.util.GrailsConfig
+import grails.converters.JSON
 
 class DesignController {
 
@@ -32,6 +33,17 @@ class DesignController {
 
         def model = [:]
         model['design'] = design
+        model['images'] = design.images.collect{ Image img ->
+            [id: img.id,
+             url: img.url,
+             points: img.points.collect{ ImagePoint pt ->
+                 [left: pt.left,
+                 top: pt.top,
+                 width: pt.width,
+                 height: pt.height,
+                 product: [name:pt.product.name, url:pt.product.url]]
+             }]
+        }
 
         return model
     }
@@ -47,24 +59,41 @@ class DesignController {
         }
 
         def f = request.getFile('image')
+        String root = GrailsConfig.clay.design.localImageRoot
         String path = GrailsConfig.clay.design.localImageStore
         String filename = designId + java.util.UUID.randomUUID().toString()
         if(!f.empty) {
-            f.transferTo( new File(path + filename) )
-            String imageUrl1 = path + filename
+            f.transferTo( new File(root + path + filename) )
+            String imageUrl1 = g.resource(dir:path, file:filename, absolute:true)
             Image image1 = new Image();
             image1.url = imageUrl1
+            image1.design = design
             image1.save()
+
+            if (!image1.validate()){
+                throw new RuntimeException(design.errors.toString())
+            }
 
             design.addToImages(image1)
             design.save()
 
-            response.sendError(200,'Done');
+            if (!design.validate()){
+                throw new RuntimeException(design.errors.toString())
+            }
+
+            String images = design.images as JSON
+
+            redirect(action:addPoint, params:['images':images, 'userId':springSecurityService.currentUser.id])
         }
         else {
             flash.message = 'file cannot be empty'
             render(view:'uploadImage')
         }
+    }
+
+    @Secured(["ROLE_USER"])
+    def addPoint = {
+        render(view:'addImagePoint', model:params)
     }
 
     @Secured(["ROLE_USER"])
@@ -130,16 +159,18 @@ class DesignController {
 
     @Secured(["ROLE_USER"])
     def addImagePoint = {
-        double x = Double.parseDouble(params.x)
-        double y = Double.parseDouble(params.y)
+        double x = Double.parseDouble(params.left)
+        double y = Double.parseDouble(params.top)
         double width = Double.parseDouble(params.width)
         double height = Double.parseDouble(params.height)
-        String productName = params.productName
-        String productUrl = params.productUrl
+        String productName = params["product[name]"]
+        String productUrl = params["product[url]"]
         int imageId = Integer.parseInt(params.imageId)
+        User user = (ClayUser) springSecurityService.currentUser
 
         Product product = imageService.createProduct(productName, productUrl)
-        ImagePoint imagePoint = imageService.createImagePoint(x,y,width,height,product)
+        Image image = Image.get(imageId)
+        ImagePoint imagePoint = imageService.createImagePoint(x,y,width,height,product,user,image)
         imageService.addImagePoint(imagePoint, imageId)
     }
 }

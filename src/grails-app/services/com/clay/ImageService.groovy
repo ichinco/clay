@@ -10,21 +10,22 @@ class ImageService {
         image.save()
 
         if (!image.validate()){
-            // TODO record errors
+            throw new RuntimeException(image.errors.toString())
         }
     }
 
-    def createImagePoint(double x, double y, double width, double height, Product product){
+    def createImagePoint(double x, double y, double width, double height, Product product, User user, Image image){
         ImagePoint imagePoint = new ImagePoint()
-        imagePoint.x = x
-        imagePoint.y = y
+        imagePoint.left = x
+        imagePoint.top = y
         imagePoint.width = width
         imagePoint.height = height
         imagePoint.product = product
+        imagePoint.image = image;
         imagePoint.save()
 
         if (!imagePoint.validate()){
-            // TODO record errors
+            throw new RuntimeException(imagePoint.errors.toString())
         }
 
         return imagePoint
@@ -37,7 +38,7 @@ class ImageService {
         product.save()
 
         if (!product.validate()){
-            // TODO record errors
+            throw new RuntimeException(product.errors.toString())
         }
 
         return product

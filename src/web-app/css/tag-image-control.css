@@ -1,0 +1,105 @@
+.imageMain {
+    display:block;
+}
+
+.ticMainImg {
+    display: block;
+}
+
+.tic {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+.user {
+    display: inline;
+    color: #006699;
+}
+
+.ticImgSel {
+    position: absolute;
+    border: #bbeeff 2px solid;
+    visibility: hidden;
+}
+
+.ticTagger {
+    position: absolute;
+}
+
+img {
+    width: 600px;
+}
+
+.ticTagCont {
+    display: block;
+}
+
+.ticTagItem {
+    margin-top: 1px;
+    padding: 2px 15px 2px 15px;
+    background-color: #bbb;
+    width: 120px;
+}
+
+.ticImgBar {
+    display:block;
+}
+
+.ticImgBn {
+    position: relative;
+    overflow: hidden;
+
+    width: 10px;
+    height: 10px;
+    background-color: #456;
+    border: #123 solid 1px;
+
+    display: inline-block;
+    margin-right: 15px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.ticSelImgBn {
+    background-color: #9ae;
+    border-color: #456;
+}
+
+.tagCntrl {
+    display:block;
+}
+
+.ticBn {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    color: #069;
+    cursor: pointer;
+    margin-right: 15px;
+
+    display: inline;
+}
+
+.folded {
+    display: none;
+}
+
+.ticAddTagItemCont {
+}
+
+.ticTagBox {
+    border: #99eeff solid 1px;
+    position:absolute;
+}
+
+.ticDisabled {
+    color: #aaa;
+}
+
+.tagControl {
+    border: #99eeff solid 1px;
+    display: block;
+}
+
+#stopTag {
+    display: none;
+}
