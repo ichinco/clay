@@ -3,8 +3,6 @@ package com.clay
 class Design {
 
     ClayUser user
-    String description
-    String title
     boolean deleted // TODO do not show deleted designs
 
     Date lastUpdated
@@ -18,6 +16,9 @@ class Design {
             products : Product
     ]
 
+    static mapping = {
+        tablePerHierarchy false
+    }
     static constraints = {
     }
 }

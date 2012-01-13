@@ -34,7 +34,7 @@
             </g:if>
             <g:else >
                 <g:link controller="login" action="create.gsp">register</g:link> |
-                <g:link controller="login">log in</g:link>
+                <g:link controller="design" action="signedInList">log in</g:link>
             </g:else>
         </div>
     </div>
