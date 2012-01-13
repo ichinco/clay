@@ -88,8 +88,7 @@ class DesignController {
 
             String images = design.images as JSON
 
-            render ""
-            redirect(action:addPoint, params:['images':images, 'userId':springSecurityService.currentUser.id])
+            render(template:"uploadedImage", model:[uploadPath:imageUrl1])
         }
         else {
             flash.message = 'file cannot be empty'

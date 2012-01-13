@@ -10,18 +10,53 @@
 <html>
     <head>
         <meta name="layout" content="clay" />
-    </head>
+        <style type="text/css">
+            img.thumb {
+               max-width : 200px;
+               height: auto;
+            }
 
-    <label for="title">title:</label>
-    <g:textField name="title" /><br />
-    <label for="description">description</label>
-    <g:textArea name="description" rows="3" cols="50" /><br />
+            img.thumb
+            {
+                width: auto;
+                max-height: 150px;
+                position: relative;
+                top: 2px;
+            }
+
+            .thumbContainer {
+                display: table-cell;
+                text-align: center;
+                vertical-align: middle;
+
+                width: 200px;
+                height: 150px;
+                background-color: #ccc;
+            }
+/**/
+</style>
+<!--[if lt IE 8]>
+    <style>
+        .wraptocenter span {
+            display: inline-block;
+            height: 100%;
+        }
+    </style><![endif]-->
+    </head>
+<body>
+    <h1>create design>></h1>
+
+    <label class="formLabel" for="title">title:</label>
+    <g:textField class="formInput" name="title" /><br />
+    <label class="formLabel" for="description">description:</label>
+    <g:textArea class="formTextArea" name="description" rows="3" cols="50" /><br />
 
     <ul id="uploadedImages"></ul>
 
     <g:form name="up" action="upload" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
         <g:hiddenField name="designId" value="${design.id}" />
-        <input id="image" type="file" name="image" /><br />
+        <label class="formLabel" for="title">image file:</label><input id="image" type="file" name="image" />
+        <button id="fileDialog" style="">choose file</button>
         <g:submitButton name="submitButton" value="submit" />
     </g:form>
 
@@ -31,8 +66,13 @@
 
 <g:javascript>
     $(document).ready(function() {
-        alert($('#up').length);
-        $('#up').ajaxForm();
+        $('#up').ajaxForm({
+            success : function (responseText, statusText, xhr, $form) {
+                var listElement = $(responseText);
+                $("#uploadedImages").append(listElement);
+            }
+        });
     });
 </g:javascript>
+</body>
 </html>
