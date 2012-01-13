@@ -34,7 +34,7 @@ function TaggedImg(tagColObj)
    var images = tagColObj["images"];
    mainImg.html("<img src='" + images[0]["src"] + "'>");
 
-   displayDIV = $('<div class="ticImgSel"></div>');
+   var displayDIV = $('<div class="ticImgSel"></div>');
    mainImg.append(displayDIV);
 
    function createButton(index)
@@ -114,6 +114,7 @@ function TaggedImg(tagColObj)
 	    displayDIV.css("visibility", "visible"); 
 	    displayDIV.css(ItemsJSON);
 	 });
+
       tagItem.mouseout(function(evt)
       {
 	 displayDIV.css("visibility", "hidden");
@@ -134,9 +135,10 @@ function TaggedImg(tagColObj)
 	 })(i);
       }
    }
-   createItems(0);
 
    // display other images
+   createItems(0);
+
    for(var i = 1; i < images.length; i++)
    {
       var curImg = images[i];
