@@ -35,7 +35,7 @@ function TaggedImg(tagColObj) {
         if (currentSelectedImage == index && !force) return;
 
         mainImage.children("img").attr("src", images[index]["url"]);
-        var currentImageTags = images[index]["tags"];
+        var currentImageTags = images[index]["points"];
 
         mainImage.children(".ticTagger").remove();
         ticImageBar.children('.ticSelImgBn').removeClass('ticSelImgBn');
@@ -77,6 +77,11 @@ function TaggedImg(tagColObj) {
                 mainImage.append(tagDIV);
             })(i);
         }
+
+        ticImageBar.children('.ticSelImgBn').removeClass('ticSelImgBn');
+        $(ticImageBar.children('.ticImgBn')[index]).addClass('ticSelImgBn');
+
+        currentSelectedImage = index;
     }
 
     function createItem(ItemsJSON, index) {

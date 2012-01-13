@@ -12,10 +12,15 @@ class DesignController {
 
     def index = { }
 
+    @Secured(["ROLE_USER"])
+    def signedInList = {
+        redirect(controller:"design", action:"list")
+    }
+
     def list = {
         def designs = []
-        if (Design.count() > 0){
-            designs = Design.all;
+        if (SavedDesign.count() > 0){
+            designs = SavedDesign.all;
         }
 
         def model = [:]
@@ -27,7 +32,7 @@ class DesignController {
     def show = {
         int id = Integer.parseInt(params.id)
 
-        Design design = Design.get(id);
+        SavedDesign design = SavedDesign.get(id);
         Comment parentComment = new Comment();
         parentComment.id = 0
 
@@ -51,7 +56,7 @@ class DesignController {
     @Secured(["ROLE_USER"])
     def upload = {
         String designId = params.designId.toString()
-        Design design = Design.get(Long.parseLong(designId))
+        UnsavedDesign design = UnsavedDesign.get(Long.parseLong(designId))
         User user = (ClayUser) springSecurityService.currentUser
         if (user != design.user){
             flash.message = "cannot upload image to someone else's design."
@@ -83,6 +88,7 @@ class DesignController {
 
             String images = design.images as JSON
 
+            render ""
             redirect(action:addPoint, params:['images':images, 'userId':springSecurityService.currentUser.id])
         }
         else {
@@ -98,7 +104,18 @@ class DesignController {
 
     @Secured(["ROLE_USER"])
     def create = {
+        UnsavedDesign design = new UnsavedDesign()
+        design.user = (ClayUser) springSecurityService.currentUser
+        design.save()
 
+        if (!design.validate()){
+            throw new RuntimeException(design.errors.toString())
+        }
+
+        def model = [:]
+        model["design"] = design
+
+        render(view:"create", model:model)
     }
 
     @Secured(["ROLE_USER"])
@@ -111,13 +128,20 @@ class DesignController {
 
     @Secured(["ROLE_USER"])
     def save = {
+        String unsavedDesignId = params.designId
         String description = params.description
         String title = params.title
+
+        if (!unsavedDesignId) {
+            throw new RuntimeException("missing design id")
+        }
+
+        UnsavedDesign unsavedDesign = UnsavedDesign.get(Long.parseLong(params.designId))
 
         Design design = new Design();
         design.title = title
         design.description = description
-        design.images = []
+        design.images = unsavedDesign.images
         design.user = (ClayUser) springSecurityService.currentUser
         design.save()
 
