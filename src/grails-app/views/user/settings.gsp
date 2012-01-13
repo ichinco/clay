@@ -12,13 +12,13 @@
       <meta name="layout" content="clay" />
   </head>
 
-  <g:form id="settingsForm" controller="user" action="saveSettings">
+  <g:form name="settingsForm" controller="user" action="saveSettings">
       <label for="email">change email address</label>
       <g:textField name="email" value="${email}" /><br />
       <g:submitButton id="submitButtonSettings" name="submitButton" value="submit" />
   </g:form>
 
-  <g:form id="passwordForm" controller="user" action="savePassword">
+  <g:form name="passwordForm" controller="user" action="savePassword">
       <label for="password">password</label>
       <g:passwordField id="passwordField" name="password" /><br />
       <label for="retype">retype password</label>
