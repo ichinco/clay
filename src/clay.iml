@@ -25,6 +25,11 @@
       <sourceFolder url="file://$MODULE_DIR$/grails-app/domain" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/grails-app/services" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/unit" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grails-app/utils" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grails-app/taglib" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/integration" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
       <excludeFolder url="file://$MODULE_DIR$/web-app/plugins" />
@@ -37,11 +42,24 @@
         <CLASSES>
           <root url="jar://$USER_HOME$/.ivy2/cache/javax.activation/activation/jars/activation-1.1.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/javax.mail/mail/jars/mail-1.4.3.jar!/" />
+          <root url="file://$MODULE_DIR$/lib" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework.security/spring-security-web/jars/spring-security-web-3.0.5.RELEASE.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework.security/spring-security-core/jars/spring-security-core-3.0.5.RELEASE.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.grails/grails-datastore-core/jars/grails-datastore-core-1.0.0.RC1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.grails/grails-datastore-gorm/jars/grails-datastore-gorm-1.0.0.RC1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.grails/grails-datastore-gorm-plugin-support/jars/grails-datastore-gorm-plugin-support-1.0.0.RC1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/joda-time/joda-time/jars/joda-time-2.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework/spring-test/jars/spring-test-3.1.0.RELEASE.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/dumbster/dumbster/jars/dumbster-1.6.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.grails/grails-datastore-simple/jars/grails-datastore-simple-1.0.0.RC1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.grails/grails-datastore-gorm-test/jars/grails-datastore-gorm-test-1.0.0.RC1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="clay-grailsPlugins" />
   </component>
 </module>
 
