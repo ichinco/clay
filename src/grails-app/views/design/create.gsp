@@ -60,7 +60,7 @@
         <g:submitButton name="submitButton" value="submit" />
     </g:form>
 
-    <g:submitButton id="submitButton" name="submitButton" value="submit" />
+    <g:submitButton id="submitButton" name="submitButton" value="save" />
 
     <jq:plugin name="form" />
 

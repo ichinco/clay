@@ -21,9 +21,9 @@
     <body>
     <div class="header">
         <div class="headerAction container">
-            <g:link class="action" controller="search" action="tag">bath</g:link>
-            <g:link class="action" controller="search" action="tag">bedroom</g:link>
-            <g:link class="action" controller="search" action="tag">dining room</g:link>
+            <g:link class="action" controller="search" action="tag" params="[tag:'bath']">bath</g:link>
+            <g:link class="action" controller="search" action="tag" params="[tag:'bedroom']">bedroom</g:link>
+            <g:link class="action" controller="search" action="tag" params="[tag:'dining room']">dining room</g:link>
         </div>
 
         <div class="signin">
