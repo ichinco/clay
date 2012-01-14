@@ -70,12 +70,30 @@
     
     <jq:plugin name="form" />
 
+
+    <ul id='imageThumbTemplate'>
+        <div class="thumbContainer">
+            <span></span>
+            <img class="thumb" />
+        </div>
+        <button>tag</button>
+        <button>remove</button>
+    </ul>
 <g:javascript>
     $(document).ready(function() {
         $('#up').ajaxForm({
             success : function (responseText, statusText, xhr, $form) {
-                var listElement = $(responseText);
-                $("#uploadedImages").append(listElement);
+
+                var uploadImgJSON = responseText;
+
+                var insertUL = $('#imageThumbTemplate').clone();
+
+                // change the url for the insert
+                insertUL.children("div").children("img").attr('src', uploadImgJSON.url);
+
+
+                // insert the insertUL into the target
+                $('#uploadedImages').append(insertUL);
             }
         });
     });
