@@ -51,7 +51,6 @@
     <label class="formLabel" for="description">description:</label>
     <g:textArea class="formTextArea" name="description" rows="3" cols="50" /><br />
 
-    <ul id="uploadedImages"></ul>
 
     <g:form name="up" action="upload" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
         <g:hiddenField name="designId" value="${design.id}" />
@@ -61,6 +60,7 @@
     </g:form>
 
     <g:submitButton id="submitButton" name="submitButton" value="submit" />
+    <ul id="uploadedImages"></ul>
 
     <jq:plugin name="form" />
 
