@@ -137,14 +137,24 @@ class DesignController {
 
         UnsavedDesign unsavedDesign = UnsavedDesign.get(Long.parseLong(params.designId))
 
-        Design design = new Design();
+        SavedDesign design = new SavedDesign();
         design.title = title
         design.description = description
         design.images = unsavedDesign.images
         design.user = (ClayUser) springSecurityService.currentUser
         design.save()
 
-        redirect(action:"uploadImage", params:[designId:design.id]);
+        if (!design.validate()){
+            throw new RuntimeException(design.errors.toString());
+        }
+
+        unsavedDesign.delete();
+
+        if (!unsavedDesign.validate()){
+            throw new RuntimeException(unsavedDesign.errors.toString());
+        }
+
+        redirect(action:"list")
     }
 
     @Secured(["ROLE_USER"])
@@ -176,8 +186,6 @@ class DesignController {
 
         Tag tag = tagService.getTag(tagTypeId, tagName)
         tagService.tagDesign(tag, Design.get(designId))
-
-        redirect(action:"show", params:[id:designId])
     }
 
     @Secured(["ROLE_USER"])
