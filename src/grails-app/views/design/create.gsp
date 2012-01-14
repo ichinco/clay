@@ -3,7 +3,6 @@
   User: denise
   Date: 11/8/11
   Time: 10:01 PM
-  To change this template use File | Settings | File Templates.
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -48,10 +47,13 @@
 <body>
     <h1>create design>></h1>
 
-    <label class="formLabel" for="title">title:</label>
-    <g:textField class="formInput" name="title" /><br />
-    <label class="formLabel" for="description">description:</label>
-    <g:textArea class="formTextArea" name="description" rows="3" cols="50" /><br />
+    <g:form name="metaDesign" action="save" method="post">
+        <g:hiddenField name="designId" value="${design.id}" />
+        <label class="formLabel" for="title">title:</label>
+        <g:textField class="formInput" name="title" /><br />
+        <label class="formLabel" for="description">description:</label>
+        <g:textArea class="formTextArea" name="description" rows="3" cols="50" /><br />
+    </g:form>
 
 
     <g:form name="up" action="upload" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
@@ -61,8 +63,8 @@
         <g:submitButton name="submitButton" value="submit" />
     </g:form>
 
+    <g:submitButton name="saveDesign" value="save" />
     <ul id="uploadedImages"></ul>
-    <g:submitButton id="submitButton" name="submitButton" value="submit" />
 
     <g:render template="addImagePoint" model="[images:images]" />
     
@@ -76,6 +78,10 @@
                 $("#uploadedImages").append(listElement);
             }
         });
+    });
+
+    $("#saveDesign").click(function(){
+        $("#metaDesign").submit();
     });
 </g:javascript>
 </body>
