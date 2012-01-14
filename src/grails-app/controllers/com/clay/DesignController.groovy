@@ -86,9 +86,7 @@ class DesignController {
                 throw new RuntimeException(design.errors.toString())
             }
 
-            String images = design.images as JSON
-
-            render(template:"uploadedImage", model:[uploadPath:imageUrl1, images:images])
+            render(contentType:"text/json") { image1 }
         }
         else {
             flash.message = 'file cannot be empty'
