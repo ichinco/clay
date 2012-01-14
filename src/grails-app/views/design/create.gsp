@@ -10,6 +10,8 @@
 <html>
     <head>
         <meta name="layout" content="clay" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400' rel='stylesheet' type='text/css'/>
+        <link rel="stylesheet" href="${resource(dir:'css', file:'tag-image-control.css')}" />
         <style type="text/css">
             img.thumb {
                max-width : 200px;
@@ -59,9 +61,11 @@
         <g:submitButton name="submitButton" value="submit" />
     </g:form>
 
-    <g:submitButton id="submitButton" name="submitButton" value="submit" />
     <ul id="uploadedImages"></ul>
+    <g:submitButton id="submitButton" name="submitButton" value="submit" />
 
+    <g:render template="addImagePoint" model="[images:images]" />
+    
     <jq:plugin name="form" />
 
 <g:javascript>

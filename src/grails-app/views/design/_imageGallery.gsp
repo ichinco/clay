@@ -4,8 +4,9 @@
   Time: 3:05 PM
 --%>
 
-<div class="imageMain">
+<div class="imageMain shadow">
     <div class="ticCont">
+        <button id="ticContClose">close</button>
         <div class="tic ticDisplay">
             <div class="tic ticMainImg"></div>
         </div>

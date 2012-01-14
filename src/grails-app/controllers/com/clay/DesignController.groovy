@@ -88,17 +88,12 @@ class DesignController {
 
             String images = design.images as JSON
 
-            render(template:"uploadedImage", model:[uploadPath:imageUrl1])
+            render(template:"uploadedImage", model:[uploadPath:imageUrl1, images:images])
         }
         else {
             flash.message = 'file cannot be empty'
             render(view:'uploadImage')
         }
-    }
-
-    @Secured(["ROLE_USER"])
-    def addPoint = {
-        render(view:'addImagePoint', model:params)
     }
 
     @Secured(["ROLE_USER"])
