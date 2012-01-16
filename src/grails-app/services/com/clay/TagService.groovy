@@ -28,12 +28,14 @@ class TagService {
             design.save()
 
             if (!design.validate()){
-                // TODO error
+                throw new RuntimeException(design.errors.toString())
             }
         }
     }
 
     def findByTag(Tag tag){
-        return tag.designs
+        return tag.designs.find {
+            it.saved && !it.deleted
+        }
     }
 }

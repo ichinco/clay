@@ -14,7 +14,7 @@
                 <div class="inline title">${design.title}</div>
             </g:link>
             by
-            <g:link controller="design" action="list">
+            <g:link controller="search" action="userById" params="[userId:design.user.id]">
                 <div class="inline user">${design.user.username}</div>
             </g:link>
         </div>

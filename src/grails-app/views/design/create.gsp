@@ -50,9 +50,9 @@
     <g:form name="metaDesign" action="save" method="post">
         <g:hiddenField name="designId" value="${design.id}" />
         <label class="formLabel" for="title">title:</label>
-        <g:textField class="formInput" name="title" /><br />
+        <g:textField class="formInput" name="title" value="${design.title}" /><br />
         <label class="formLabel" for="description">description:</label>
-        <g:textArea class="formTextArea" name="description" rows="3" cols="50" /><br />
+        <g:textArea class="formTextArea" name="description" value="${design.description}" rows="3" cols="50" /><br />
     </g:form>
 
 
@@ -63,13 +63,13 @@
         <g:submitButton name="submitButton" value="submit" />
     </g:form>
 
-    <g:submitButton name="saveDesign" value="save" />
+    <g:render template="addTag" model="[designId:design.id, tags:design.tags, allowTag:true]" />
+
     <ul id="uploadedImages"></ul>
 
     <g:render template="addImagePoint" model="[images:images]" />
-    
-    <jq:plugin name="form" />
 
+    <g:submitButton name="saveDesign" value="save" />
 
     <ul id='imageThumbTemplate'>
         <div class="thumbContainer">
@@ -83,25 +83,30 @@
     var numOfImages = 0;
 
     $(document).ready(function() {
+        var urls = ${images};
+        var createImageWithSrc = function(src){
+            var insertUL = $('#imageThumbTemplate').clone();
+
+            // change the url for the insert
+            insertUL.children("div").children("img").attr('src', src);
+            insertUL.css("display", "block");
+            insertUL.children("button:contains('tag')").click(function(evt){
+                $('div.imageMain').css('visibility', 'visible');
+                TaggedImg(PublicImageCollectionArray);
+                //alert(PublicImageCollectionArray.length);
+            })
+
+            // insert the insertUL into the target
+            $('#uploadedImages').append(insertUL);
+        };
+
+        $.each(urls, function(i, url){
+            createImageWithSrc(url)
+        });
+
         $('#up').ajaxForm({
             success : function (responseText, statusText, xhr, $form) {
-                PublicImageCollectionArray.push(responseText);
-
-                var uploadImgJSON = responseText;
-                var insertUL = $('#imageThumbTemplate').clone();
-
-                // change the url for the insert
-                insertUL.children("div").children("img").attr({'src': uploadImgJSON.url});
-                insertUL.css("display", "block");
-                insertUL.children("button:contains('tag')").click(function(evt){
-                    $('div.imageMain').css('visibility', 'visible');
-                    TaggedImg(PublicImageCollectionArray);
-                    //alert(PublicImageCollectionArray.length);
-                })
-
-                // insert the insertUL into the target
-                $('#uploadedImages').append(insertUL);
-                numOfImages++;
+                createImageWithSrc(responseText.url)
             }
         });
     });

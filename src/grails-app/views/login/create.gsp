@@ -11,7 +11,6 @@
     <head>
         <meta name="layout" content="clay" />
     </head>
-    <div id="userCreateFailed"></div>
     <g:form id="userCreate" controller="user" action="create" method="POST">
         <label class="formLabel" for="username">username</label>
         <g:textField id="username" name="username" class="required formInput" />  <br />
@@ -24,6 +23,7 @@
         <label class="formLabel" for="retype">retype password</label>
         <g:passwordField id="retype" name="retype" class="required formInput" /> <br />
         %{--//TODO require captcha--}%
+        <label class="formLabel" for="submitButton"></label>
         <g:submitButton id="submitButton" name="submitButton" value="submit" />
     </g:form>
 
@@ -49,10 +49,7 @@
 			    var errors = validator.numberOfInvalids();
                 if (errors) {
                     var message = "Errors have been highlighted below.";
-                    $("#userCreateFailed").html(message);
-                    $("#userCreateFailed").show();
-                } else {
-                    $("#userCreateFailed").hide();
+                    $("#status").html(message);
                 }
             },
             submitHandler : function(form) {
