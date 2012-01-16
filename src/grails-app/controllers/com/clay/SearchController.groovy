@@ -79,6 +79,7 @@ class SearchController {
             model["designs"] = []
         }
 
+
         render(view:"/design/list", model:model)
     }
 

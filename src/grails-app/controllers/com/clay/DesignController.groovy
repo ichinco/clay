@@ -105,8 +105,22 @@ class DesignController {
         }
 
         def model = [:]
-        model["design"] = design
+        model["designId"] = design.id
 
+        redirect(action:"edit", params:model)
+    }
+
+    @Secured(["ROLE_USER"])
+    def edit = {
+        def id = params.designId
+
+        if (!id){
+            throw new RuntimeException("missing parameter: design id")
+        }
+        Design design = Design.get(Long.parseLong(id))
+        def model = [:]
+        model["design"] = design
+        model["images"] = design.images.collect { "'" + it.url + "'" }.toListString()
         render(view:"create", model:model)
     }
 

@@ -50,9 +50,9 @@
     <g:form name="metaDesign" action="save" method="post">
         <g:hiddenField name="designId" value="${design.id}" />
         <label class="formLabel" for="title">title:</label>
-        <g:textField class="formInput" name="title" /><br />
+        <g:textField class="formInput" name="title" value="${design.title}" /><br />
         <label class="formLabel" for="description">description:</label>
-        <g:textArea class="formTextArea" name="description" rows="3" cols="50" /><br />
+        <g:textArea class="formTextArea" name="description" value="${design.description}" rows="3" cols="50" /><br />
     </g:form>
 
 
@@ -81,19 +81,24 @@
     </ul>
 <g:javascript>
     $(document).ready(function() {
+        var urls = ${images};
+        var createImageWithSrc = function(src){
+            var insertUL = $('#imageThumbTemplate').clone();
+
+            // change the url for the insert
+            insertUL.children("div").children("img").attr('src', src);
+
+            // insert the insertUL into the target
+            $('#uploadedImages').append(insertUL);
+        };
+
+        $.each(urls, function(i, url){
+            createImageWithSrc(url)
+        });
+
         $('#up').ajaxForm({
             success : function (responseText, statusText, xhr, $form) {
-
-                var uploadImgJSON = responseText;
-
-                var insertUL = $('#imageThumbTemplate').clone();
-
-                // change the url for the insert
-                insertUL.children("div").children("img").attr('src', uploadImgJSON.url);
-
-
-                // insert the insertUL into the target
-                $('#uploadedImages').append(insertUL);
+                createImageWithSrc(responseText.url)
             }
         });
     });
