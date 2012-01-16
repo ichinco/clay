@@ -15,7 +15,16 @@
 // convention being: the first imgObj is default (displayed as main) 
 //
 // can override the tagObj draw method
+var PublicImageCollectionArray = [];
+
 function TaggedImg(tagColObj) {
+    // rudimentary checks
+    if(tagColObj === null || tagColObj.length == 0)
+    {
+        alert("shit went down hard...");
+        return;
+    }
+
     var container = $('div.ticCont');
     var mainImage = $('div.ticMainImg');
     var tagContainer = $('div.ticTagCont');
@@ -113,7 +122,7 @@ function TaggedImg(tagColObj) {
         }
     }
 
-    mainImage.html("<img src='" + images[0]["url"] + "'>");
+    mainImage.html("<span></span><img class='galleryImage' src='" + images[0]["url"] + "'>");
 
     var displayDIV = $('<div class="ticImgSel"></div>');
     mainImage.append(displayDIV);

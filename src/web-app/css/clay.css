@@ -294,30 +294,16 @@ input[type="file"]
   box-shadow:         3px 2px 5px 0px #999;
 }
 
-.imageMain
-{
-    position: absolute;
-    top: 0px;
 
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-
-    border: #eee solid 1px;
-    background-color: white;
-
-    width: 800px;
-    height: 600px;
-
-    padding: 20px;
-    margin: 10px auto 10px auto;
-
-    visibility: hidden;
-}
 
 #ticContClose
 {
     position: relative;
     right: -760px;
     top: -15px;
+}
+
+#imageThumbTemplate
+{
+    display: none;
 }

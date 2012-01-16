@@ -80,20 +80,28 @@
         <button>remove</button>
     </ul>
 <g:javascript>
+    var numOfImages = 0;
+
     $(document).ready(function() {
         $('#up').ajaxForm({
             success : function (responseText, statusText, xhr, $form) {
+                PublicImageCollectionArray.push(responseText);
 
                 var uploadImgJSON = responseText;
-
                 var insertUL = $('#imageThumbTemplate').clone();
 
                 // change the url for the insert
-                insertUL.children("div").children("img").attr('src', uploadImgJSON.url);
-
+                insertUL.children("div").children("img").attr({'src': uploadImgJSON.url});
+                insertUL.css("display", "block");
+                insertUL.children("button:contains('tag')").click(function(evt){
+                    $('div.imageMain').css('visibility', 'visible');
+                    TaggedImg(PublicImageCollectionArray);
+                    //alert(PublicImageCollectionArray.length);
+                })
 
                 // insert the insertUL into the target
                 $('#uploadedImages').append(insertUL);
+                numOfImages++;
             }
         });
     });

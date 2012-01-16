@@ -5,8 +5,8 @@
 --%>
 
 <div class="imageMain shadow">
+    <button id="ticContClose">close</button>
     <div class="ticCont">
-        <button id="ticContClose">close</button>
         <div class="tic ticDisplay">
             <div class="tic ticMainImg"></div>
         </div>

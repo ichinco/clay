@@ -1,9 +1,23 @@
-.imageMain {
-    display:block;
-}
-
-.ticMainImg {
+.imageMain
+{
     position: absolute;
+    top: 0px;
+
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+
+    border: #eee solid 1px;
+    background-color: white;
+
+    width: 800px;
+    height: 600px;
+
+    padding: 20px;
+    margin: 10px auto 400px auto;
+
+    visibility: hidden;
+}
 }
 
 .tic {
@@ -26,10 +40,6 @@
     position: absolute;
 }
 
-img {
-    width: 600px;
-}
-
 .ticTagCont {
     display: block;
 }
@@ -42,7 +52,7 @@ img {
 }
 
 .ticImgBar {
-    display:block;
+    display: none;
 }
 
 .ticImgBn {
@@ -66,7 +76,7 @@ img {
 }
 
 .tagCntrl {
-    display:block;
+    display: block;
 }
 
 .ticBn {
@@ -98,6 +108,29 @@ img {
 .tagControl {
     border: #99eeff solid 1px;
     display: block;
+}
+
+.ticMainImg
+{
+    width: 500px;
+    height: 350px;
+    background-color: #eee;
+
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    top: -35px;
+    left: -10px;
+}
+
+.galleryImage
+{
+    max-width : 500px;
+    height: auto;
+    width: auto;
+    max-height: 350px;
+    position: relative;
 }
 
 #stopTag {

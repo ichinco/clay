@@ -13,6 +13,5 @@
         $(document).ready(function() {
             // just bring up nothing
 
-            //TagFrames(${images});
         });
     </script>
