@@ -23,6 +23,10 @@ class SearchController {
     def tagById = {
         def searchTagId = params.tagId
 
+        if (!searchTagId){
+            throw new RuntimeException("no tag id")
+        }
+
         Tag tag = Tag.get(Long.parseLong(searchTagId))
         def model = [:]
         if (tag){
@@ -43,6 +47,10 @@ class SearchController {
     def productById = {
         def productId = params.productId
 
+        if (!productId){
+            throw new RuntimeException("missing product id")
+        }
+
         Product product = Product.get(Long.parseLong(productId))
         def model = [:]
         if (product) {
@@ -52,5 +60,43 @@ class SearchController {
         }
         render(view:"/design/list", model:model)
 
+    }
+
+    def userById = {
+       def userId = params.userId
+
+        if (!userId){
+            throw new RuntimeException("no user id for search")
+        }
+
+        ClayUser user = ClayUser.get(Long.parseLong(userId))
+        def model = [:]
+        if (user){
+            model["designs"] = user.designs.find({
+                it.saved && !it.deleted
+            })
+        } else {
+            model["designs"] = []
+        }
+
+        render(view:"/design/list", model:model)
+    }
+
+    def commentsByUserId = {
+       def userId = params.userId
+
+        if (!userId){
+            throw new RuntimeException("no user id for search")
+        }
+
+        ClayUser user = ClayUser.get(Long.parseLong(userId))
+        def model = [:]
+        if (user){
+            model["comments"] = user.comments
+        } else {
+            model["comments"] = []
+        }
+
+        render(view:"/design/userCommentList", model:model)
     }
 }

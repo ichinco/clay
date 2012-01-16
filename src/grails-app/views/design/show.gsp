@@ -20,7 +20,7 @@
     <div style="float: left;">
         <g:render template="vote" model="[upvoteAction:'upvoteDesign',downvoteAction:'downvoteDesign', actionparams:[designId:design.id]]"/>
     </div>
-    <div>${design.title} by <div class="user inline">${design.user.username}</div></div>
+    <div>${design.title} by <g:link controller="search" action="userById" params="[userId:design.user.id]" class="user inline">${design.user.username}</g:link></div>
     <div>${design.description}</div>
 
     <g:render template="addTag" model="[designId:design.id, tags:design.tags, allowTag:true]" />
