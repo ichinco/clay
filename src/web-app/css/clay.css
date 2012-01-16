@@ -329,6 +329,6 @@ input[type="file"]
     top: -15px;
 }
 
-#passwordForm, #settingsForm {
+form {
     margin: 40px;
 }
