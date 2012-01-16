@@ -15,7 +15,7 @@
 
         <div class="designWrapper">
             <g:each in="${designs}" var="design" status="i">
-                <g:render template="design" model="[design:design]" />
+                <g:render template="/design/design" model="[design:design]" />
             </g:each>
         </div>
     </body>
