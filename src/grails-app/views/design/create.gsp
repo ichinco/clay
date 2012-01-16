@@ -63,13 +63,13 @@
         <g:submitButton name="submitButton" value="submit" />
     </g:form>
 
-    <g:submitButton name="saveDesign" value="save" />
+    <g:render template="addTag" model="[designId:design.id, tags:design.tags, allowTag:true]" />
+
     <ul id="uploadedImages"></ul>
 
     <g:render template="addImagePoint" model="[images:images]" />
-    
-    <jq:plugin name="form" />
 
+    <g:submitButton name="saveDesign" value="save" />
 
     <ul id='imageThumbTemplate'>
         <div class="thumbContainer">

@@ -14,6 +14,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <g:javascript library="application" />
         <g:javascript library="jquery" plugin="jquery"/>
+        <jq:plugin name="form" />
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css' />
         <link href="${resource(dir:'css', file:'clay.css')}" rel="stylesheet" type="text/css" />
         <g:layoutHead />

@@ -12,8 +12,12 @@ class SearchController {
 
         Tag tag = Tag.findByName(searchTag)
         def model = [:]
-        model["designs"] = tagService.findByTag(tag)
-        render(view:"design/list", model:model)
+        if (tag){
+            model["designs"] = tagService.findByTag(tag)
+        } else {
+            model["designs"] = [];
+        }
+        render(view:"/design/list", model:model)
     }
 
     def tagById = {
@@ -21,8 +25,12 @@ class SearchController {
 
         Tag tag = Tag.get(Long.parseLong(searchTagId))
         def model = [:]
-        model["designs"] = tagService.findByTag(tag)
-        render(view:"design/list", model:model)
+        if (tag){
+            model["designs"] = tagService.findByTag(tag)
+        } else {
+            model["designs"] = []
+        }
+        render(view:"/design/list", model:model)
     }
 
     def product = {
@@ -37,8 +45,12 @@ class SearchController {
 
         Product product = Product.get(Long.parseLong(productId))
         def model = [:]
-        model["designs"] = searchService.searchByProduct(product)
-        render(view:"design/list", model:model)
+        if (product) {
+            model["designs"] = searchService.searchByProduct(product)
+        } else {
+            model["designs"] = []
+        }
+        render(view:"/design/list", model:model)
 
     }
 }

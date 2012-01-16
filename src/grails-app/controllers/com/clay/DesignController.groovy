@@ -19,8 +19,8 @@ class DesignController {
 
     def list = {
         def designs = []
-        if (SavedDesign.count() > 0){
-            designs = SavedDesign.all;
+        if (Design.count() > 0){
+            designs = Design.findAllBySavedAndDeleted(true,false);
         }
 
         def model = [:]
@@ -32,7 +32,7 @@ class DesignController {
     def show = {
         int id = Integer.parseInt(params.id)
 
-        SavedDesign design = SavedDesign.get(id);
+        Design design = Design.get(id);
         Comment parentComment = new Comment();
         parentComment.id = 0
 
@@ -56,7 +56,7 @@ class DesignController {
     @Secured(["ROLE_USER"])
     def upload = {
         String designId = params.designId.toString()
-        UnsavedDesign design = UnsavedDesign.get(Long.parseLong(designId))
+        Design design = Design.get(Long.parseLong(designId))
         User user = (ClayUser) springSecurityService.currentUser
         if (user != design.user){
             flash.message = "cannot upload image to someone else's design."
@@ -96,7 +96,7 @@ class DesignController {
 
     @Secured(["ROLE_USER"])
     def create = {
-        UnsavedDesign design = new UnsavedDesign()
+        Design design = new Design()
         design.user = (ClayUser) springSecurityService.currentUser
         design.save()
 
@@ -128,23 +128,14 @@ class DesignController {
             throw new RuntimeException("missing design id")
         }
 
-        UnsavedDesign unsavedDesign = UnsavedDesign.get(Long.parseLong(params.designId))
-
-        SavedDesign design = new SavedDesign();
+        Design design = Design.get(Long.parseLong(params.designId))
         design.title = title
         design.description = description
-        design.images = unsavedDesign.images
-        design.user = (ClayUser) springSecurityService.currentUser
+        design.saved = true;
         design.save()
 
         if (!design.validate()){
             throw new RuntimeException(design.errors.toString());
-        }
-
-        unsavedDesign.delete();
-
-        if (!unsavedDesign.validate()){
-            throw new RuntimeException(unsavedDesign.errors.toString());
         }
 
         redirect(action:"list")
@@ -179,6 +170,8 @@ class DesignController {
 
         Tag tag = tagService.getTag(tagTypeId, tagName)
         tagService.tagDesign(tag, Design.get(designId))
+
+        render(contentType:"text/json") { tag }
     }
 
     @Secured(["ROLE_USER"])
