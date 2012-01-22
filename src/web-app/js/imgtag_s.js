@@ -136,9 +136,9 @@ function TaggedImg(tagColObj) {
 
     // render the close button
     $('#ticContClose').click(function(evt)
-        {
-            $(".imageMain").css("display", "none");
-        })
+    {
+        $(".imageMain").css("visibility", "hidden");
+    });
 
     return {
         "getSelectedNumber" : function() {

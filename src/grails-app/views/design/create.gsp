@@ -83,22 +83,23 @@
     var numOfImages = 0;
     var publicImageCollectionArray = [];
 
+    var createImageWithSrc = function(src){
+        var insertUL = $('#imageThumbTemplate').clone();
+
+        // change the url for the insert
+        insertUL.children("div").children("img").attr('src', src);
+        insertUL.css("display", "block");
+        insertUL.children("button.tag").click(function(evt){
+            $('div.imageMain').css('visibility', 'visible');
+            TaggedImg(publicImageCollectionArray);
+        })
+
+        // insert the insertUL into the target
+        $('#uploadedImages').append(insertUL);
+    };
+
     $(document).ready(function() {
         var urls = ${images};
-        var createImageWithSrc = function(src){
-            var insertUL = $('#imageThumbTemplate').clone();
-
-            // change the url for the insert
-            insertUL.children("div").children("img").attr('src', src);
-            insertUL.css("display", "block");
-            insertUL.children("button.tag").click(function(evt){
-                $('div.imageMain').css('visibility', 'visible');
-                TaggedImg(publicImageCollectionArray);
-            })
-
-            // insert the insertUL into the target
-            $('#uploadedImages').append(insertUL);
-        };
 
         $.each(urls, function(i, url){
             publicImageCollectionArray.push(url);
