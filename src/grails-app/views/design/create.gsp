@@ -76,7 +76,7 @@
             <span></span>
             <img class="thumb" />
         </div>
-        <button>tag</button>
+        <button class="tag">tag</button>
         <button>remove</button>
     </ul>
 <g:javascript>
@@ -90,9 +90,9 @@
             // change the url for the insert
             insertUL.children("div").children("img").attr('src', src);
             insertUL.css("display", "block");
-            insertUL.children("button:contains('tag')").click(function(evt){
+            insertUL.children("button.tag").click(function(evt){
                 $('div.imageMain').css('visibility', 'visible');
-                TaggedImg(PublicImageCollectionArray);
+                TaggedImg(publicImageCollectionArray);
                 //alert(PublicImageCollectionArray.length);
             })
 

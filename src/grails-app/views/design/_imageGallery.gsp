@@ -25,5 +25,11 @@
             <div id=clearBn class="ticBn">clear</div>
         </div>
     </div>
+
+    <g:javascript>
+        $("#ticContClose").click(function (){
+            $("div.imageMain").css('visibility','hidden');
+        });
+    </g:javascript>
 </div>
 

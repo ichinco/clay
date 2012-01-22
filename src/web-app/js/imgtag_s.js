@@ -15,7 +15,7 @@
 // convention being: the first imgObj is default (displayed as main) 
 //
 // can override the tagObj draw method
-var PublicImageCollectionArray = [];
+var publicImageCollectionArray = [];
 
 function TaggedImg(tagColObj) {
     // rudimentary checks
