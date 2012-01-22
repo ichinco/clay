@@ -15,13 +15,12 @@
 // convention being: the first imgObj is default (displayed as main) 
 //
 // can override the tagObj draw method
-var publicImageCollectionArray = [];
 
 function TaggedImg(tagColObj) {
     // rudimentary checks
     if(tagColObj === null || tagColObj.length == 0)
     {
-        alert("shit went down hard...");
+        console.log("shit went down hard...");
         return;
     }
 

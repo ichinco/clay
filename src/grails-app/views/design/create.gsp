@@ -81,6 +81,7 @@
     </ul>
 <g:javascript>
     var numOfImages = 0;
+    var publicImageCollectionArray = [];
 
     $(document).ready(function() {
         var urls = ${images};
@@ -93,7 +94,6 @@
             insertUL.children("button.tag").click(function(evt){
                 $('div.imageMain').css('visibility', 'visible');
                 TaggedImg(publicImageCollectionArray);
-                //alert(PublicImageCollectionArray.length);
             })
 
             // insert the insertUL into the target
@@ -101,11 +101,13 @@
         };
 
         $.each(urls, function(i, url){
-            createImageWithSrc(url)
+            publicImageCollectionArray.push(url);
+            createImageWithSrc(url.url)
         });
 
         $('#up').ajaxForm({
             success : function (responseText, statusText, xhr, $form) {
+                publicImageCollectionArray.push(responseText);
                 createImageWithSrc(responseText.url)
             }
         });

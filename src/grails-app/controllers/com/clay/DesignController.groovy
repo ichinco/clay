@@ -120,7 +120,7 @@ class DesignController {
         Design design = Design.get(Long.parseLong(id))
         def model = [:]
         model["design"] = design
-        model["images"] = design.images.collect { "'" + it.url + "'" }.toListString()
+        model["images"] = design.images.collect { it as JSON }.toListString()
         render(view:"create", model:model)
     }
 
