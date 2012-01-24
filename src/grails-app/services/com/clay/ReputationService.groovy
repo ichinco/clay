@@ -17,6 +17,10 @@ class ReputationService {
         action.type = type
         action.vote = vote
         action.save()
+
+        if (!action.validate()){
+            throw new RuntimeException(action.errors.toString())
+        }
     }
 
     def awardPointsForCommentUpvote(User user, Vote vote) {

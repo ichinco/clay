@@ -31,6 +31,10 @@ class UserSupportTicketController {
         ticket.ticketStatus = "UNANSWERED"
         ticket.save()
 
+        if (!ticket.validate()){
+            throw new RuntimeException(ticket.errors.toString())
+        }
+
         redirect (action:"ticketFiled.gsp")
     }
 
@@ -45,6 +49,10 @@ class UserSupportTicketController {
         ticket.email = email
         ticket.ticketStatus = "UNANSWERED"
         ticket.save()
+
+        if (!ticket.validate()){
+            throw new RuntimeException(ticket.errors.toString())
+        }
 
         redirect (action:"ticketFiled.gsp")
     }

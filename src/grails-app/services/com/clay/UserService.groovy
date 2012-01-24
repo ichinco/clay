@@ -23,6 +23,10 @@ class UserService {
         user.enabled = true
         user.save()
 
+        if (!user.validate()){
+            throw new RuntimeException(user.errors.toString())
+        }
+
         return user
     }
 
@@ -31,5 +35,9 @@ class UserService {
         ur.user = user
         ur.role = Role.findByAuthority(role)
         ur.save()
+
+        if (!ur.validate()){
+            throw new RuntimeException(ur.errors.toString())
+        }
     }
 }

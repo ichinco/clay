@@ -62,6 +62,10 @@ class UserController {
         ClayUser user = (ClayUser) springSecurityService.currentUser
         user.email = email
         user.save(flush:true)
+
+        if (!user.validate()){
+            throw new RuntimeException(user.errors.toString())
+        }
         redirect(controller:"design", action:"list")
     }
 
@@ -70,6 +74,10 @@ class UserController {
         ClayUser user = (ClayUser) springSecurityService.currentUser
         user.password = password
         user.save(flush:true)
+
+        if (!user.validate()){
+            throw new RuntimeException(user.errors.toString())
+        }
         redirect(controller:"design", action:"list")
     }
 }

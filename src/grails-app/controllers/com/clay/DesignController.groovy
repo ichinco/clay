@@ -168,10 +168,18 @@ class DesignController {
         comment.parent = Comment.get(parentId)
         comment.save()
 
+        if (!comment.validate()){
+            throw new RuntimeException(comment.errors.toString())
+        }
+
         Design design = Design.get(designId);
         if (design.comments == null) design.comments = []
         design.comments.add(comment)
         design.save()
+
+        if (!design.validate()){
+            throw new RuntimeException(design.errors.toString())
+        }
 
         redirect(action:"show", params:[id:designId])
     }

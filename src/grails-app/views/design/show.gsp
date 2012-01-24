@@ -15,7 +15,7 @@
 <body>
 
 <div class="designShow">
-    <g:render template="imageGallery" />
+    <g:render template="imageDisplay" />
 
     <div style="float: left;">
         <g:render template="vote" model="[upvoteAction:'upvoteDesign',downvoteAction:'downvoteDesign', actionparams:[designId:design.id]]"/>

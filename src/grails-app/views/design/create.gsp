@@ -95,7 +95,7 @@
         insertUL.css("display", "block");
         insertUL.children("button.tag").click(function(evt){
             $('div.imageMain').css('visibility', 'visible');
-        })
+        });
 
         // insert the insertUL into the target
         $('#uploadedImages').append(insertUL);

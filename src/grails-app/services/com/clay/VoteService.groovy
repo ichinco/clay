@@ -19,6 +19,10 @@ class VoteService {
         vote.type = up
         vote.save()
 
+        if (!vote.validate()){
+            throw new RuntimeException(vote.errors.toString())
+        }
+
         return vote
     }
 
@@ -31,6 +35,10 @@ class VoteService {
         }
         vote.type = down
         vote.save()
+
+        if (!vote.validate()){
+            throw new RuntimeException(vote.errors.toString())
+        }
 
         return vote
     }
@@ -45,6 +53,10 @@ class VoteService {
         vote.type = up
         vote.save()
 
+        if (!vote.validate()){
+            throw new RuntimeException(vote.errors.toString())
+        }
+
         return vote
     }
 
@@ -57,6 +69,10 @@ class VoteService {
         }
         vote.type = up
         vote.save()
+
+        if (!vote.validate()){
+            throw new RuntimeException(vote.errors.toString())
+        }
 
         return vote
     }

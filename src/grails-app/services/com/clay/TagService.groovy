@@ -15,7 +15,7 @@ class TagService {
             tag.save()
 
             if (!tag.validate()){
-                return null;
+                throw new RuntimeException(tag.errors.toString())
             }
         }
 
