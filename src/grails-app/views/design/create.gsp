@@ -63,12 +63,16 @@
         <g:submitButton name="submitButton" value="submit" />
     </g:form>
 
+    <div class="formLabel"></div>
     <g:render template="addTag" model="[designId:design.id, tags:design.tags, allowTag:true]" />
 
+    <div class="formLabel"></div>
     <ul id="uploadedImages"></ul>
 
+    <div class="formLabel"></div>
     <g:render template="addImagePoint" model="[images:images]" />
 
+    <div class="formLabel"></div>
     <g:submitButton name="saveDesign" value="save" />
 
     <ul id='imageThumbTemplate'>
@@ -91,7 +95,6 @@
         insertUL.css("display", "block");
         insertUL.children("button.tag").click(function(evt){
             $('div.imageMain').css('visibility', 'visible');
-            TaggedImg(publicImageCollectionArray);
         })
 
         // insert the insertUL into the target
@@ -112,6 +115,8 @@
                 createImageWithSrc(responseText.url)
             }
         });
+
+        TagFrames(publicImageCollectionArray);
     });
 
     $("#saveDesign").click(function(){
