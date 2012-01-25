@@ -9,7 +9,7 @@
 		<form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
 			<p>
 				<label class="formLabel" for='username'><g:message code="springSecurity.login.username.label"/>:</label>
-				<input type='text' class='formLabel' name='j_username' id='username'/>
+				<input type='text' class='formInput' name='j_username' id='username'/>
 			</p>
 
 			<p>

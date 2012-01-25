@@ -29,8 +29,9 @@
 <g:javascript >
     $("#categoryTag").ajaxForm({
             success : function (responseText, statusText, xhr, $form) {
-
+                $("#tagName").val("");
                 var tagUL = $("#categoryTagTemplate").clone();
+                tagUL.css("visibility", "visible");
 
                 tagUL.html(responseText.name);
 

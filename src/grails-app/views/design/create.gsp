@@ -63,12 +63,16 @@
         <g:submitButton name="submitButton" value="submit" />
     </g:form>
 
+    <div class="formLabel"></div>
     <g:render template="addTag" model="[designId:design.id, tags:design.tags, allowTag:true]" />
 
+    <div class="formLabel"></div>
     <ul id="uploadedImages"></ul>
 
+    <div class="formLabel"></div>
     <g:render template="addImagePoint" model="[images:images]" />
 
+    <div class="formLabel"></div>
     <g:submitButton name="saveDesign" value="save" />
 
     <ul id='imageThumbTemplate'>
@@ -76,39 +80,43 @@
             <span></span>
             <img class="thumb" />
         </div>
-        <button>tag</button>
+        <button class="tag">tag</button>
         <button>remove</button>
     </ul>
 <g:javascript>
     var numOfImages = 0;
+    var publicImageCollectionArray = [];
+
+    var createImageWithSrc = function(src){
+        var insertUL = $('#imageThumbTemplate').clone();
+
+        // change the url for the insert
+        insertUL.children("div").children("img").attr('src', src);
+        insertUL.css("display", "block");
+        insertUL.children("button.tag").click(function(evt){
+            $('div.imageMain').css('visibility', 'visible');
+        })
+
+        // insert the insertUL into the target
+        $('#uploadedImages').append(insertUL);
+    };
 
     $(document).ready(function() {
         var urls = ${images};
-        var createImageWithSrc = function(src){
-            var insertUL = $('#imageThumbTemplate').clone();
-
-            // change the url for the insert
-            insertUL.children("div").children("img").attr('src', src);
-            insertUL.css("display", "block");
-            insertUL.children("button:contains('tag')").click(function(evt){
-                $('div.imageMain').css('visibility', 'visible');
-                TaggedImg(PublicImageCollectionArray);
-                //alert(PublicImageCollectionArray.length);
-            })
-
-            // insert the insertUL into the target
-            $('#uploadedImages').append(insertUL);
-        };
 
         $.each(urls, function(i, url){
-            createImageWithSrc(url)
+            publicImageCollectionArray.push(url);
+            createImageWithSrc(url.url)
         });
 
         $('#up').ajaxForm({
             success : function (responseText, statusText, xhr, $form) {
+                publicImageCollectionArray.push(responseText);
                 createImageWithSrc(responseText.url)
             }
         });
+
+        TagFrames(publicImageCollectionArray);
     });
 
     $("#saveDesign").click(function(){
