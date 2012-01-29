@@ -28,6 +28,8 @@ $(document).ready(
 
       var initialCreateEventHandlers = [];
       var resizeEventHandlers = [];
+      var moveEndEventHandlers = []
+      var moveEventHandlers = [];
 
       wireFrameCanvases.css("cursor", "crosshair");
       wireFrameCanvases.addClass('wireFrameCanvas');
@@ -95,12 +97,18 @@ $(document).ready(
       {
 	 // add a resize at the bottom-right
 	 var resizeHandle = $('<div class="resizeButton"></div>');
-	 var wireFramePosition = wireFrame.position();
+	 function updateResizeHandlePosition()
+	 {
+	    var wireFramePosition = wireFrame.position();
+	    resizeHandle.css({"left": 
+		  String(wireFramePosition.left + wireFrame.width()) + "px",
+	       "top": String(wireFramePosition.top + wireFrame.height()) + "px"});
+
+
+	 }
 
 	 wireFrameCanvases.append(resizeHandle);
-	 resizeHandle.css({"left": 
-	       String(wireFramePosition.left + wireFrame.width()) + "px",
-	    "top": String(wireFramePosition.top + wireFrame.height()) + "px"});
+	 updateResizeHandlePosition();
 
 	 resizeHandle.mousedown(function(evt)
 	    {
@@ -149,11 +157,64 @@ $(document).ready(
 	       $(document).mousemove(documentMouseMove);
 	       $(window).mouseup(windowMouseUp);
 	    });
+
+	 moveEventHandlers.push(function(wireFrameInfo)
+	    {
+	       updateResizeHandlePosition();
+	    });
       }
 
       function enableWireFrameMove(wireFrame)
       {
+	 wireFrame.css("cursor", "move");
 
+	 function wireFrameMouseDown(evt)
+	 {
+	    var initialX = evt.pageX;
+	    var initialY = evt.pageY;
+	    var wireFramePosition = wireFrame.position();
+
+	    var initialWireFrameLeft = wireFramePosition.left;
+	    var initialWireFrameTop = wireFramePosition.top;
+
+	    evt.preventDefault();
+
+	    function documentMouseMove(evt)
+	    {
+	       var newLeft = initialWireFrameLeft + evt.pageX - initialX;
+	       var newTop = initialWireFrameTop + evt.pageY - initialY;
+
+	       wireFrame.css({ "left": String(newLeft) + "px",
+	          "top": String(newTop) + "px"});
+
+	       var wireFrameOffset = wireFrame.offset();
+	       wireFrameInfo = {"left": wireFrameOffset.left,
+		  "top": wireFrameOffset.top,
+		  "width": wireFrame.width(),
+		  "height": wireFrame.height()};
+	       $.each(moveEventHandlers, function(index, value)
+		  { value(wireFrameInfo); });
+	    }
+
+	    function windowMouseUp(evt)
+	    {
+	       $(document).off("mousemove", documentMouseMove);
+	       $(window).off("mouseup", windowMouseUp);
+
+	       var wireFrameOffset = wireFrame.offset();
+	       wireFrameInfo = {"left": wireFrameOffset.left,
+		  "top": wireFrameOffset.top,
+		  "width": wireFrame.width(),
+		  "height": wireFrame.height()};
+	       $.each(moveEndEventHandlers, function(index, value)
+		  { value(wireFrameInfo); });
+	    }
+
+	    $(document).mousemove(documentMouseMove);
+	    $(window).mouseup(windowMouseUp);
+	 }
+
+	 wireFrame.mousedown(wireFrameMouseDown);
       }
 
       initialCreateEventHandlers.push(function(wireFrameInfo)
@@ -161,6 +222,7 @@ $(document).ready(
 	 disableWireFrame();
 	 wireFrameCanvases.css('cursor', 'default');
 	 enableResize(wireFrame);
+	 enableWireFrameMove(wireFrame);
       });
    }
 );
