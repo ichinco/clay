@@ -26,6 +26,7 @@ $(document).ready(
 	 "height": 0
       };
 
+      var initialCreateEventHandlers = [];
       var resizeEventHandlers = [];
 
       wireFrameCanvases.css("cursor", "crosshair");
@@ -78,33 +79,88 @@ $(document).ready(
 		  "width": wireFrame.width(),
 		  "height": wireFrame.height()};
 
-	       for(var i = 0; i < resizeEventHandlers.length; i++)
-	       {
-		  resizeEventHandlers[i](wireFrameInfo);
-	       }
+	       $.each(initialCreateEventHandlers, function(index, value)
+		  { value(wireFrameInfo); });
 	    }
 
 	    $(window).mouseup(windowMouseUp);
 	 });
 
-         function disableWireFrame()
-	 {
-	    wireFrameEnabled = false;
-	 }
+      function disableWireFrame()
+      {
+	 wireFrameEnabled = false;
+      }
 
+      function enableResize(wireFrame)
+      {
+	 // add a resize at the bottom-right
+	 var resizeHandle = $('<div class="resizeButton"></div>');
+	 var wireFramePosition = wireFrame.position();
 
-         function enableResize(wireFrame)
-	 {
-	    var resizeBottom = $('<div></div>');
-	    var resizeRight = $('<div></div>');
-	 }
+	 wireFrameCanvases.append(resizeHandle);
+	 resizeHandle.css({"left": 
+	       String(wireFramePosition.left + wireFrame.width()) + "px",
+	    "top": String(wireFramePosition.top + wireFrame.height()) + "px"});
 
-	 var myFun = function(wireFrame){alert("");};
+	 resizeHandle.mousedown(function(evt)
+	    {
+	       var initialX = evt.pageX;
+	       var initialY = evt.pageY;
+	       var initialWidth = wireFrame.width();
+	       var initialHeight = wireFrame.height();
 
-	 resizeEventHandlers.push(function(wireFrameInfo)
-	 {
-	    disableWireFrame();
-	    wireFrameCanvases.css('cursor', 'default');
-	 });
+	       evt.preventDefault();
+
+	       function documentMouseMove(evt)
+	       {
+		  var newWidth = initialWidth + evt.pageX - initialX;
+		  var newHeight = initialHeight + evt.pageY - initialY;
+		  wireFramePosition = wireFrame.position();
+
+		  if(newWidth > 0)
+		  {
+		     wireFrame.css("width", String(newWidth) + "px");
+		     resizeHandle.css("left", String(wireFramePosition.left + 
+			wireFrame.width()) + "px");
+		  }
+		  if(newHeight > 0)
+		  {
+		     wireFrame.css("height", String(newHeight) + "px");
+		     resizeHandle.css("top", String(wireFramePosition.top + 
+			wireFrame.height()) + "px");
+		  }
+	       }
+
+	       function windowMouseUp(evt)
+	       {
+		  $(document).off("mousemove", documentMouseMove);
+		  $(window).off("mouseup", windowMouseUp);
+		  var wireFrameOffset = wireFrame.offset();
+
+		  wireFrameInfo = {"left": wireFrameOffset.left,
+		     "top": wireFrameOffset.top,
+		     "width": wireFrame.width(),
+		     "height": wireFrame.height()};
+
+		  $.each(resizeEventHandlers, function(index, value)
+		     { value(wireFrameInfo); });
+	       }
+
+	       $(document).mousemove(documentMouseMove);
+	       $(window).mouseup(windowMouseUp);
+	    });
+      }
+
+      function enableWireFrameMove(wireFrame)
+      {
+
+      }
+
+      initialCreateEventHandlers.push(function(wireFrameInfo)
+      {
+	 disableWireFrame();
+	 wireFrameCanvases.css('cursor', 'default');
+	 enableResize(wireFrame);
+      });
    }
 );
