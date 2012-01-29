@@ -40,7 +40,6 @@ $(document).ready(
 	    evt.preventDefault();
 
 	    var eventTarget = (evt.srcElement)? evt.srcElement : evt.target;
-	    var curWireFrame = eventTarget.children(".wireFrame");
 
 	    var targetOffset = $(eventTarget).offset();
 	    //var bodyOffset = $(document.body).offset();
