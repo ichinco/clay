@@ -111,3 +111,19 @@ clay.reputation.designDown = "DESIGN_DOWN"
 
 clay.vote.up = "UP"
 clay.vote.down = "DOWN"
+
+clay.facebook.appId = "315482448486796"
+clay.facebook.secret = "26c78b6e258e86979afc15a8a571d580"
+clay.facebook.redirectUrl = "http://localhost:8080/src/facebook/login"
+clay.facebook.login = "https://www.facebook.com/dialog/oauth?client_id=[APPID]&redirect_uri=[REDIRECTURL]"
+clay.facebook.authentication = "https://graph.facebook.com/oauth/access_token?client_id=[APPID]&redirect_uri=[REDIRECTURL]&client_secret=[SECRET]&code=[CODE]"
+clay.facebook.share = "http://www.facebook.com/dialog/feed?app_id=[APPID]&redirect_uri=[REDIRECTURL]&display=popup"
+clay.facebook.user = "https://graph.facebook.com/[ID]?access_token=[ACCESS]&fields=id,name,email,birthday"
+clay.facebook.friends = "https://graph.facebook.com/[ID]/friends?access_token=[ACCESS]"
+
+grails.plugins.springsecurity.facebook.appId='315482448486796'
+grails.plugins.springsecurity.facebook.secret='26c78b6e258e86979afc15a8a571d580'
+grails.plugins.springsecurity.facebook.bean.dao='facebookAuthDaoImpl'
+
+grails.plugins.springsocial.facebook.clientId='315482448486796'
+grails.plugins.springsocial.facebook.clientSecret='26c78b6e258e86979afc15a8a571d580'

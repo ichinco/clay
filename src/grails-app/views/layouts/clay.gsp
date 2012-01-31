@@ -35,6 +35,7 @@
                 <g:link controller="logout">logout</g:link>
             </g:if>
             <g:else >
+                <facebookAuth:connect permissions="email,user_birthday"/>
                 <g:link controller="login" action="create.gsp">register</g:link> |
                 <g:link controller="design" action="signedInList">log in</g:link>
             </g:else>
