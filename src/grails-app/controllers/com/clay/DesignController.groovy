@@ -9,6 +9,7 @@ class DesignController {
     def springSecurityService
     def tagService
     def imageService
+    def facebookService
 
     def index = { }
 
@@ -49,6 +50,8 @@ class DesignController {
                  product: [name:pt.product.name, url:pt.product.url]]
              }]
         }
+
+        model['shareUrl'] = facebookService.getFacebookShareUrl(g.link(controller:"design", action:"show", params:["id":id], absolute:true).toString())
 
         return model
     }

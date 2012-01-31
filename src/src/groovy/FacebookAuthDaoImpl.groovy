@@ -85,7 +85,6 @@ class FacebookAuthDaoImpl implements FacebookAuthDao<FacebookUser>  {
      * @param user updates used details
      */
     void update(FacebookUser user) {
-        //TODO change regarding your domains structure
         FacebookUser.withTransaction {
             user.save()
         }
@@ -112,7 +111,6 @@ class FacebookAuthDaoImpl implements FacebookAuthDao<FacebookUser>  {
      * @return roles for user
      */
     Collection<GrantedAuthority> getRoles(FacebookUser user) {
-        //TODO change regarding your domains structure
         Collection<GrantedAuthority> roles = []
         FacebookUser.withTransaction {
             user.attach()

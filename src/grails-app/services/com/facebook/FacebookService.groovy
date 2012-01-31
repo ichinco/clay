@@ -62,9 +62,8 @@ class FacebookService {
         return FACEBOOK_AUTH.replace("[CODE]", code)
     }
 
-    def getFacebookShareUrl(String id, String access){
-        return FACEBOOK_SHARE.replace("[ID]", id)
-                             .replace("[ACCESS]", access);
+    def getFacebookShareUrl(String redirect){
+        return FACEBOOK_SHARE.replace("[REDIRECTURL]", redirect);
     }
 
     def getFacebookUserUrl(String id, String access){
@@ -92,7 +91,6 @@ class FacebookService {
                                        .replace("[REDIRECTURL]", redirectUrl)
 
         FACEBOOK_SHARE = shareUrl.replace("[APPID]", appId)
-                                 .replace("[REDIRECTURL]", redirectUrl)
 
         FACEBOOK_USER = GrailsConfig.clay.facebook.user
         FACEBOOK_FRIENDS = GrailsConfig.clay.facebook.friends

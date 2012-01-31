@@ -26,6 +26,8 @@
     <g:render template="addTag" model="[designId:design.id, tags:design.tags, allowTag:true]" />
 
     <g:render template="comment" model="[currentComment:null, comments:design.comments, designId:design.id]"/>
+
+    <g:link url="${shareUrl}">Share on facebook</g:link>
 </div>
 
 <div id="replyForm" style="display: none;">
