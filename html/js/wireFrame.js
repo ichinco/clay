@@ -72,7 +72,7 @@ $(document).ready(
 	    function windowMouseUp(evt)
 	    {
 	       $(document).off('mousemove', documentMouseMove);
-	       $(window).off('mouseup', windowMouseUp);
+	       $(document).off('mouseup', windowMouseUp);
 	       var wireFrameOffset = wireFrame.offset();
 
 	       wireFrameInfo = {"left": wireFrameOffset.left,
@@ -84,7 +84,7 @@ $(document).ready(
 		  { value(wireFrameInfo); });
 	    }
 
-	    $(window).mouseup(windowMouseUp);
+	    $(document).mouseup(windowMouseUp);
 	 });
 
       function disableWireFrame()
@@ -141,7 +141,7 @@ $(document).ready(
 	       function windowMouseUp(evt)
 	       {
 		  $(document).off("mousemove", documentMouseMove);
-		  $(window).off("mouseup", windowMouseUp);
+		  $(document).off("mouseup", windowMouseUp);
 		  var wireFrameOffset = wireFrame.offset();
 
 		  wireFrameInfo = {"left": wireFrameOffset.left,
@@ -154,7 +154,7 @@ $(document).ready(
 	       }
 
 	       $(document).mousemove(documentMouseMove);
-	       $(window).mouseup(windowMouseUp);
+	       $(document).mouseup(windowMouseUp);
 	    });
 
 	 moveEventHandlers.push(function(wireFrameInfo)
@@ -198,7 +198,7 @@ $(document).ready(
 	    function windowMouseUp(evt)
 	    {
 	       $(document).off("mousemove", documentMouseMove);
-	       $(window).off("mouseup", windowMouseUp);
+	       $(document).off("mouseup", windowMouseUp);
 
 	       var wireFrameOffset = wireFrame.offset();
 	       wireFrameInfo = {"left": wireFrameOffset.left,
@@ -210,7 +210,7 @@ $(document).ready(
 	    }
 
 	    $(document).mousemove(documentMouseMove);
-	    $(window).mouseup(windowMouseUp);
+	    $(document).mouseup(windowMouseUp);
 	 }
 
 	 wireFrame.mousedown(wireFrameMouseDown);
