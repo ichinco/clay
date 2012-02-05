@@ -13,6 +13,17 @@ class BootStrap {
 
     def init = { servletContext ->
 
+        File directory = new File("./web-app/designs/");
+
+        File[] files = directory.listFiles();
+        for (File file : files)
+        {
+           if (!file.delete())
+           {
+               log.error("Failed to delete "+file);
+           }
+        }
+
         new Role(authority:GrailsConfig.clay.role.admin).save(flush:true)
         new Role(authority:GrailsConfig.clay.role.user).save(flush:true)
         new Role(authority:GrailsConfig.clay.role.moderator).save(flush:true)
@@ -35,15 +46,6 @@ class BootStrap {
         designService.createDesignCache()
     }
     def destroy = {
-        File directory = new File("./web-app/designs/");
 
-        File[] files = directory.listFiles();
-        for (File file : files)
-        {
-           if (!file.delete())
-           {
-               log.error("Failed to delete "+file);
-           }
-        }
     }
 }

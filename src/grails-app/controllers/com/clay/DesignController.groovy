@@ -25,11 +25,13 @@ class DesignController {
         String name = designService.getMostRecentDesignListName()
         List<Design> designList = designService.getDesignList(name)
 
+        int count = 20
+
         def model = [:]
         model["listName"] = name
-        model["designs"] = designList.subList(0, Math.min(designList.size(),20))
-        model["listIndex"] = 0
-        model["listCount"] = 20
+        model["designs"] = designList.subList(0, Math.min(designList.size(),count))
+        model["listIndex"] = count
+        model["listCount"] = count
 
         return model
     }
@@ -38,7 +40,7 @@ class DesignController {
         String name = params.listName
         int index = Integer.parseInt(params.listIndex)
         int count = Integer.parseInt(params.listCount)
-        count = Math.max(count, 100) //that's the most we'll give at one time
+        count = Math.min(count, 100) //that's the most we'll give at one time
 
         List<Design> designList = designService.getDesignList(name)
 
@@ -47,13 +49,17 @@ class DesignController {
             designList = designService.getDesignList(name)
         }
 
-        def model = [:]
-        model["listName"] = name
-        model["designs"] = designList.subList(index, Math.min(designList.size(),index+count))
-        model["listIndex"] = index+count
-        model["listCount"] = count
+        if (index > designList.size()){
+            render("")
+        } else {
+            def model = [:]
+            model["listName"] = name
+            model["designs"] = designList.subList(index, Math.min(designList.size(),index+count))
+            model["listIndex"] = index+count
+            model["listCount"] = count
 
-        render(template:"designList", model:model)
+            render(template:"designList", model:model)
+        }
     }
 
     def show = {

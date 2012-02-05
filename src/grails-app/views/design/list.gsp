@@ -19,19 +19,17 @@
 
         <g:javascript>
             $(document).scroll(function(){
-                if($(this).scrollTop()>=($(document).height*.8) && $("#nextChunk")){
+                if($(this).scrollTop()>=($(this).height()*.5) && $("#nextChunk")){
                     $("#nextChunk").ajaxSubmit({
                         success: function(responseText, statusText, xhr, $form){
                             $(".designWrapper").append(responseText);
                         },
-                        showRequest: function(formData, jqForm, options){
-                            $(".designWrapper").remove("#nextChunk");
+                        beforeSubmit: function(formData, jqForm, options){
+                            $("#nextChunk").remove();
                         }
                     });
                 }
-            })
-
-
+            });
         </g:javascript>
     </body>
 </html>
