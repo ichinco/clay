@@ -10,8 +10,4 @@ class Vote {
 
     static constraints = {
     }
-
-    static mapping = {
-        tablePerHierarchy false
-    }
 }

@@ -9,6 +9,7 @@ import com.clay.TagType
 class BootStrap {
 
     def userService
+    def designService
 
     def init = { servletContext ->
 
@@ -30,7 +31,19 @@ class BootStrap {
         new VoteType(name:GrailsConfig.clay.vote.down).save(flush:true)
 
         new TagType(name:'design').save(flush:true)
+
+        designService.createDesignCache()
     }
     def destroy = {
+        File directory = new File("./web-app/designs/");
+
+        File[] files = directory.listFiles();
+        for (File file : files)
+        {
+           if (!file.delete())
+           {
+               log.error("Failed to delete "+file);
+           }
+        }
     }
 }

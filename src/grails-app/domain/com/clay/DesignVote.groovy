@@ -7,4 +7,8 @@ class DesignVote extends Vote {
     static constraints = {
         design(unique:'user', nullable:false)
     }
+
+    static mapping = {
+        discriminator "design"
+    }
 }

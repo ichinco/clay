@@ -7,4 +7,8 @@ class CommentVote extends Vote {
     static constraints = {
         comment(unique:'user', nullable:false)
     }
+
+    static mapping = {
+        discriminator "comment"
+    }
 }

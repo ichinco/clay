@@ -10,6 +10,9 @@ class DesignController {
     def tagService
     def imageService
     def facebookService
+    def cacheService
+    def designService
+    def voteService
 
     def index = { }
 
@@ -19,15 +22,38 @@ class DesignController {
     }
 
     def list = {
-        def designs = []
-        if (Design.count() > 0){
-            designs = Design.findAllBySavedAndDeleted(true,false);
+        String name = designService.getMostRecentDesignListName()
+        List<Design> designList = designService.getDesignList(name)
+
+        def model = [:]
+        model["listName"] = name
+        model["designs"] = designList.subList(0, Math.min(designList.size(),20))
+        model["listIndex"] = 0
+        model["listCount"] = 20
+
+        return model
+    }
+
+    def nextListChunk = {
+        String name = params.listName
+        int index = Integer.parseInt(params.listIndex)
+        int count = Integer.parseInt(params.listCount)
+        count = Math.max(count, 100) //that's the most we'll give at one time
+
+        List<Design> designList = designService.getDesignList(name)
+
+        if (!designList){
+            name = designService.getMostRecentDesignListName()
+            designList = designService.getDesignList(name)
         }
 
         def model = [:]
-        model["designs"] = designs
+        model["listName"] = name
+        model["designs"] = designList.subList(index, Math.min(designList.size(),index+count))
+        model["listIndex"] = index+count
+        model["listCount"] = count
 
-        return model
+        render(template:"designList", model:model)
     }
 
     def show = {
@@ -154,6 +180,10 @@ class DesignController {
         if (!design.validate()){
             throw new RuntimeException(design.errors.toString());
         }
+
+        voteService.designUp(design.user, design)
+
+        designService.createDesignCache()
 
         redirect(action:"list")
     }

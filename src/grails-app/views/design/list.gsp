@@ -14,9 +14,24 @@
     <body>
 
         <div class="designWrapper">
-            <g:each in="${designs}" var="design" status="i">
-                <g:render template="/design/design" model="[design:design]" />
-            </g:each>
+            <g:render template="designList" model="[designs:designs]" />
         </div>
+
+        <g:javascript>
+            $(document).scroll(function(){
+                if($(this).scrollTop()>=($(document).height*.8) && $("#nextChunk")){
+                    $("#nextChunk").ajaxSubmit({
+                        success: function(responseText, statusText, xhr, $form){
+                            $(".designWrapper").append(responseText);
+                        },
+                        showRequest: function(formData, jqForm, options){
+                            $(".designWrapper").remove("#nextChunk");
+                        }
+                    });
+                }
+            })
+
+
+        </g:javascript>
     </body>
 </html>
