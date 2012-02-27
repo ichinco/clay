@@ -12,7 +12,7 @@
                 <g:render template="vote" model="[upvoteAction:'upvoteComment', downvoteAction:'downvoteComment', actionparams:[commentId:currentComment.id]]" />
             </div>
             <div class="commentHeader">
-                <g:link controller="search" action="commentsByUserId" params="[userId:currentComment.user.id]" class="inline user">${currentComment.user.username}</div>
+                <g:link controller="search" action="commentsByUserId" params="[userId:currentComment.user.id]" class="inline user">${currentComment.user.username}</g:link>
                 <div class="commentDate">
                     <g:formatDate date="${currentComment.lastUpdated}" format="MM/dd/yyyy hh:mma" />
                 </div>
@@ -35,7 +35,6 @@
                         {
                             var insertForm = $('#replyForm').children('form').clone();
                             target.before(insertForm);
-                            insertForm.children('.designId').attr('value','${designId}');
                             insertForm.children('.parentId').attr('value',
                                 '${currentComment ? currentComment.id : 0}');
                         }

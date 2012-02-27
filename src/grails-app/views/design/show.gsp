@@ -30,10 +30,10 @@
     <g:link url="${shareUrl}">Share on facebook</g:link>
 </div>
 
-<div id="replyForm" style="display: none;">
+<div id="replyForm">
     <g:form class="comment" controller="design" action="comment" method="POST">
-        <g:hiddenField class="designId" name="designId" value=""/>
-        <g:hiddenField class="parentId" name="parentId" value=""/>
+        <g:hiddenField class="designId" name="designId" value="${design.id}"/>
+        <g:hiddenField class="parentId" name="parentId" value="0"/>
         <g:textArea name="commentText" rows="5" cols="50"/> <br/>
         <g:submitButton class="submitButton" name="submitButton" value="submit"/>
     </g:form>
