@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+   "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>
@@ -56,18 +56,18 @@ a
    visibility: hidden;
 }
 
-.fullImage
+#fullImage
 {
    display: none;
    position: relative;
    background-color: #999;
-   top: 0px;
-   left: 0px;
+   margin-left: auto;
+   margin-right: auto;
 
    max-height: 500px;
    width: auto;
    max-width: 610px;
-   height: auto;   
+   height: auto;
 }
 
 .spaceFiller
@@ -240,7 +240,7 @@ a.addPointButton:hover
 
 .imageThumb
 {
-   display: inline-block;
+   display: none;
    position: relative;
    top: 10px;
    overflow: hidden;
@@ -588,7 +588,7 @@ a.addPointButton:hover
 	    no image selected...
 	 </div>
 	 <span></span>
-	 <img class="fullImage" src="">
+	 <img id="fullImage" src="">
 	 <button class="addPointButton">
 	    <div>
 	       <img src="http://cdn5.iconfinder.com/data/icons/TWG_Retina_Icons/64/tag_add.png">
@@ -611,7 +611,7 @@ a.addPointButton:hover
 	     <div class="imageThumb">
 		<img class="selected" src="http://evilwire.net/images/livingroom 1.jpg">
 	     </div>-->
-	     <div class="imageThumb">
+	     <div id="thumbTemplate" class="imageThumb">
 		<img src="">
 	     </div>
 	  </div>
@@ -627,11 +627,98 @@ content content content
 </body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
   type="text/javascript"></script>
-<script type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(evt)
 {
    $('#featureDisabledMessage').css("display", "none");
+
+   var imageList = 
+   [
+   {
+      class: "com.clay.Image",
+      dateCreated: "2012-01-27T15:57:44Z",
+      design: null,
+      id: 1,
+      lastUpdated: "2012-01-27T15:57:44Z",
+      points: [],
+      url: "images/livingroom 1.jpg"
+   },
+   {
+      class: "com.clay.Image",
+      dateCreated: "2012-01-27T15:57:44Z",
+      design: null,
+      id: 2,
+      lastUpdated: "2012-01-27T15:57:44Z",
+      points: [],
+      url: "images/livingroom 2.jpg"
+   },
+   {
+      class: "com.clay.Image",
+      dateCreated: "2012-01-27T15:57:44Z",
+      design: {},
+      id: 1,
+      lastUpdated: "2012-01-27T15:57:44Z",
+      points: [],
+      url: "images/livingroom 3.jpg"
+   },
+   {
+      class: "com.clay.Image",
+      dateCreated: "2012-01-27T15:57:44Z",
+      design: null,
+      id: 2,
+      lastUpdated: "2012-01-27T15:57:44Z",
+      points: [],
+      url: "images/livingroom 4.jpg"
+   }
+   ];
+
+   var lastSelectedThumb = null;
+   var lastSelectedIndex = -1;
+
+   function selectImage(i)
+   {
+      if(lastSelectedIndex == i) return;
+
+      var imageSrc = imageList[i]['url'];       
+      $('#fullImage').attr("src", imageSrc);
+      $('#fullImage').css("display", "block");
+      var imageThumbContainer = $('#imageThumbContainer');
+
+      if(lastSelectedThumb !== null)
+      {
+	 lastSelectedThumb.removeClass("selected");
+      }
+
+      lastSelectedThumb = 
+	 imageThumbContainer.children('div.imageThumb:eq(' + String(i + 1) 
+	 + ')').children('img');
+
+      lastSelectedThumb.addClass('selected');
+   }
+
+   function populateSelectionBar(imageList)
+   {
+      for(var i = 0; i < imageList.length; i++)
+      {
+	 var imageSrc = imageList[i]['url'];
+	 var thumbTemplateClone = $('#thumbTemplate').clone();
+	 var imageThumbContainer = $('#imageThumbContainer');
+	 thumbTemplateClone.css("display", "inline-block");
+	 thumbTemplateClone.children('img').attr('src', imageSrc);
+	 imageThumbContainer.append(thumbTemplateClone);
+
+         (function(i)
+	 {
+	    thumbTemplateClone.click(function(evt)
+	    {
+	       selectImage(i);
+	    });
+	 })(i);
+      }
+   }
+
+   populateSelectionBar(imageList);
+
 });
 </script>
 </html>
