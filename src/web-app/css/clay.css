@@ -322,3 +322,7 @@ form {
 #categoryTagTemplate {
     visibility: hidden;
 }
+
+.fb-login-button {
+    display: inline;
+}

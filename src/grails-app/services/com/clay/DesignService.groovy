@@ -52,6 +52,7 @@ class DesignService {
             }
 
             designMap.put(it.design, total + voteWeight)
+            it.design.images.url //prime object with data from hibernate.
         })
 
         def designs = designMap.keySet().sort({

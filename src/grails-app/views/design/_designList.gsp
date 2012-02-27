@@ -9,10 +9,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <g:each in="${designs}" var="design" status="i">
     <g:render template="/design/design" model="[design:design]" />
-
-    <g:form name="nextChunk" action="nextListChunk" controller="design">
-        <g:hiddenField name="listName" value="${listName}" />
-        <g:hiddenField name="index" value="${listIndex}" />
-        <g:hiddenField name="count" value="${listCount}" />
-    </g:form>
 </g:each>
+
+<g:form name="nextChunk" class="nextChunk" action="nextListChunk" controller="design">
+    <g:hiddenField name="listName" value="${listName}" />
+    <g:hiddenField name="listIndex" value="${listIndex}" />
+    <g:hiddenField name="listCount" value="${listCount}" />
+</g:form>

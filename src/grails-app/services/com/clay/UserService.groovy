@@ -40,4 +40,11 @@ class UserService {
             throw new RuntimeException(ur.errors.toString())
         }
     }
+
+    def setUserDataInRequest(request){
+        if (springSecurityService.currentUser){
+            request["signedIn"] = true
+            request["username"] = springSecurityService.currentUser.username
+        }
+    }
 }
