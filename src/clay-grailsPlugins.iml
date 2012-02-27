@@ -11,10 +11,10 @@
           <root url="file://$USER_HOME$/.grails/1.3.7/projects/src/plugins/spring-security-ui-0.1.2/web-app" relative="/" />
           <root url="file://$USER_HOME$/.grails/1.3.7/projects/src/plugins/spring-security-ui-0.1.2/grails-app/views" relative="/" />
           <root url="file://$USER_HOME$/.grails/1.3.7/projects/src/plugins/jquery-1.7.1/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/1.3.7/projects/src/plugins/spring-social-core-0.1.31/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/1.3.7/projects/src/plugins/spring-social-core-0.1.31/grails-app/views" relative="/" />
           <root url="file://$USER_HOME$/.grails/1.3.7/projects/src/plugins/spring-social-facebook-0.1.32/web-app" relative="/" />
           <root url="file://$USER_HOME$/.grails/1.3.7/projects/src/plugins/spring-social-facebook-0.1.32/grails-app/views" relative="/" />
+          <root url="file://$USER_HOME$/.grails/1.3.7/projects/src/plugins/spring-social-core-0.1.31/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/1.3.7/projects/src/plugins/spring-social-core-0.1.31/grails-app/views" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
