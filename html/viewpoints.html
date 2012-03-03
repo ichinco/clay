@@ -554,7 +554,38 @@ a.addPointButton:hover
 
    font-size: 30px;
 }
+#pointInfoInputBlock
+{
+   position: absolute;
+   left: 0px;
+   width: 500px;
+   height: 100px;
+   top: 450px;
+   background-color: #69b;
+   color: white;
+   font-family: "Open Sans", sans-serif;
+   padding: 5px 10px 20px 10px;
+}
 
+#pointInfoInputBlock input
+{
+   font-size: 18px;
+   position: relative;
+   width: 400px;
+
+   border-width: 0px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   border-radius: 5px;
+   padding: 5px 7px;
+}
+
+#pointInfoInputBlock span.label
+{
+   display: block;
+   font-size: 14px;
+   font-weight: 300;
+}
 </style>
 <body>
 <div id="imageGalleryContainer">
@@ -615,6 +646,10 @@ a.addPointButton:hover
 		<img src="">
 	     </div>
 	  </div>
+      </div>
+      <div id="pointInfoInputBlock">
+         <span class="label">name</span><input id="pointName" value="name" /><br />
+	 <span class="label">link</span><input id="pointLink" value="link" />
       </div>
    </div>
    <div class="spaceFiller"></div>
