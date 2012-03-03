@@ -558,9 +558,9 @@ a.addPointButton:hover
 {
    position: absolute;
    left: 0px;
-   width: 500px;
+   width: 550px;
    height: 100px;
-   top: 450px;
+   top: 505px;
    background-color: #69b;
    color: white;
    font-family: "Open Sans", sans-serif;
@@ -569,9 +569,9 @@ a.addPointButton:hover
 
 #pointInfoInputBlock input
 {
-   font-size: 18px;
+   font-size: 16px;
    position: relative;
-   width: 400px;
+   width: 500px;
 
    border-width: 0px;
    -moz-border-radius: 5px;
@@ -585,6 +585,52 @@ a.addPointButton:hover
    display: block;
    font-size: 14px;
    font-weight: 300;
+}
+
+#pointInfoInputBlock button
+{
+   background: transparent;
+   border-width: 0px;
+   width: 20px;
+   height: 20px;
+   overflow: hidden;
+   position: absolute;
+   right: 10px;
+   cursor: pointer;
+   -moz-opacity: .3; 
+   -webkit-opacity: .3; 
+   opacity: .3; 
+   filter: alpha(opacity=30);
+}
+
+#pointInfoInputBlock button:hover
+{
+   -moz-opacity: 1; 
+   -webkit-opacity: 1; 
+   opacity: 1; 
+   filter: alpha(opacity=100);
+}
+
+#pointInfoInputBlock button.cancel
+{
+   bottom: 38px;
+}
+
+#pointInfoInputBlock button.submit
+{
+   bottom: 10px;
+}
+
+#pointInfoInputBlock button.cancel img
+{
+   margin-top: -28px;
+}
+
+#pointInfoInputBlock button img
+{
+   margin-top: -5px;
+   margin-left: -10px;
+   width: 120px;
 }
 </style>
 <body>
@@ -650,6 +696,12 @@ a.addPointButton:hover
       <div id="pointInfoInputBlock">
          <span class="label">name</span><input id="pointName" value="name" /><br />
 	 <span class="label">link</span><input id="pointLink" value="link" />
+	 <button class="cancel">
+	    <img src="http://math.rutgers.edu/~knightfu/images/icons.png">
+	 </button>
+	 <button class="submit">
+	    <img src="http://math.rutgers.edu/~knightfu/images/icons.png">
+	 </button>
       </div>
    </div>
    <div class="spaceFiller"></div>
