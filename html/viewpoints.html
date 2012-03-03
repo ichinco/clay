@@ -565,13 +565,18 @@ a.addPointButton:hover
    color: white;
    font-family: "Open Sans", sans-serif;
    padding: 5px 10px 20px 10px;
+
+   -moz-border-radius: 0px 7px 7px 0px;
+   -webkit-border-radius: 0px 7px 7px 0px;
+   border-radius: 0px 7px 7px 0px;
 }
 
 #pointInfoInputBlock input
 {
-   font-size: 16px;
+   font-size: 18px;
    position: relative;
-   width: 500px;
+   width: 515px;
+   color: #037;
 
    border-width: 0px;
    -moz-border-radius: 5px;
@@ -591,11 +596,11 @@ a.addPointButton:hover
 {
    background: transparent;
    border-width: 0px;
-   width: 20px;
-   height: 20px;
+   width: 16px;
+   height: 16px;
    overflow: hidden;
    position: absolute;
-   right: 10px;
+   right: 7px;
    cursor: pointer;
    -moz-opacity: .3; 
    -webkit-opacity: .3; 
@@ -613,24 +618,39 @@ a.addPointButton:hover
 
 #pointInfoInputBlock button.cancel
 {
-   bottom: 38px;
+   bottom: 26px;
 }
 
 #pointInfoInputBlock button.submit
 {
-   bottom: 10px;
+   bottom: 5px;
 }
 
 #pointInfoInputBlock button.cancel img
 {
-   margin-top: -28px;
+   margin-top: -22px;
 }
 
 #pointInfoInputBlock button img
 {
-   margin-top: -5px;
-   margin-left: -10px;
-   width: 120px;
+   margin-top: -4px;
+   margin-left: -8px;
+   width: 90px;
+}
+
+#imageSelectionBarScreen
+{
+   position: absolute;
+   top: 0px;
+   height: 100%;
+   width: 100%;
+   left: 0px;
+   background-color: black;
+
+   -moz-opacity: .7; 
+   -webkit-opacity: .7; 
+   opacity: .7; 
+   filter: alpha(opacity=70);
 }
 </style>
 <body>
@@ -691,6 +711,8 @@ a.addPointButton:hover
 	     <div id="thumbTemplate" class="imageThumb">
 		<img src="">
 	     </div>
+	  </div>
+	  <div id="imageSelectionBarScreen">
 	  </div>
       </div>
       <div id="pointInfoInputBlock">
@@ -806,6 +828,11 @@ $(document).ready(function(evt)
 
    populateSelectionBar(imageList);
    selectImage(1);
+
+   $('a.addPointButton').click(function(evt)
+   {
+      alert("");
+   });
 
 });
 </script>
