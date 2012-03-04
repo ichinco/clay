@@ -3,17 +3,19 @@
  *
  **/
 (function($){
-   $.fn.EnableWireFrameCanvas
-   {
-      // stuff
-   }
-})( jQuery);
-
-$(document).ready(
-   function(evt){
+   $.fn.EnableWireFrameCanvas = function(){
+      var wireFrameCanvas = this;
+      var wireFrameOptions = {
+	 "minWidth": 40,
+	 "maxWidth": 600,
+	 "minHeight": 40,
+	 "maxHeight": 400,
+	 "boundToBox": true,
+	 "snap"      : false
+      };
       // create a wireframe
-      var wireFrameCanvases = $('#wireFrameCanvas');
       var wireFrame = $('<div class="wireFrame"></div>');
+      var wireFrameMin = $('<div class="minWireFrame"></div>');
 
       var initialClickTop = 0;
       var initialClickLeft = 0;
@@ -31,10 +33,12 @@ $(document).ready(
       var moveEndEventHandlers = []
       var moveEventHandlers = [];
 
-      wireFrameCanvases.css("cursor", "crosshair");
-      wireFrameCanvases.addClass('wireFrameCanvas');
-      wireFrameCanvases.append(wireFrame);
-      wireFrameCanvases.mousedown(function(evt)
+      wireFrameCanvas.css("cursor", "crosshair");
+      wireFrameCanvas.addClass('wireFrameCanvas');
+      wireFrameCanvas.append(wireFrame);
+      wireFrameCanvas.append(wireFrameMin);
+
+      wireFrameCanvas.mousedown(function(evt)
 	 {
 	    if(!wireFrameEnabled) return;
 	    evt.preventDefault();
@@ -42,26 +46,93 @@ $(document).ready(
 	    var eventTarget = (evt.srcElement)? evt.srcElement : evt.target;
 
 	    var targetOffset = $(eventTarget).offset();
-	    //var bodyOffset = $(document.body).offset();
 	    var initialX = parseInt(evt.pageX);
 	    var initialY = parseInt(evt.pageY);
 	    var initialLeft = initialX - targetOffset.left;
 	    var initialTop = initialY - targetOffset.top;
 
+	    var minWidth = wireFrameOptions["minWidth"];
+	    var minHeight = wireFrameOptions["minHeight"];
+
 	    wireFrame.css({'top': String(initialTop) + "px", 
 	       'left': String(initialLeft) + "px",
+	       'display': 'block' });
+	    wireFrameMin.css({'top': String(initialTop) + "px",
+	       'left': String(initialLeft) + "px",
+	       'width': String(minWidth) + "px",
+	       'height': String(minHeight) + "px",
 	       'display': 'block' });
 
 	    function documentMouseMove(evt)
 	    {
 	       var width = evt.pageX - initialX;
-	       var height = evt.pageY - initialY; 
+	       var height = evt.pageY - initialY;
+	       var absWidth = Math.abs(width);
+	       var absHeight = Math.abs(height);
 
 	       if(width < 0)
+	       {
 		  wireFrame.css('left', String(evt.pageX - targetOffset.left) + "px");
+		  wireFrameMin.css('left', String(initialLeft - minWidth) + "px");
+		  if(absHeight < minHeight)
+		  {
+		     if(absWidth > minWidth)
+		     {
+			wireFrameMin.css('left', wireFrame.css('left'));
+		     }
+		  }
+	       }
+	       else
+	       {
+		  wireFrame.css('left', String(initialLeft) + "px");
+		  wireFrameMin.css('left', String(initialLeft) + "px");
+	       }
 
 	       if(height < 0)
+	       {
 		  wireFrame.css('top', String(evt.pageY - targetOffset.top) + "px");
+		  wireFrameMin.css('top', String(initialTop - minHeight) + "px");
+		  if(absWidth < minWidth)
+		  {
+		     if(absHeight > minHeight)
+		     {
+			wireFrameMin.css('top', wireFrame.css('top'));
+		     }
+		  }
+	       }
+	       else
+	       {
+		  wireFrame.css('top', String(initialTop) + "px");
+		  wireFrameMin.css('top', String(initialTop) + "px");
+	       }
+
+	       if(absWidth < minWidth)
+	       {
+		  wireFrameMin.css("display", "block");
+		  if(absHeight >= minHeight)
+		  {
+		     wireFrameMin.css("height", String(absHeight) + "px");
+		  }
+		  else
+		  {
+		     wireFrameMin.css({'width': String(minWidth) + 'px', 
+		                       'height': String(minHeight) + 'px'});
+		  }
+	       }
+	       else
+	       {
+		  if(absHeight < minHeight)
+		  {
+		     wireFrameMin.css("width", String(absWidth) + "px");
+		     wireFrameMin.css("display", "block");
+		  }
+		  else
+		  {
+		     wireFrameMin.css({'display': 'none',
+		                       'height' : String(minHeight) + "px",
+				       'width'  : String(minWidth) + "px"});
+		  }
+	       }
 
 	       wireFrame.css({'width': String(Math.abs(width)) + "px",
 	                      'height': String(Math.abs(height)) + "px"});
@@ -74,6 +145,15 @@ $(document).ready(
 	       $(document).off('mousemove', documentMouseMove);
 	       $(document).off('mouseup', windowMouseUp);
 	       var wireFrameOffset = wireFrame.offset();
+
+	       if(wireFrameMin.css("display") == "block")
+	       {
+		  wireFrame.css({'left': wireFrameMin.css("left"),
+		                 'top' : wireFrameMin.css("top"),
+				 'width': wireFrameMin.css("width"),
+				 'height': wireFrameMin.css("height")});
+		  wireFrameMin.css("display", "none");
+	       }
 
 	       wireFrameInfo = {"left": wireFrameOffset.left,
 	          "top": wireFrameOffset.top,
@@ -106,7 +186,7 @@ $(document).ready(
 
 	 }
 
-	 wireFrameCanvases.append(resizeHandle);
+	 wireFrameCanvas.append(resizeHandle);
 	 updateResizeHandlePosition();
 
 	 resizeHandle.mousedown(function(evt)
@@ -122,15 +202,20 @@ $(document).ready(
 	       {
 		  var newWidth = initialWidth + evt.pageX - initialX;
 		  var newHeight = initialHeight + evt.pageY - initialY;
+		  var minWidth = wireFrameOptions['minWidth'];
+		  var minHeight = wireFrameOptions['minHeight'];
+
+		  wireFrame.css('cursor', 'nw-resize');
+
 		  wireFramePosition = wireFrame.position();
 
-		  if(newWidth > 0)
+		  if(newWidth > minWidth)
 		  {
 		     wireFrame.css("width", String(newWidth) + "px");
 		     resizeHandle.css("left", String(wireFramePosition.left + 
 			wireFrame.width()) + "px");
 		  }
-		  if(newHeight > 0)
+		  if(newHeight > minHeight)
 		  {
 		     wireFrame.css("height", String(newHeight) + "px");
 		     resizeHandle.css("top", String(wireFramePosition.top + 
@@ -143,6 +228,8 @@ $(document).ready(
 		  $(document).off("mousemove", documentMouseMove);
 		  $(document).off("mouseup", windowMouseUp);
 		  var wireFrameOffset = wireFrame.offset();
+
+		  wireFrame.css('cursor', 'move');
 
 		  wireFrameInfo = {"left": wireFrameOffset.left,
 		     "top": wireFrameOffset.top,
@@ -219,9 +306,9 @@ $(document).ready(
       initialCreateEventHandlers.push(function(wireFrameInfo)
       {
 	 disableWireFrame();
-	 wireFrameCanvases.css('cursor', 'default');
+	 wireFrameCanvas.css('cursor', 'default');
 	 enableResize(wireFrame);
 	 enableWireFrameMove(wireFrame);
       });
    }
-);
+})( jQuery);

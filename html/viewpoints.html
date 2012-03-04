@@ -556,10 +556,11 @@ a.addPointButton:hover
 }
 #pointInfoInputBlock
 {
+   display: none;
    position: absolute;
    left: 0px;
    width: 550px;
-   height: 100px;
+   height: 102px;
    top: 505px;
    background-color: #69b;
    color: white;
@@ -575,7 +576,7 @@ a.addPointButton:hover
 {
    font-size: 18px;
    position: relative;
-   width: 515px;
+   width: 510px;
    color: #037;
 
    border-width: 0px;
@@ -651,6 +652,7 @@ a.addPointButton:hover
    -webkit-opacity: .7; 
    opacity: .7; 
    filter: alpha(opacity=70);
+   display: none;
 }
 </style>
 <body>
@@ -831,7 +833,10 @@ $(document).ready(function(evt)
 
    $('a.addPointButton').click(function(evt)
    {
-      alert("");
+      // put the pointInfoInputBlock at the right place
+      $('#pointInfoInputBlock').css("display", "block");
+      $('#imageSelectionBarScreen').css("display", "block");
+
    });
 
 });

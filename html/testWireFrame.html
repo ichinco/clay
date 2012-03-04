@@ -30,6 +30,14 @@
    border: #079 solid 1px;
    display: none;
 }
+
+.minWireFrame
+{
+   position: absolute;
+   border: #777 dashed 1px;
+   display: none;
+}
+
 .resizeButton
 {
    width: 10px;
@@ -57,4 +65,12 @@
    </script>
    <script type="text/javascript"
       src="js/wireFrame.js"></script>
+   <script type="text/javascript">
+      $(document).ready(
+	 function(evt){
+	    var wireFrameCanvas = $('#wireFrameCanvas');
+	    wireFrameCanvas.EnableWireFrameCanvas();
+	 }
+      );
+   </script>
 </html>
