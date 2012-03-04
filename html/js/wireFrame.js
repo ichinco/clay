@@ -3,6 +3,16 @@
  *
  **/
 (function($){
+   var wireFrameEnabled = true;
+   var wireFrame = $('<div class="wireFrame"></div>');
+   var wireFrameMin = $('<div class="minWireFrame"></div>');
+   var resizeHandle = $('<div class="resizeButton"></div>');
+
+   function disableWireFrame()
+   {
+      wireFrameEnabled = false;
+   }
+
    $.fn.EnableWireFrameCanvas = function(){
       var wireFrameCanvas = this;
       var wireFrameOptions = {
@@ -14,12 +24,8 @@
 	 "snap"      : false
       };
       // create a wireframe
-      var wireFrame = $('<div class="wireFrame"></div>');
-      var wireFrameMin = $('<div class="minWireFrame"></div>');
-
       var initialClickTop = 0;
       var initialClickLeft = 0;
-      var wireFrameEnabled = true;
       
       var wireFrameInfo = {
 	 "top": 0,
@@ -167,15 +173,10 @@
 	    $(document).mouseup(windowMouseUp);
 	 });
 
-      function disableWireFrame()
-      {
-	 wireFrameEnabled = false;
-      }
-
       function enableResize(wireFrame)
       {
 	 // add a resize at the bottom-right
-	 var resizeHandle = $('<div class="resizeButton"></div>');
+	 
 	 function updateResizeHandlePosition()
 	 {
 	    var wireFramePosition = wireFrame.position();
@@ -310,5 +311,19 @@
 	 enableResize(wireFrame);
 	 enableWireFrameMove(wireFrame);
       });
+
+      wireFrameCanvas.attr("wireFrameEnabled", true);
+   }
+
+   $.fn.DisableWireFrame = function()
+   {
+      disableWireFrame();
+   }
+
+   $.fn.Clear = function()
+   {
+      wireFrame.css("display", "none");
+      wireFrameMin.css("display", "none");
+      resizeHandle.remove();
    }
 })( jQuery);

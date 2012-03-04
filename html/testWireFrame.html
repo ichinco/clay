@@ -72,5 +72,13 @@
 	    wireFrameCanvas.EnableWireFrameCanvas();
 	 }
       );
+
+      $(document).keydown(function(evt)
+	 {
+	    if(evt.keyCode == 27)
+	    {
+	       $('#wireFrameCanvas').Clear();
+	    }
+	 });
    </script>
 </html>
