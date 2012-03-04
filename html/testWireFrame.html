@@ -29,7 +29,17 @@
    height: 1px;
    border: #079 solid 1px;
    display: none;
+   z-index: 3000;
 }
+
+.minWireFrame
+{
+   position: absolute;
+   border: #777 dashed 1px;
+   display: none;
+   z-index: 2000;
+}
+
 .resizeButton
 {
    width: 10px;
@@ -57,4 +67,20 @@
    </script>
    <script type="text/javascript"
       src="js/wireFrame.js"></script>
+   <script type="text/javascript">
+      $(document).ready(
+	 function(evt){
+	    var wireFrameCanvas = $('#wireFrameCanvas');
+	    wireFrameCanvas.EnableWireFrameCanvas();
+	 }
+      );
+
+      $(document).keydown(function(evt)
+	 {
+	    if(evt.keyCode == 27)
+	    {
+	       $('#wireFrameCanvas').Clear();
+	    }
+	 });
+   </script>
 </html>
