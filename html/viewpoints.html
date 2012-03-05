@@ -94,6 +94,32 @@ a.addPointButton:hover
    color: black;
 }
 
+#pointDetailListContainer ul
+{
+   list-style: none;
+}
+
+#pointDetailListContainer ul li
+{
+   padding: 2px;
+   cursor: pointer;
+   color: #aaa;
+}
+
+#pointDetailListContainer ul li:hover
+{
+   color: #069;
+}
+
+#pointDetailListContainer a.disabled
+{
+   visibility: visible;
+   color: #ccc;
+}
+#pointDetailListContainer a.disabled:hover
+{
+   color: #aaa;
+}
 #imageGalleryContainer { 
    display: block;
    position: absolute; 
@@ -103,7 +129,6 @@ a.addPointButton:hover
 
    overflow-y: auto;
 }
-
 #imageGallery
 {
    position: relative;
@@ -120,7 +145,6 @@ a.addPointButton:hover
    z-index: 2001;
    overflow: hidden;
 }
-
 #imageContainer
 {
    position: relative;
@@ -554,6 +578,31 @@ a.addPointButton:hover
 
    font-size: 30px;
 }
+
+#imageContainer div.taggedArea
+{
+   position: absolute;
+   background: transparent;
+   -moz-opacity: .1; 
+   -webkit-opacity: .1; 
+   opacity: .1; 
+   filter: alpha(opacity=10);
+   z-index: 2000;
+}
+
+#imageContainer div.highlightTaggedArea
+{
+   border: 3px #069 double;
+   margin-top: -3px;
+   margin-left: -3px;
+   background: transparent;
+
+   -moz-opacity: 1; 
+   -webkit-opacity: 1; 
+   opacity: 1; 
+   filter: alpha(opacity=100);
+}
+
 #pointInfoInputBlock
 {
    display: none;
@@ -684,7 +733,7 @@ a.addPointButton:hover
    position: absolute;
    width: 1px;
    height: 1px;
-   border: #9cf solid 3px;
+   border: #069 double 3px;
    display: none;
    z-index: 3000;
 }
@@ -702,8 +751,8 @@ a.addPointButton:hover
    width: 10px;
    height: 10px;
    position: absolute;
-   border-right: #079 solid 3px;
-   border-bottom: #079 solid 3px;
+   border-right: #036 solid 3px;
+   border-bottom: #036 solid 3px;
    cursor: nw-resize;
    margin-left: -9px;
    margin-top: -9px;
@@ -740,8 +789,8 @@ a.addPointButton:hover
       <div id="pointDetailListContainer">
 	 <ul id="pointDetailList">
 	    Currently you have not tagged any items. <br />
-	    <a class="addPointButton">Add an item.</a>
 	 </ul>
+	 <a class="addPointButton">Add an item.</a>
       </div>
       <div id="imageContainer">
          <div class="filler">
@@ -769,10 +818,6 @@ a.addPointButton:hover
 	     <img src='http://evilwire.net/images/leftrighticons.png'>
 	  </button>
 	  <div id="imageThumbContainer">
-	     <!--
-	     <div class="imageThumb">
-		<img class="selected" src="http://evilwire.net/images/livingroom 1.jpg">
-	     </div>-->
 	     <div id="thumbTemplate" class="imageThumb">
 		<img src="">
 	     </div>
@@ -869,6 +914,7 @@ $(document).ready(function(evt)
 	 + ')').children('img');
 
       lastSelectedThumb.addClass('selected');
+      lastSelectedIndex = i;
    }
 
    function populateSelectionBar(imageList)
@@ -895,17 +941,118 @@ $(document).ready(function(evt)
    populateSelectionBar(imageList);
    selectImage(1);
 
+   var lastTaggedArea = null;
    $('a.addPointButton').click(function(evt)
    {
-      // put the pointInfoInputBlock at the right place
+      var taggedArea = $('<div class="taggedArea"></div>');
+      var taggedAreaDimensions = null;
+      if(lastTaggedArea !== null) 
+	 lastTaggedArea.removeClass('highlightTaggedArea');
+
+      if($('a.addPointButton').hasClass('disabled')) return;
       $('#pointInfoInputBlock').css("display", "block");
       $('#imageSelectionBarScreen').css("display", "block");
-
       $('#imageContainer .screen').css("display", "block");
       ($('.wireFrameCanvas').css("display", "block")).EnableWireFrameCanvas();
+      $('a.addPointButton').addClass("disabled");
+      $('a.addPointButton').html('Adding an item...');
 
+      // add a tagged area to the image container
+      $('#imageContainer').append(taggedArea);
+
+      // add a handler to create/move/resize
+      function createMoveResizeHandler(wireFrameInfo)
+      {
+	 taggedArea.css({'left': String(wireFrameInfo.left + 3) + "px",
+	                'top' : String(wireFrameInfo.top + 3) + "px",
+			'width' : String(wireFrameInfo.width) + "px",
+			'height': String(wireFrameInfo.height) + "px"});
+
+	 taggedAreaDimensions = wireFrameInfo;
+      }
+
+      $('.wireFrameCanvas').resize(createMoveResizeHandler);
+      $('.wireFrameCanvas').create(createMoveResizeHandler);
+      $('.wireFrameCanvas').moveEnd(createMoveResizeHandler);
+
+      function clearWireFrameCanvas()
+      {
+	 $('.wireFrameCanvas').DisableWireFrame();
+	 $('.wireFrameCanvas').Clear();
+	 $('.wireFrameCanvas').css('display', 'none');
+	 $('#imageContainer .screen').css('display', 'none');
+	 $('#pointInfoInputBlock').css("display", "none");
+	 $('#imageSelectionBarScreen').css("display", "none");
+	 $('a.addPointButton').html('Add an item.').removeClass('disabled');
+      }
+
+      function cancelButtonClick(evt)
+      {
+	 clearWireFrameCanvas();
+	 taggedArea.remove();
+	 $('#pointInfoInputBlock button.submit').off('click', addButtonClick);
+      }
+
+      function addButtonClick(evt)
+      {
+	 if(taggedAreaDimensions === null)
+	 {
+	    //todo:warning
+	    return;
+	 }
+
+	 // get the name and the url
+	 var pointname = $('#pointName').attr('value');
+	 var pointurl = $('#pointLink').attr('value');
+
+	 // get the points of the current image object
+	 var pointsOfCurrentImageObj = imageList[lastSelectedIndex].points;
+
+	 // define the point object
+	 var pointObj = { 'id': undefined, 
+	                  'name': pointname, 
+			  'pointurl': pointurl,
+			  'left': taggedAreaDimensions.left,
+			  'top' : taggedAreaDimensions.top,
+			  'width': taggedAreaDimensions.width,
+			  'height': taggedAreaDimensions.height };
+
+	 // define the list item 
+	 var pointListItem = $('<li>' + pointname + '</li>');
+
+	 // add mouse events to the list item
+	 function listItemClick(evt)
+	 {
+	    if(lastTaggedArea === taggedArea) return;
+
+	    taggedArea.addClass('highlightTaggedArea');
+	    if(lastTaggedArea !== null)
+	       lastTaggedArea.removeClass('highlightTaggedArea');
+	    lastTaggedArea = taggedArea;
+	 }
+	 pointListItem.click(listItemClick);
+
+	 // add that list item to the ul
+	 $('#pointDetailListContainer ul').append(pointListItem);
+
+	 // add that point object to the list of image objects
+	 pointsOfCurrentImageObj.push(pointObj);
+
+	 // clear the screen
+	 clearWireFrameCanvas();
+	 
+	 // remove the addButtonClick
+	 $('#pointInfoInputBlock button.submit').off('click', addButtonClick);
+
+	 // remove the event handlers for wireframe
+	 $('.wireFrameCanvas').Off('resize', createMoveResizeHandler);
+	 $('.wireFrameCanvas').Off('moveEnd', createMoveResizeHandler);
+	 $('.wireFrameCanvas').Off('create', createMoveResizeHandler);
+      }
+
+      $('#pointInfoInputBlock button.cancel').click(cancelButtonClick);
+      $('#pointInfoInputBlock button.submit').click(addButtonClick);
    });
-
 });
 </script>
 </html>
