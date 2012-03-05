@@ -894,6 +894,7 @@ $(document).ready(function(evt)
 
    var lastSelectedThumb = null;
    var lastSelectedIndex = -1;
+   var lastTaggedArea = null;
 
    function selectImage(i)
    {
@@ -915,6 +916,12 @@ $(document).ready(function(evt)
 
       lastSelectedThumb.addClass('selected');
       lastSelectedIndex = i;
+
+      if(lastTaggedArea !== null)
+      {
+	 lastTaggedArea.removeClass('highlightTaggedArea');
+	 lastTaggedArea = null;
+      }
    }
 
    function populateSelectionBar(imageList)
@@ -941,13 +948,15 @@ $(document).ready(function(evt)
    populateSelectionBar(imageList);
    selectImage(1);
 
-   var lastTaggedArea = null;
    $('a.addPointButton').click(function(evt)
    {
       var taggedArea = $('<div class="taggedArea"></div>');
       var taggedAreaDimensions = null;
       if(lastTaggedArea !== null) 
+      {
 	 lastTaggedArea.removeClass('highlightTaggedArea');
+	 lastTaggedArea = null;
+      }
 
       if($('a.addPointButton').hasClass('disabled')) return;
       $('#pointInfoInputBlock').css("display", "block");
@@ -1021,13 +1030,18 @@ $(document).ready(function(evt)
 	 var pointListItem = $('<li>' + pointname + '</li>');
 
 	 // add mouse events to the list item
+	 var currentSelection = lastSelectedIndex;
 	 function listItemClick(evt)
 	 {
+	    selectImage(currentSelection);
 	    if(lastTaggedArea === taggedArea) return;
 
 	    taggedArea.addClass('highlightTaggedArea');
 	    if(lastTaggedArea !== null)
+	    {
 	       lastTaggedArea.removeClass('highlightTaggedArea');
+	       lastTaggedArea = null;
+	    }
 	    lastTaggedArea = taggedArea;
 	 }
 	 pointListItem.click(listItemClick);
