@@ -7,14 +7,53 @@
    var wireFrame = $('<div class="wireFrame"></div>');
    var wireFrameMin = $('<div class="minWireFrame"></div>');
    var resizeHandle = $('<div class="resizeButton"></div>');
+   var wireFrameSetup = false;
+
+   var initialCreateEventHandlers = [];
+   var resizeEventHandlers = [];
+   var moveEndEventHandlers = []
+   var moveEventHandlers = [];
+   var eventNameMap =
+   {
+      'resize': resizeEventHandlers,
+      'moveEnd' : moveEndEventHandlers,
+      'create'  : initialCreateEventHandlers
+   };
 
    function disableWireFrame()
    {
       wireFrameEnabled = false;
    }
 
+   $.fn.IsWireFrameEnabled = function()
+   {
+      return wireFrameEnabled;
+   }
+
+   $.fn.IsWireFrameSetup = function()
+   {
+      return wireFrameSetup;
+   }
+   $.fn.resize = function(eventHandler) { resizeEventHandlers.push(eventHandler); }
+   $.fn.create = function(eventHandler) { initialCreateEventHandlers.push(eventHandler); }
+   $.fn.moveEnd = function(eventHandler) { moveEndEventHandlers.push(eventHandler); }
+
+   $.fn.Off = function(eventName, eventHandler)
+   {
+      var arrayInQuestion = eventNameMap[eventName];
+      var indexOf = arrayInQuestion.indexOf(eventHandler);
+      if(indexOf > -1)
+	 arrayInQuestion.splice(indexOf, 1);
+   }
+
    $.fn.EnableWireFrameCanvas = function(){
       var wireFrameCanvas = this;
+      if(wireFrameSetup)
+      {
+	 wireFrameEnabled = true;
+	 wireFrameCanvas.css('cursor', 'crosshair');
+	 return;
+      }
       var wireFrameOptions = {
 	 "minWidth": 40,
 	 "maxWidth": 600,
@@ -23,21 +62,14 @@
 	 "boundToBox": true,
 	 "snap"      : false
       };
-      // create a wireframe
       var initialClickTop = 0;
       var initialClickLeft = 0;
-      
       var wireFrameInfo = {
 	 "top": 0,
 	 "left": 0,
 	 "width": 0,
 	 "height": 0
       };
-
-      var initialCreateEventHandlers = [];
-      var resizeEventHandlers = [];
-      var moveEndEventHandlers = []
-      var moveEventHandlers = [];
 
       wireFrameCanvas.css("cursor", "crosshair");
       wireFrameCanvas.addClass('wireFrameCanvas');
@@ -62,6 +94,8 @@
 
 	    wireFrame.css({'top': String(initialTop) + "px", 
 	       'left': String(initialLeft) + "px",
+	       'width': "1px",
+	       'height': "1px",
 	       'display': 'block' });
 	    wireFrameMin.css({'top': String(initialTop) + "px",
 	       'left': String(initialLeft) + "px",
@@ -150,7 +184,7 @@
 	    {
 	       $(document).off('mousemove', documentMouseMove);
 	       $(document).off('mouseup', windowMouseUp);
-	       var wireFrameOffset = wireFrame.offset();
+	       var wireFrameOffset = wireFrame.position();
 
 	       if(wireFrameMin.css("display") == "block")
 	       {
@@ -228,7 +262,7 @@
 	       {
 		  $(document).off("mousemove", documentMouseMove);
 		  $(document).off("mouseup", windowMouseUp);
-		  var wireFrameOffset = wireFrame.offset();
+		  var wireFrameOffset = wireFrame.position();
 
 		  wireFrame.css('cursor', 'move');
 
@@ -274,7 +308,7 @@
 	       wireFrame.css({ "left": String(newLeft) + "px",
 	          "top": String(newTop) + "px"});
 
-	       var wireFrameOffset = wireFrame.offset();
+	       var wireFrameOffset = wireFrame.position();
 	       wireFrameInfo = {"left": wireFrameOffset.left,
 		  "top": wireFrameOffset.top,
 		  "width": wireFrame.width(),
@@ -288,7 +322,7 @@
 	       $(document).off("mousemove", documentMouseMove);
 	       $(document).off("mouseup", windowMouseUp);
 
-	       var wireFrameOffset = wireFrame.offset();
+	       var wireFrameOffset = wireFrame.position();
 	       wireFrameInfo = {"left": wireFrameOffset.left,
 		  "top": wireFrameOffset.top,
 		  "width": wireFrame.width(),
@@ -312,7 +346,7 @@
 	 enableWireFrameMove(wireFrame);
       });
 
-      wireFrameCanvas.attr("wireFrameEnabled", true);
+      wireFrameSetup = true;
    }
 
    $.fn.DisableWireFrame = function()
@@ -326,4 +360,4 @@
       wireFrameMin.css("display", "none");
       resizeHandle.remove();
    }
-})( jQuery);
+})(jQuery);
