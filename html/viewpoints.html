@@ -1000,6 +1000,7 @@ $(document).ready(function(evt)
 	 clearWireFrameCanvas();
 	 taggedArea.remove();
 	 $('#pointInfoInputBlock button.submit').off('click', addButtonClick);
+	 $('#pointInfoInputBlock button.cancel').off('click', cancelButtonClick);
       }
 
       function addButtonClick(evt)
@@ -1057,6 +1058,8 @@ $(document).ready(function(evt)
 	 
 	 // remove the addButtonClick
 	 $('#pointInfoInputBlock button.submit').off('click', addButtonClick);
+	 $('#pointInfoInputBlock button.cancel').off('click', cancelButtonClick);
+
 
 	 // remove the event handlers for wireframe
 	 $('.wireFrameCanvas').Off('resize', createMoveResizeHandler);
