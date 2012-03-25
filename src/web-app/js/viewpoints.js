@@ -9,46 +9,6 @@ $(document).ready(function(evt)
 {
    $('#featureDisabledMessage').css("display", "none");
 
-   var imageList =
-   [
-   {
-      class: "com.clay.Image",
-      dateCreated: "2012-01-27T15:57:44Z",
-      design: null,
-      id: 1,
-      lastUpdated: "2012-01-27T15:57:44Z",
-      points: [],
-      url: "http://evilwire.net/images/livingroom 1.jpg"
-   },
-   {
-      class: "com.clay.Image",
-      dateCreated: "2012-01-27T15:57:44Z",
-      design: null,
-      id: 2,
-      lastUpdated: "2012-01-27T15:57:44Z",
-      points: [],
-      url: "http://evilwire.net/images/livingroom 2.jpg"
-   },
-   {
-      class: "com.clay.Image",
-      dateCreated: "2012-01-27T15:57:44Z",
-      design: {},
-      id: 1,
-      lastUpdated: "2012-01-27T15:57:44Z",
-      points: [],
-      url: "http://evilwire.net/images/livingroom 3.jpg"
-   },
-   {
-      class: "com.clay.Image",
-      dateCreated: "2012-01-27T15:57:44Z",
-      design: null,
-      id: 2,
-      lastUpdated: "2012-01-27T15:57:44Z",
-      points: [],
-      url: "http://evilwire.net/images/livingroom 4.jpg"
-   }
-   ];
-
    var lastSelectedThumb = null;
    var lastSelectedIndex = -1;
    var lastTaggedArea = null;

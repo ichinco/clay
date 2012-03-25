@@ -191,7 +191,7 @@ class DesignController {
 
         designService.createDesignCache()
 
-        redirect(action:"list")
+        redirect(action:"tag", params:[designId: design.id])
     }
 
     @Secured(["ROLE_USER"])
@@ -221,6 +221,21 @@ class DesignController {
         }
 
         redirect(action:"show", params:[id:designId])
+    }
+
+    @Secured(["ROLE_USER"])
+    def tag = {
+        String designString = params.designId
+        if (!designString){
+            throw new RuntimeException("design id required");
+        }
+
+        int designId = Integer.parseInt(designString)
+        Design design = Design.get(designId)
+
+        def model = [:]
+        model.images = design.images as JSON
+        render(view: "tag", model: model)
     }
 
     @Secured(["ROLE_USER"])
