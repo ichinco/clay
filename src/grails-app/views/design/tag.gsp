@@ -22,6 +22,7 @@
         }
     </style><![endif]-->
     <script src="${resource(dir: 'js', file: 'wireframe.js')}" type="text/javascript"></script>
+    <script src="${resource(dir: 'js', file: 'viewpoints2.js')}" type="text/javascript"></script>
     <script src="${resource(dir: 'js', file: 'viewpoints.js')}" type="text/javascript"></script>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'viewpoints.css')}"/>
 </head>
